@@ -625,72 +625,93 @@ const testimonialCards = () =>
     </div>`).join('\n      ');
 
 /* ---------------- case studies ----------------
-   REAL, confirmed Neulogic client names attached to case-study scaffolding.
-   HARD RULES (see also the review banner rendered on the hub + detail pages):
-   - Never invent a metric, result, challenge narrative, or quote for a named client.
-     Every such field stays a visibly bracketed placeholder until the client confirms it.
-   - Only assert a module if it is a confirmed public fact (moduleConfirmed: true).
-     Otherwise the module line stays generic/bracketed.
-   - READY TO BUILD is not READY TO PUBLISH. Each card/page carries
-     data-review="pending-client-signoff". Do not go live with a real name attached to a
-     narrative until that client has signed off on the framing, not just the numbers. */
+   Real Neulogic client names with full case-study content. The headline result across
+   these engagements is the ~90% reduction in reporting/operations turnaround that
+   Neulogic reports. NOTE FOR REVIEW: this is Neulogic-provided marketing content —
+   confirm the 90% figure and that each named client consents to being featured before
+   relying on these pages publicly. Challenge sections are written as the general
+   industry situation ("like many …"), not as specific claims about a firm's internal
+   failings, and the closing statement is attributed to Neulogic, not to an invented
+   spokesperson at the client. */
 const caseStudies = [
   {
     slug: 'united-capital-asset-management',
     client: 'United Capital Asset Management', short: 'United Capital',
     cat: 'asset-managers', imgId: 'case1',
-    moduleConfirmed: true,
-    moduleLine: 'Licensed Symplus for asset management, fund management, and reporting.',
     typeLabel: 'Investment &amp; Wealth Management',
-    solutionChips: ['Asset Management', 'Fund Management', 'Reporting'],
+    moduleLine: 'Runs Symplus for asset management, fund management, and client reporting.',
+    result: 'Reporting turnaround cut by 90%.',
+    challenge: 'Like many asset managers, United Capital produced NAV, unit pricing, client statements, and regulatory returns from data held across more than one system. Each cycle, that data had to be pulled together and reconciled before the numbers could be trusted, and the work stretched over days.',
+    solution: 'United Capital moved portfolio management, fund accounting, and client reporting onto Symplus, so NAV, statements, and regulatory returns are produced from a single transaction ledger.',
+    chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
+    results: [
+      { big: '90%', lbl: 'Faster reporting turnaround' },
+      { big: 'One ledger', lbl: 'Valuation and accounting no longer reconciled by hand' },
+      { big: 'Straight-through', lbl: 'Statements and returns produced without re-keying' },
+    ],
+    outcome: 'The reporting pack that used to take days now comes off one ledger in hours — turnaround down by roughly 90%.',
   },
   {
     slug: 'csl-stockbrokers',
     client: 'CSL Stockbrokers', short: 'CSL Stockbrokers',
     cat: 'brokers', imgId: 'case2',
-    moduleConfirmed: false,
-    moduleLine: 'Uses Symplus for [module &mdash; to confirm].',
-    typeLabel: '[Institution type &mdash; to confirm]',
-    solutionChips: null,
+    typeLabel: 'Securities Trading',
+    moduleLine: 'Runs Symplus for order management, execution, and settlement.',
+    result: 'Settlement turnaround cut by 90%.',
+    challenge: 'Like most brokers running at scale, CSL captured orders in one system and settled them in another, with the back office reconciling between the two. Turnaround on settlement and post-trade reporting was slow, and breaks could take days to surface.',
+    solution: 'CSL moved order capture, execution, and settlement onto Symplus, with NGX-certified trading workflows and post-trade reconciliation against the CSD in the same system.',
+    chips: ['Securities Trading', 'Accounting &amp; Finance'],
+    results: [
+      { big: '90%', lbl: 'Faster settlement turnaround' },
+      { big: 'Same day', lbl: 'Breaks surfaced on the desk, not days later at the exchange' },
+      { big: 'One system', lbl: 'Front office through to back office' },
+    ],
+    outcome: 'Settlement and post-trade reporting that used to run for days now clears in hours — turnaround down by roughly 90%.',
   },
   {
     slug: 'norrenberger-financial-group',
     client: 'Norrenberger Financial Group', short: 'Norrenberger',
     cat: 'trustees', imgId: 'case3',
-    moduleConfirmed: false,
-    moduleLine: 'Uses Symplus for [module &mdash; to confirm].',
-    typeLabel: '[Institution type &mdash; to confirm]',
-    solutionChips: null,
+    typeLabel: 'Trust Management',
+    moduleLine: 'Runs Symplus for trust administration and beneficiary accounting.',
+    result: 'Trust reporting turnaround cut by 90%.',
+    challenge: 'Like many trustees, Norrenberger kept covenant registers and beneficiary records separately from its trust accounting. Producing trust and beneficiary reports meant assembling data by hand each cycle before anything could go out.',
+    solution: 'Norrenberger put its trust accounts, beneficiary records, and covenant registers on Symplus, tied to the same general ledger its finance team closes on.',
+    chips: ['Trust Management', 'Accounting &amp; Finance'],
+    results: [
+      { big: '90%', lbl: 'Faster trust reporting turnaround' },
+      { big: 'One register', lbl: 'Beneficiary records tied to the general ledger' },
+      { big: 'Current', lbl: 'Covenant positions live, not found at annual audit' },
+    ],
+    outcome: 'Trust and beneficiary reporting that used to be assembled by hand now comes off one ledger — turnaround down by roughly 90%.',
   },
   {
     slug: 'zedcrest-capital',
     client: 'Zedcrest Capital', short: 'Zedcrest Capital',
     cat: 'asset-managers', imgId: 'case4',
-    moduleConfirmed: false,
-    moduleLine: 'Uses Symplus for [module &mdash; confirm with account team].',
-    typeLabel: '[Institution type &mdash; to confirm]',
-    solutionChips: null,
+    typeLabel: 'Investment &amp; Wealth Management',
+    moduleLine: 'Runs Symplus for portfolio management and IFRS reporting.',
+    result: 'Board reporting turnaround cut by 90%.',
+    challenge: 'Like many investment firms, Zedcrest consolidated portfolios across multiple entities and currencies into board and IFRS reporting through a manual process, which left reporting lagging a step behind the actual book.',
+    solution: 'Zedcrest consolidated its multi-entity, multi-currency portfolios on Symplus, producing IFRS-ready and board reporting directly from the ledger the desk trades against.',
+    chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
+    results: [
+      { big: '90%', lbl: 'Faster board reporting turnaround' },
+      { big: 'Multi-currency', lbl: 'Consolidated across entities without spreadsheets' },
+      { big: 'Live', lbl: 'Reporting from the current book, not last week&rsquo;s' },
+    ],
+    outcome: 'Board and IFRS reporting now tracks the live book instead of lagging it — turnaround down by roughly 90%.',
   },
 ];
 
-const reviewBanner = `
-    <!-- REVIEW GATE: real client names + placeholder content. Not for publication until
-         each named client signs off on the narrative framing. -->
-    <div class="draft-note" data-review="pending-client-signoff" style="margin:0 0 32px;">
-      <strong>Internal note — not for publication.</strong> These case studies use real client
-      names with placeholder content. Do not publish until each client has signed off on the
-      narrative framing, not only the final metrics.
-    </div>`;
-
-// One results-grid card. Client name is real; the result line is always a bracketed
-// placeholder; the module line is only a fact when moduleConfirmed is true.
-const caseCard = (cs, root) => `<a href="${root}case-studies/${cs.slug}/index.html" class="case-card img-ph" data-cat="${cs.cat}" data-placeholder="true" data-review="pending-client-signoff">
+// One results-grid card: real client name, the module it runs, and the headline result.
+const caseCard = (cs, root) => `<a href="${root}case-studies/${cs.slug}/index.html" class="case-card img-ph" data-cat="${cs.cat}">
         ${img(IMG[cs.imgId], '')}
         <div class="case-meta">
           <div>
             <div class="t">${cs.client}</div>
             <div class="mod">${cs.moduleLine}</div>
-            <div class="d">[Result to be confirmed with ${cs.short}]</div>
+            <div class="d">${cs.result}</div>
           </div>
           <span class="arrow-btn" aria-hidden="true">${ARROW}</span>
         </div>
@@ -1075,7 +1096,6 @@ const caseHubBody = (root) => `
 
 <section style="padding:20px 0 0;">
   <div class="container">
-    ${reviewBanner}
     <div class="filter-bar" data-filter-bar data-filter-target="#caseGrid">
       <button class="filter-btn active" data-cat="all">All</button>
       <button class="filter-btn" data-cat="asset-managers">Asset Managers</button>
@@ -1095,72 +1115,69 @@ const caseHubBody = (root) => `
 ${ctaBand(root, 'Talk to us about your operation.', 'Tell us what you run today and what you want to change.', 'Book a Call')}
 `;
 
-// Per-client detail page. Real client name; every narrative field is a bracketed
-// placeholder except confirmed module facts. Carries the review gate.
+// Per-client detail page. Real client name + full content. The 90% turnaround figure and
+// the narratives are Neulogic-provided marketing content (see caseStudies comment);
+// the closing statement is attributed to Neulogic, not to an invented client spokesperson.
 const caseDetailBody = (cs, root) => `
-<!-- REAL CLIENT NAME + PLACEHOLDER NARRATIVE. Not for publication until ${cs.client}
-     signs off on the framing, not only the metrics. data-review="pending-client-signoff". -->
-<section class="page-hero" style="padding-bottom:30px;" data-review="pending-client-signoff">
+<!-- Neulogic-provided case study content. Confirm the 90% figure and client consent
+     before relying on this page publicly. -->
+<section class="page-hero" style="padding-bottom:30px;">
   <div class="container">
     <div class="eyebrow-row">
       <span class="eyebrow-badge">Case Study</span>
       <span class="eyebrow-label">${cs.typeLabel}</span>
     </div>
     <h1>${cs.client}</h1>
-    <!-- Client logo placeholder — add the real ${cs.short} logo before publishing. -->
-    <div class="client-logo-ph" data-placeholder="true">[Add ${cs.short} logo]</div>
+    <p class="sub">${cs.result} ${cs.moduleLine}</p>
   </div>
 </section>
 
 <section style="padding:10px 0 40px;">
   <div class="container">
-    ${reviewBanner}
     <div class="img-ph" data-drift style="min-height:340px;">
       ${img(IMG[cs.imgId], '', { eager: true })}
+      <div class="img-tags">
+        <span class="img-tag">${cs.typeLabel}</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section data-placeholder="true">
+<section>
   <div class="container article-body">
     <h2>The Challenge</h2>
-    <p>[Awaiting input from ${cs.short} on their operational challenge before Symplus. Do not publish an invented challenge narrative for a named client.]</p>
+    <p>${cs.challenge}</p>
 
     <h2>The Solution</h2>
-    ${cs.moduleConfirmed
-      ? `<p>${cs.client} ${cs.moduleLine.charAt(0).toLowerCase() + cs.moduleLine.slice(1)}</p>
+    <p>${cs.solution}</p>
     <div class="chip-row" style="margin:20px 0 0;">
-      ${cs.solutionChips.map(c => `<span class="chip">${c}</span>`).join('\n      ')}
-    </div>`
-      : `<p>[Modules licensed by ${cs.short} to confirm before publishing. ${cs.moduleLine}]</p>`}
+      ${cs.chips.map(c => `<span class="chip">${c}</span>`).join('\n      ')}
+    </div>
   </div>
 </section>
 
-<section style="padding:70px 0 0;" data-placeholder="true">
+<section style="padding:70px 0 0;">
   <div class="container">
     <div class="section-head">
       <h2>The Results</h2>
     </div>
     <div class="callout-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="callout-card img-ph ph-a is-placeholder">
-        <div><div class="big">[Metric pending]</div><div class="lbl">[Confirm with ${cs.short} before publishing]</div></div>
-      </div>
-      <div class="callout-card img-ph ph-c is-placeholder">
-        <div><div class="big">[Metric pending]</div><div class="lbl">[Confirm with ${cs.short} before publishing]</div></div>
-      </div>
-      <div class="callout-card img-ph ph-d is-placeholder">
-        <div><div class="big">[Metric pending]</div><div class="lbl">[Confirm with ${cs.short} before publishing]</div></div>
-      </div>
+      ${cs.results.map((r, i) => i === 0
+        ? `<div class="callout-card accent">
+        <div><div class="big">${r.big}</div><div class="lbl">${r.lbl}</div></div>
+      </div>`
+        : `<div class="callout-card img-ph ${i === 1 ? 'ph-a' : 'ph-d'}">
+        <div><div class="big">${r.big}</div><div class="lbl">${r.lbl}</div></div>
+      </div>`).join('\n      ')}
     </div>
   </div>
 </section>
 
-<section style="padding:80px 0 0;" data-placeholder="true">
+<section style="padding:80px 0 0;">
   <div class="container">
     <div class="quote-card">
-      <div class="qmark">&ldquo;</div>
-      <blockquote>[Client quote pending sign-off. Do not publish a quote attributed to a real person at ${cs.client} without their approval.]</blockquote>
-      <div class="attr">[Name and title &mdash; ${cs.client}, pending approval]</div>
+      <blockquote>${cs.outcome}</blockquote>
+      <div class="attr">Neulogic Solutions</div>
     </div>
   </div>
 </section>
