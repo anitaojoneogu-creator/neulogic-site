@@ -1,0 +1,11 @@
+# dependencies (none currently — build.js uses only Node built-ins)
+node_modules/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# local env
+.env
+.env.*
