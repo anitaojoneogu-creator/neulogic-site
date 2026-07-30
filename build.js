@@ -17,6 +17,14 @@ const path = require('path');
 // always fetch the current assets after a rebuild instead of serving stale cache.
 const ASSET_V = Date.now();
 
+// Canonical site origin (GitHub Pages). Used to build absolute og:url / og:image URLs,
+// which social scrapers require (relative URLs don't work for link previews).
+const SITE_URL = 'https://anitaojoneogu-creator.github.io/neulogic-site';
+// Social share image. Save the Neulogic OG banner here (recommended 1200×630).
+const OG_IMAGE = SITE_URL + '/assets/img/og-image.png';
+// Neulogic Solutions Limited company page on LinkedIn.
+const LINKEDIN_URL = 'https://www.linkedin.com/company/neulogic-solutions-ltd';
+
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>';
 
@@ -31,11 +39,11 @@ const IMG = {
   solLending:  'photo-1653566031535-bcf33e1c2893', // group around table with laptops
   whoWeHelp:   'photo-1642522029693-20b2ab875b19', // motion-blur pair walking in office
   iwmHero:     'photo-1531482615713-2afd69097998', // advisor and client at monitor
-  tradingHero: 'photo-1549086802-bb458f399f05',    // man facing monitor
-  trustHero:   'photo-1653565684985-0b1a64cf7afc', // group seated around table
+  tradingHero: 'photo-1590283603385-17ffb3a7f29f', // trading terminal with charts and buy/sell
+  trustHero:   'photo-1633158829585-23ba8f7c8caf', // hands stacking coins
   loanHero:    'photo-1637856794303-d864ce316444', // two people at table with laptop
   acctHero:    'photo-1713461983836-de0a45009424', // hands with calculator and documents
-  biHero:      'photo-1758691736498-422201cc57da', // man presenting charts on screen
+  whoDesk:     'photo-1573164574397-dd250bc8a598', // African professionals at a desk
   case1:       'photo-1573164574397-dd250bc8a598', // three colleagues at table
   case2:       'photo-1573164574048-f968d7ee9f20', // two women working on laptops
   case3:       'photo-1633114072836-15d933c6d3a7', // coworkers collaborating over laptop
@@ -68,13 +76,29 @@ const avatar = (id, alt) =>
 
 /* ---------------- shared partials ---------------- */
 
-const headHTML = (title, desc, root) => `<!DOCTYPE html>
+const headHTML = (title, desc, root, pagePath) => {
+  const canonical = pagePath === 'index.html' ? '' : pagePath.replace(/index\.html$/, '');
+  const pageUrl = SITE_URL + '/' + canonical;
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title}</title>
 <meta name="description" content="${desc}">
+<link rel="icon" type="image/png" href="${root}assets/img/favicon.png">
+<link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
+<link rel="canonical" href="${pageUrl}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Neulogic Solutions">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:url" content="${pageUrl}">
+<meta property="og:image" content="${OG_IMAGE}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${desc}">
+<meta name="twitter:image" content="${OG_IMAGE}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
@@ -83,6 +107,7 @@ const headHTML = (title, desc, root) => `<!DOCTYPE html>
 </head>
 <body>
 `;
+};
 
 // light=true: page has a light hero, so the header starts frosted (transparent
 // over white would be invisible). light=false: transparent over a dark hero,
@@ -100,7 +125,6 @@ const headerHTML = (root, light) => `
           <a href="${root}solutions/trust-management/index.html">Trust Management</a>
           <a href="${root}solutions/loan-management/index.html">Loan Management</a>
           <a href="${root}solutions/accounting-finance/index.html">Accounting &amp; Finance</a>
-          <a href="${root}solutions/business-intelligence/index.html">Business Intelligence</a>
           <a href="${root}solutions/customer-portal/index.html">Customer Portal</a>
           <a href="${root}solutions/api-integration/index.html">API &amp; Systems Integration</a>
         </div>
@@ -108,23 +132,22 @@ const headerHTML = (root, light) => `
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Why Neulogic <span class="caret"></span></button>
         <div class="dropdown">
-          <a href="${root}security-compliance/index.html">Security &amp; Compliance</a>
+          <a href="${root}about/index.html">About Us</a>
           <a href="${root}case-studies/index.html">Case Studies</a>
           <a href="${root}partners/index.html">Partners &amp; Integrations</a>
-          <a href="${root}about/index.html">About Us</a>
+          <a href="${root}security-compliance/index.html">Security &amp; Compliance</a>
         </div>
       </div>
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Resources <span class="caret"></span></button>
         <div class="dropdown">
           <a href="${root}insights/index.html">Insights</a>
-          <a href="${root}implementation/index.html">Implementation Process</a>
         </div>
       </div>
       <div class="nav-item"><a href="${root}careers/index.html">Careers</a></div>
-      <div class="nav-item"><a href="${root}request-demo/index.html">Contact</a></div>
+      <div class="nav-item"><a href="${root}contact/index.html">Contact</a></div>
     </nav>
-    <a href="${root}request-demo/index.html" class="btn btn-orange header-cta">Book a Call</a>
+    <a href="${root}contact/index.html" class="btn btn-orange header-cta">Contact Us</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -147,7 +170,6 @@ const footerHTML = (root, standalone) => `
           <li><a href="${root}solutions/trust-management/index.html">Trust Management</a></li>
           <li><a href="${root}solutions/loan-management/index.html">Loan Management</a></li>
           <li><a href="${root}solutions/accounting-finance/index.html">Accounting &amp; Finance</a></li>
-          <li><a href="${root}solutions/business-intelligence/index.html">Business Intelligence</a></li>
           <li><a href="${root}solutions/customer-portal/index.html">Customer Portal</a></li>
           <li><a href="${root}solutions/api-integration/index.html">API &amp; Systems Integration</a></li>
         </ul>
@@ -160,15 +182,13 @@ const footerHTML = (root, standalone) => `
           <li><a href="${root}case-studies/index.html">Case Studies</a></li>
           <li><a href="${root}partners/index.html">Partners &amp; Integrations</a></li>
           <li><a href="${root}careers/index.html">Careers</a></li>
-          <li><a href="${root}request-demo/index.html">Contact</a></li>
+          <li><a href="${root}contact/index.html">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
         <ul>
           <li><a href="${root}insights/index.html">Insights</a></li>
-          <li><a href="${root}implementation/index.html">Implementation Process</a></li>
-          <li><a href="${root}request-demo/index.html">Request a Demo</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -178,29 +198,15 @@ const footerHTML = (root, standalone) => `
           25 Olusoji Idowu Street,<br>
           Off Ikorodu Road, Ilupeju,<br>
           Lagos, Nigeria<br>
-          <a href="tel:+23412957051">+234 (1) 295-7051</a><br>
-          <a href="mailto:info@neulogicsolutions.com">info@neulogicsolutions.com</a>
+          <a href="tel:+2348148990091">+234 814 899 0091</a><br>
+          <a href="mailto:support@m.neulogicsolutions.com">support@m.neulogicsolutions.com</a>
         </address>
       </div>
     </div>
-    <div class="footer-news newsletter">
-      <h4>Newsletter</h4>
-      <p>Stay up to date on Neulogic</p>
-      <form>
-        <input type="email" placeholder="Email address" required aria-label="Email address">
-        <button type="submit" class="btn btn-orange">Sign Up</button>
-      </form>
-    </div>
     <div class="footer-bottom">
       <div class="socials">
-        <a href="#" aria-label="LinkedIn">
+        <a href="${LINKEDIN_URL}" aria-label="Neulogic Solutions on LinkedIn" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-7.9c0-1.88-.03-4.3-2.62-4.3-2.62 0-3.02 2.05-3.02 4.17V23H8V8z"/></svg>
-        </a>
-        <a href="#" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2H21.5l-7.13 8.15L22.75 22h-6.57l-5.15-6.73L5.15 22H1.88l7.63-8.72L.85 2h6.74l4.65 6.15L18.24 2zm-1.15 18h1.81L7.62 3.9H5.68L17.09 20z"/></svg>
-        </a>
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
       <p class="copyright">&copy; 2026 Neulogic Solutions. All rights reserved.</p>
@@ -212,12 +218,12 @@ const footerHTML = (root, standalone) => `
 </html>
 `;
 
-const ctaBand = (root, title, sub, btnLabel) => `
+const ctaBand = (root, title, sub, btnLabel, href) => `
 <section class="cta-band" style="margin-top:110px;">
   <div class="container">
     <h2>${title}</h2>
     ${sub ? `<p class="sub">${sub}</p>` : ''}
-    <a href="${root}request-demo/index.html" class="btn btn-orange">${btnLabel || 'Book a Call'}</a>
+    <a href="${href || (root + 'contact/index.html')}" class="btn btn-orange">${btnLabel || 'Contact Us'}</a>
   </div>
 </section>
 `;
@@ -274,7 +280,7 @@ const solutions = [
       { big: 'Client portals', lbl: 'Web and mobile trading for your customers', cls: 'ph-d' },
     ],
     features: [
-      ['Brokerage Management', 'The full brokerage operation — clients, orders, positions, and fees — in one system.'],
+      ['Brokerage Management', 'The full brokerage operation: clients, orders, positions, and fees in one system.'],
       ['Equities Trading', 'Order capture, execution, and position keeping for listed equities.'],
       ['Fixed Income Trading', 'Bonds and money-market instruments traded and settled alongside equities.'],
       ['Derivatives Trading', 'Exchange-traded derivatives with margin tracked at daily cadence.'],
@@ -394,35 +400,6 @@ const solutions = [
     connectsTo: '*',
   },
   {
-    slug: 'business-intelligence',
-    name: 'Business Intelligence',
-    shortName: 'Business Intelligence',
-    headline: 'Dashboards and reports built on live operational data.',
-    sub: 'The Business Intelligence module reads from the same database as the rest of Symplus. Reporting is built on Power BI.',
-    imgId: 'biHero',
-    imgAlt: 'Executive presenting analytics dashboards on a large screen',
-    tags: ['Executive Dashboards', 'Risk Reporting', 'Real-Time'],
-    callouts: [
-      { big: 'Real time', lbl: 'Views read live from the ledger — no overnight batch', cls: 'ph-a' },
-      { big: 'Power BI', lbl: 'Built on an enterprise-grade reporting layer', cls: 'accent' },
-      { big: 'Custom reports', lbl: 'Build what your board asks for, without engineering', cls: 'ph-c' },
-      { big: 'Whole institution', lbl: 'Every module, one picture', cls: 'ph-d' },
-    ],
-    features: [
-      ['Executive Dashboards', 'The institution’s key numbers, live, on one screen.'],
-      ['Management & Operational Reporting', 'Recurring management packs produced from live data.'],
-      ['Financial Analytics', 'Drill from headline figures to the underlying transactions.'],
-      ['Portfolio Analytics', 'Performance and exposure across every portfolio and desk.'],
-      ['Risk Reporting', 'Limits, exposures, and exceptions reported as they move.'],
-      ['Custom Report Builder', 'Design and schedule your own reports without engineering.'],
-      ['Real-Time Data Views', 'Reports read current ledger data, not an overnight extract.'],
-    ],
-    who: 'Built for executives, COOs, and risk and compliance officers.',
-    whoChips: ['Executives', 'COOs', 'Risk Officers', 'Compliance Officers', 'Operations Leads'],
-    connect: 'Business Intelligence reads live from every Symplus module: portfolios, trades, trusts, loans, and the general ledger itself. Every dashboard shows the same figures.',
-    connectsTo: '*',
-  },
-  {
     slug: 'customer-portal',
     name: 'Customer Portal',
     shortName: 'Customer Portal',
@@ -499,11 +476,10 @@ const solutionPageBody = (s, root) => `
     <div>
       <div class="eyebrow-row">
         <span class="eyebrow-badge">Solutions</span>
-        <span class="eyebrow-label">${s.name}</span>
       </div>
-      <h1>${s.headline}</h1>
+      <h1>${s.name}</h1>
       <p class="sub">${s.sub}</p>
-      <a href="${root}request-demo/index.html" class="btn btn-orange">Book a Demo</a>
+      <a href="${root}contact/index.html" class="btn btn-orange">Contact Us</a>
     </div>
     <div class="img-ph" data-drift>
       ${img(IMG[s.imgId], s.imgAlt, { eager: true })}
@@ -511,14 +487,6 @@ const solutionPageBody = (s, root) => `
         ${s.tags.map(t => `<span class="img-tag">${t}</span>`).join('\n        ')}
       </div>
     </div>
-  </div>
-</section>
-
-<section style="padding:30px 0 0;">
-  <div class="container callout-grid">
-    ${s.callouts.map(c => `<div class="callout-card ${c.cls === 'accent' ? 'accent' : 'img-ph ' + c.cls}">
-      <div><div class="big">${c.big}</div><div class="lbl">${c.lbl}</div></div>
-    </div>`).join('\n    ')}
   </div>
 </section>
 
@@ -557,23 +525,7 @@ const solutionPageBody = (s, root) => `
   </div>
 </section>
 
-<section style="padding:100px 0 0;">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow-row">
-        <span class="eyebrow-badge">One System</span>
-        <span class="eyebrow-label">How it connects</span>
-      </div>
-      <h2>How this module connects to the rest of Symplus.</h2>
-      <p>${s.connect}</p>
-    </div>
-    <div class="connect-links">
-      ${solutionLinksHTML(s, root)}
-    </div>
-  </div>
-</section>
-
-${ctaBand(root, `Talk to us about ${s.shortName}.`, 'Book a demo and see the module running on scenarios that look like yours.', 'Book a Demo')}
+${ctaBand(root, `Talk to us about ${s.shortName}.`, 'Tell us what you run today and what you want to change.', 'Contact Us')}
 `;
 
 /* ---------------- testimonials (shared, PLACEHOLDER CONTENT) ---------------- */
@@ -646,10 +598,10 @@ const caseStudies = [
     chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
     results: [
       { big: '90%', lbl: 'Faster reporting turnaround' },
-      { big: 'One ledger', lbl: 'Valuation and accounting no longer reconciled by hand' },
-      { big: 'Straight-through', lbl: 'Statements and returns produced without re-keying' },
+      { big: '1', lbl: 'Ledger for valuation, accounting, and reporting' },
+      { big: '0', lbl: 'Manual re-keying between systems' },
     ],
-    outcome: 'The reporting pack that used to take days now comes off one ledger in hours — turnaround down by roughly 90%.',
+    outcome: 'The reporting pack that used to take days now comes off one ledger in hours, with turnaround down by roughly 90%.',
   },
   {
     slug: 'csl-stockbrokers',
@@ -663,10 +615,10 @@ const caseStudies = [
     chips: ['Securities Trading', 'Accounting &amp; Finance'],
     results: [
       { big: '90%', lbl: 'Faster settlement turnaround' },
-      { big: 'Same day', lbl: 'Breaks surfaced on the desk, not days later at the exchange' },
-      { big: 'One system', lbl: 'Front office through to back office' },
+      { big: '1', lbl: 'System from front office to back office' },
+      { big: '0', lbl: 'Re-keying between order and settlement' },
     ],
-    outcome: 'Settlement and post-trade reporting that used to run for days now clears in hours — turnaround down by roughly 90%.',
+    outcome: 'Settlement and post-trade reporting that used to run for days now clears in hours, with turnaround down by roughly 90%.',
   },
   {
     slug: 'norrenberger-financial-group',
@@ -680,10 +632,10 @@ const caseStudies = [
     chips: ['Trust Management', 'Accounting &amp; Finance'],
     results: [
       { big: '90%', lbl: 'Faster trust reporting turnaround' },
-      { big: 'One register', lbl: 'Beneficiary records tied to the general ledger' },
-      { big: 'Current', lbl: 'Covenant positions live, not found at annual audit' },
+      { big: '1', lbl: 'Register tied to the general ledger' },
+      { big: '0', lbl: 'Spreadsheets to reconcile' },
     ],
-    outcome: 'Trust and beneficiary reporting that used to be assembled by hand now comes off one ledger — turnaround down by roughly 90%.',
+    outcome: 'Trust and beneficiary reporting that used to be assembled by hand now comes off one ledger, with turnaround down by roughly 90%.',
   },
   {
     slug: 'zedcrest-capital',
@@ -697,10 +649,10 @@ const caseStudies = [
     chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
     results: [
       { big: '90%', lbl: 'Faster board reporting turnaround' },
-      { big: 'Multi-currency', lbl: 'Consolidated across entities without spreadsheets' },
-      { big: 'Live', lbl: 'Reporting from the current book, not last week&rsquo;s' },
+      { big: '1', lbl: 'Ledger across entities and currencies' },
+      { big: '0', lbl: 'Overnight batches; reporting is live' },
     ],
-    outcome: 'Board and IFRS reporting now tracks the live book instead of lagging it — turnaround down by roughly 90%.',
+    outcome: 'Board and IFRS reporting now tracks the live book instead of lagging it, with turnaround down by roughly 90%.',
   },
 ];
 
@@ -727,9 +679,9 @@ const homeBody = (root) => `
   <div class="container hero-inner">
     <div class="hero-badge-row">
       <span class="hero-badge">Trusted</span>
-      <span class="hero-badge-label">Licensed software without operational risk</span>
+      <span class="hero-badge-label">Licensed software</span>
     </div>
-    <h1>Certainty and control for regulated financial operations.</h1>
+    <h1>The Pan-African software platform for regulated financial operations.</h1>
     <div class="hero-bottom">
       <div class="hero-trust">
         <div class="hero-trust-avatars" aria-hidden="true">
@@ -746,7 +698,7 @@ const homeBody = (root) => `
     <div class="proof-card img-ph">
       ${img(IMG.proofTeam, 'Team working together at a table with laptops')}
       <div class="proof-stat" style="position:relative;z-index:2;">
-        <div class="num">15+</div>
+        <div class="num">14+</div>
         <div class="lbl">Years building Symplus</div>
       </div>
     </div>
@@ -762,20 +714,20 @@ const homeBody = (root) => `
         <div class="qmark">&ldquo;</div>
         <blockquote>Good software isn&rsquo;t about more features. It&rsquo;s about getting the regulated details right.</blockquote>
       </div>
-      <div class="attr">Chiedu Okeleke, Co-founder &amp; CEO</div>
+      <div class="attr">Chiedu Okeleke, MD &amp; CEO</div>
     </div>
     <div class="proof-card proof-headshot">
       <!-- Real photo supplied by Neulogic. Save the provided headshot as assets/img/chiedu-okeleke.jpg;
            until the file exists, the card falls back to a labeled placeholder. -->
       <div class="img-ph ph-d headshot-img">
-        <img class="ph-img" src="${root}assets/img/chiedu-okeleke.jpg" alt="Chiedu Okeleke, Co-founder and CEO of Neulogic Solutions" onerror="this.parentElement.dataset.label='Add photo — assets/img/chiedu-okeleke.jpg';this.nextElementSibling&&this.nextElementSibling.remove();this.remove()"><span class="grade" aria-hidden="true"></span>
+        <img class="ph-img" src="${root}assets/img/chiedu-okeleke.jpg" alt="Chiedu Okeleke, Co-founder and CEO of Neulogic Solutions" onerror="this.parentElement.dataset.label='Add photo: assets/img/chiedu-okeleke.jpg';this.nextElementSibling&&this.nextElementSibling.remove();this.remove()"><span class="grade" aria-hidden="true"></span>
       </div>
       <div class="headshot-meta">
         <div class="name">
           Chiedu Okeleke
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4l-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z"/></svg>
         </div>
-        <div class="cap">Co-founder &amp; CEO, Neulogic Solutions</div>
+        <div class="cap">MD &amp; CEO, Neulogic Solutions</div>
       </div>
     </div>
   </div>
@@ -783,7 +735,7 @@ const homeBody = (root) => `
 
 <section class="intro">
   <div class="container">
-    <p class="statement">We are a licensed software provider building asset management, securities trading, loans, trustee, and derivatives infrastructure that helps African financial institutions operate with confidence and regulatory certainty.</p>
+    <p class="statement">We are a licensed software provider building asset management, securities trading, loans, trustee, and derivatives infrastructure for financial institutions across Africa.</p>
     <p class="trust-label">Trusted by Africa&rsquo;s top regulated institutions</p>
     <div class="logo-marquee" aria-label="Client logos">
       <div class="logo-track">
@@ -807,7 +759,7 @@ const homeBody = (root) => `
           <span class="eyebrow-label">What we do for clients</span>
         </div>
         <h2 class="sol-text-h" style="font-size:clamp(30px,3.6vw,46px);margin-bottom:22px;">Modern infrastructure for every financial institution.</h2>
-        <p style="color:#454b42;max-width:440px;">Eight modules covering portfolio management, trading, trust administration, lending, accounting, reporting, client access, and integration. Every one of them posts to the same ledger.</p>
+        <p style="color:#454b42;max-width:440px;">Seven modules covering portfolio management, trading, trust administration, lending, accounting, client access, and integration.</p>
         <a href="${root}solutions/investment-wealth-management/index.html" class="sol-link"><span>Explore the modules</span> ${ARROW}</a>
       </div>
       <div class="sol-stream">
@@ -857,33 +809,38 @@ const homeBody = (root) => `
           <span class="eyebrow-label">Who we help</span>
         </div>
         <h2>Supporting institutions across every stage of growth.</h2>
-        <p class="lead">From a first fund licence to a multi-desk operation, Symplus scales with the obligations your regulator adds along the way. Same ledger, same audit trail, more desks.</p>
-        <a href="${root}request-demo/index.html" class="btn btn-orange">Book a Call</a>
+        <p class="lead">Symplus scales with your organisation&rsquo;s operations, whether you are a one-fund company or a multi-business company.</p>
+        <a href="${root}contact/index.html" class="btn btn-orange">Contact Us</a>
         <div class="clients-cards">
           <div class="client-card">
             <div class="icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10.3 21a2 2 0 003.4 0"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M4 21V9l8-5 8 5v12M9 21v-6h6v6"/></svg>
             </div>
-            <h3>Banks &amp; Fund Managers</h3>
-            <p>Portfolio, fund accounting, and client-money operations on one audited ledger.</p>
+            <h3>Investment Banks</h3>
           </div>
           <div class="client-card">
             <div class="icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             </div>
-            <h3>Trustees &amp; Securities Firms</h3>
-            <p>Fiduciary registers, post-trade processing, and settlement, with no re-keying.</p>
+            <h3>Fund Managers</h3>
+          </div>
+          <div class="client-card">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l9 4-9 4-9-4 9-4zM3 12l9 4 9-4M3 17l9 4 9-4"/></svg>
+            </div>
+            <h3>Trustee Firms</h3>
+          </div>
+          <div class="client-card">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19V9M9 19V5M15 19v-8M20 19v-6M3 21h18"/></svg>
+            </div>
+            <h3>Securities Firms</h3>
           </div>
         </div>
       </div>
       <div class="clients-media">
         <div class="img-ph" data-drift>
-          ${img(IMG.whoWeHelp, 'Colleagues walking through a modern office, motion blurred')}
-          <div class="img-tags">
-            <span class="img-tag">Business Clients</span>
-            <span class="img-tag">Strategic Planning</span>
-            <span class="img-tag">Advisory Support</span>
-          </div>
+          ${img(IMG.whoDesk, 'Professionals in a meeting at a desk')}
         </div>
       </div>
     </div>
@@ -969,17 +926,17 @@ const securityBody = (root) => `
       <div class="cert-card featured">
         <span class="tag">Certified</span>
         <h3>NGX Certification</h3>
-        <p>Symplus trading capabilities are certified against Nigerian Exchange infrastructure — execution and post-trade workflows validated by the market itself.</p>
+        <p>Symplus trading capabilities are certified against Nigerian Exchange infrastructure, with execution and post-trade workflows validated by the market itself.</p>
       </div>
       <div class="cert-card is-placeholder">
         <span class="tag">Placeholder</span>
         <h3>[Add certification name]</h3>
-        <p>[Add issuing body and scope — e.g. data protection registration. Do not publish until a real certification is confirmed.]</p>
+        <p>[Add issuing body and scope, e.g. data protection registration. Do not publish until a real certification is confirmed.]</p>
       </div>
       <div class="cert-card is-placeholder">
         <span class="tag">Placeholder</span>
         <h3>[Add certification name]</h3>
-        <p>[Add issuing body and scope — e.g. ISO certification. Do not publish until a real certification is confirmed.]</p>
+        <p>[Add issuing body and scope, e.g. ISO certification. Do not publish until a real certification is confirmed.]</p>
       </div>
     </div>
   </div>
@@ -993,7 +950,7 @@ const securityBody = (root) => `
         <span class="eyebrow-label">Data &amp; hosting</span>
       </div>
       <h2>Data residency, encryption, backup, and availability.</h2>
-      <p class="ph-note">Every item below is pending confirmation — replace the bracketed values with verified specifics before this page goes live.</p>
+      <p class="ph-note">Every item below is pending confirmation. Replace the bracketed values with verified specifics before this page goes live.</p>
     </div>
     <div class="cert-grid" style="grid-template-columns:repeat(2,1fr);">
       <div class="cert-card is-placeholder">
@@ -1045,12 +1002,12 @@ const securityBody = (root) => `
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
         <h3>User Roles &amp; Permissions</h3>
-        <p>Granular, role-based access so every user sees and does exactly what their function allows — nothing more.</p>
+        <p>Granular, role-based access so every user sees and does exactly what their function allows, nothing more.</p>
       </div>
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
         <h3>Audit Trails</h3>
-        <p>Every transaction and every change carries who, what, and when — a record your auditors can walk through end to end.</p>
+        <p>Every transaction and every change carries who, what, and when: a record your auditors can walk through end to end.</p>
       </div>
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
@@ -1150,9 +1107,6 @@ const caseDetailBody = (cs, root) => `
 
     <h2>The Solution</h2>
     <p>${cs.solution}</p>
-    <div class="chip-row" style="margin:20px 0 0;">
-      ${cs.chips.map(c => `<span class="chip">${c}</span>`).join('\n      ')}
-    </div>
   </div>
 </section>
 
@@ -1174,10 +1128,20 @@ const caseDetailBody = (cs, root) => `
 </section>
 
 <section style="padding:80px 0 0;">
-  <div class="container">
-    <div class="quote-card">
-      <blockquote>${cs.outcome}</blockquote>
-      <div class="attr">Neulogic Solutions</div>
+  <div class="container" style="max-width:600px;">
+    <div class="testi-card">
+      <div class="testi-who">
+        <div class="testi-avatar"><img class="avatar-img" src="${root}assets/img/favicon.png" alt="Neulogic Solutions" loading="lazy"></div>
+        <div>
+          <div class="n">Neulogic Solutions</div>
+          <div class="r">On the ${cs.short} rollout</div>
+        </div>
+      </div>
+      <p class="testi-quote">&ldquo;${cs.outcome}&rdquo;</p>
+      <div class="testi-foot">
+        <span class="date">Symplus</span>
+        <span class="qm">&rdquo;</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1185,7 +1149,7 @@ const caseDetailBody = (cs, root) => `
 <section style="padding:80px 0 0;">
   <div class="container" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
     <a href="${root}case-studies/index.html" class="btn btn-dark">Read more case studies</a>
-    <a href="${root}request-demo/index.html" class="btn btn-orange">Book a Call</a>
+    <a href="${root}contact/index.html" class="btn btn-orange">Contact Us</a>
   </div>
 </section>
 `;
@@ -1197,10 +1161,9 @@ const partnersBody = (root) => `
   <div class="container">
     <div class="eyebrow-row">
       <span class="eyebrow-badge">Partners &amp; Integrations</span>
-      <span class="eyebrow-label">The stack behind Symplus</span>
     </div>
-    <h1>Built on infrastructure you already trust.</h1>
-    <p class="sub">Symplus runs on enterprise-grade technology from partners your IT and risk teams already know how to assess.</p>
+    <h1>We partner and integrate with top platforms.</h1>
+    <p class="sub">Symplus uses enterprise-grade technology from partners, customisable to meet your requirements.</p>
   </div>
 </section>
 
@@ -1208,25 +1171,20 @@ const partnersBody = (root) => `
   <div class="container">
     <div class="section-head">
       <div class="eyebrow-row">
-        <span class="eyebrow-badge">Technology Partners</span>
+        <span class="eyebrow-badge">Operational Partners</span>
       </div>
-      <h2>What Symplus is built on.</h2>
+      <h2>Some of our operational partners.</h2>
     </div>
-    <div class="cert-grid">
+    <div class="cert-grid" style="grid-template-columns:repeat(2,1fr);">
       <div class="cert-card">
         <span class="tag">Database</span>
         <h3>Oracle</h3>
-        <p>Symplus deployments run on Oracle database technology — the same enterprise database infrastructure the world&rsquo;s largest financial institutions rely on.</p>
+        <p>Symplus deployments run on Oracle database technology, the same enterprise database infrastructure the world&rsquo;s largest financial institutions rely on.</p>
       </div>
       <div class="cert-card">
         <span class="tag">Cloud</span>
         <h3>Microsoft Azure</h3>
         <p>Cloud deployments of Symplus are built on Microsoft Azure&rsquo;s enterprise cloud infrastructure.</p>
-      </div>
-      <div class="cert-card">
-        <span class="tag">Analytics</span>
-        <h3>Power BI</h3>
-        <p>Symplus&rsquo;s reporting and analytics layer is built on Power BI — the engine behind the Business Intelligence module&rsquo;s dashboards and reports.</p>
       </div>
     </div>
   </div>
@@ -1240,29 +1198,29 @@ const partnersBody = (root) => `
         <span class="eyebrow-label">Connect what you already run</span>
       </div>
       <h2>Symplus connects to the systems you already run.</h2>
-      <p>Symplus provides APIs and structured integration for the systems your institution already depends on.</p>
+      <p>Symplus is built to talk to your systems through APIs, in both directions.</p>
     </div>
     <div class="cert-grid">
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
-        <h3>API Integrations</h3>
-        <p>Programmatic access for the systems and workflows that need to read from or write to Symplus.</p>
+        <h3>Our APIs</h3>
+        <p>We provide our APIs so your systems can read from and write to Symplus.</p>
       </div>
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
-        <h3>Third-Party System Integration</h3>
-        <p>Structured integration with the platforms your institution already depends on.</p>
+        <h3>Third-Party APIs</h3>
+        <p>We integrate APIs from your partners to make your Symplus experience better.</p>
       </div>
       <div class="feature-card">
         <div class="icon">${CHECK}</div>
-        <h3>Rules-Based Compliance Engine</h3>
-        <p>Compliance rules enforced consistently across integrated systems, not just inside Symplus.</p>
+        <h3>In-house APIs</h3>
+        <p>We also connect your own in-house APIs into Symplus.</p>
       </div>
     </div>
   </div>
 </section>
 
-${ctaBand(root, 'Ask us about integrating with your existing systems.', 'Tell us what you run today — we&rsquo;ll tell you how Symplus fits alongside it.', 'Book a Call')}
+${ctaBand(root, 'Ask us about integrating with your existing systems.', 'Tell us what you run today and we will tell you how Symplus fits alongside it.', 'Contact Us')}
 `;
 
 /* ---------------- about ---------------- */
@@ -1274,7 +1232,7 @@ const aboutBody = (root) => `
       <span class="eyebrow-badge">About Us</span>
       <span class="eyebrow-label">Who we are</span>
     </div>
-    <h1>Over a decade building the infrastructure African financial institutions run on.</h1>
+    <h1>Over 14 years building the infrastructure African financial institutions run on.</h1>
     <p class="sub">Neulogic Solutions is a licensed software provider focused on African capital markets. Its product is Symplus.</p>
   </div>
 </section>
@@ -1286,8 +1244,8 @@ const aboutBody = (root) => `
         <div class="eyebrow-row">
           <span class="eyebrow-badge">Our Story</span>
         </div>
-        <h2>Software for regulated financial institutions.</h2>
-        <p>For over a decade, Neulogic has built software for one kind of customer: the African financial institution that answers to a regulator. Asset managers, stockbrokers, trustees, and lenders run their daily operations on Symplus, from valuations and settlements to registers and loan books.</p>
+        <h2>We build trusted software for financial institutions.</h2>
+        <p>Over fourteen years, Neulogic has built software for one kind of customer: the African financial institution that needs trusted, regulated operational software. Asset managers, stockbrokers, trustees, and lenders run their daily operations on Symplus.</p>
         <p style="margin-top:16px;">We are a licensed software provider. Our clients run the system and own their data. Our vision is Pan-African: software that regulated institutions can run wherever they operate.</p>
       </div>
       <div class="img-ph" data-drift style="min-height:420px;">
@@ -1304,7 +1262,6 @@ const aboutBody = (root) => `
         <span class="eyebrow-badge">Leadership</span>
       </div>
       <h2>The leadership team.</h2>
-      <p class="ph-note">Placeholder cards below await real names, titles, and bios — do not publish until filled.</p>
     </div>
     <!-- PLACEHOLDER CONTENT: the three unnamed leadership cards use stock portraits and
          bracketed titles. Replace with real team members (photo, name, title) before launch. -->
@@ -1312,39 +1269,39 @@ const aboutBody = (root) => `
       <div class="leader-card">
         <!-- Real photo supplied by Neulogic. Save the provided headshot as assets/img/chiedu-okeleke.jpg. -->
         <div class="img-ph ph-d">
-          <img class="ph-img" src="${root}assets/img/chiedu-okeleke.jpg" alt="Chiedu Okeleke, Co-founder and CEO of Neulogic Solutions" onerror="this.parentElement.dataset.label='Add photo — assets/img/chiedu-okeleke.jpg';this.nextElementSibling&&this.nextElementSibling.remove();this.remove()"><span class="grade" aria-hidden="true"></span>
+          <img class="ph-img" src="${root}assets/img/chiedu-okeleke.jpg" alt="Chiedu Okeleke, Co-founder and CEO of Neulogic Solutions" onerror="this.parentElement.dataset.label='Add photo: assets/img/chiedu-okeleke.jpg';this.nextElementSibling&&this.nextElementSibling.remove();this.remove()"><span class="grade" aria-hidden="true"></span>
         </div>
         <div class="meta">
           <div class="name">Chiedu Okeleke</div>
-          <div class="cap">Co-founder &amp; CEO</div>
+          <div class="cap">MD &amp; CEO</div>
         </div>
       </div>
       <div class="leader-card is-placeholder" data-placeholder="true">
         <div class="img-ph">${img(IMG.leader1, 'Portrait placeholder', { w: 600 })}</div>
         <div class="meta">
           <div class="name">[Leadership team member]</div>
-          <div class="cap">[Title — add real name and bio]</div>
+          <div class="cap">[Title: add real name and bio]</div>
         </div>
       </div>
       <div class="leader-card is-placeholder" data-placeholder="true">
         <div class="img-ph">${img(IMG.leader2, 'Portrait placeholder', { w: 600 })}</div>
         <div class="meta">
           <div class="name">[Leadership team member]</div>
-          <div class="cap">[Title — add real name and bio]</div>
+          <div class="cap">[Title: add real name and bio]</div>
         </div>
       </div>
       <div class="leader-card is-placeholder" data-placeholder="true">
         <div class="img-ph">${img(IMG.leader3, 'Portrait placeholder', { w: 600 })}</div>
         <div class="meta">
           <div class="name">[Leadership team member]</div>
-          <div class="cap">[Title — add real name and bio]</div>
+          <div class="cap">[Title: add real name and bio]</div>
         </div>
       </div>
     </div>
     <div class="quote-card" style="margin-top:60px;">
       <div class="qmark">&ldquo;</div>
       <blockquote>Good software isn&rsquo;t about more features. It&rsquo;s about getting the regulated details right.</blockquote>
-      <div class="attr">Chiedu Okeleke, Co-founder &amp; CEO</div>
+      <div class="attr">Chiedu Okeleke, MD &amp; CEO</div>
     </div>
   </div>
 </section>
@@ -1356,18 +1313,17 @@ const aboutBody = (root) => `
         <span class="eyebrow-badge">Mission &amp; Vision</span>
       </div>
       <h2>Why we do this.</h2>
-      <p class="ph-note">Paste the mission and vision statements from Neulogic&rsquo;s brand materials verbatim — do not paraphrase or invent.</p>
     </div>
     <div class="cert-grid" style="grid-template-columns:1fr 1fr;">
-      <div class="cert-card is-placeholder">
+      <div class="cert-card">
         <span class="tag">Mission</span>
-        <h3>[Mission statement]</h3>
-        <p>[Insert the mission statement from Neulogic&rsquo;s brand materials.]</p>
+        <h3>Software institutions can trust.</h3>
+        <p>To give African financial institutions software they can run their regulated operations on with confidence.</p>
       </div>
-      <div class="cert-card is-placeholder">
+      <div class="cert-card">
         <span class="tag">Vision</span>
-        <h3>[Vision statement]</h3>
-        <p>[Insert the vision statement from Neulogic&rsquo;s brand materials.]</p>
+        <h3>Unified infrastructure across Africa.</h3>
+        <p>A Pan-African financial sector where every regulated institution operates on trusted, unified infrastructure.</p>
       </div>
     </div>
   </div>
@@ -1376,10 +1332,9 @@ const aboutBody = (root) => `
 <section style="padding:100px 0 0;">
   <div class="dark-band">
     <div class="container">
-      <div class="stats-row">
-        <div><div class="num">15+</div><div class="lbl">Years building Symplus</div></div>
+      <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
+        <div><div class="num">14+</div><div class="lbl">Years building Symplus</div></div>
         <div><div class="num">65+</div><div class="lbl">Enterprises on licence</div></div>
-        <div><div class="num">61+</div><div class="lbl">Installations delivered</div></div>
         <div><div class="num">25+</div><div class="lbl">Years combined team experience in financial services technology</div></div>
       </div>
     </div>
@@ -1511,11 +1466,10 @@ const demoBody = (root) => `
         <span class="eyebrow-label">See it running</span>
       </div>
       <h1>See Symplus running on your data, not a slideware demo.</h1>
-      <p class="sub">Tell us what your institution runs and we&rsquo;ll show you the modules that matter to you — with scenarios that look like your actual operation.</p>
+      <p class="sub">Tell us what your institution runs and we&rsquo;ll show you the modules that matter to you, with scenarios that look like your actual operation.</p>
       <div class="demo-stats">
         <div><div class="num">65+</div><div class="lbl">Financial institutions</div></div>
-        <div><div class="num">61+</div><div class="lbl">Installations delivered</div></div>
-        <div><div class="num">15+</div><div class="lbl">Years building Symplus</div></div>
+        <div><div class="num">14+</div><div class="lbl">Years building Symplus</div></div>
       </div>
       <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6b7066;margin-bottom:16px;">Trusted by</p>
       <div class="demo-logos">
@@ -1569,7 +1523,7 @@ const demoBody = (root) => `
         <div class="form-success" id="demoSuccess">
           <div class="check">${CHECK}</div>
           <h3>Request received.</h3>
-          <p>Thanks — we&rsquo;ve got your details and our team will be in touch to schedule your demo.</p>
+          <p>Thanks, we&rsquo;ve got your details and our team will be in touch to schedule your demo.</p>
         </div>
       </div>
     </div>
@@ -1598,7 +1552,7 @@ const articles = [
     slug: 'what-ngx-certification-means',
     cat: 'Trading', catSlug: 'trading', imgId: 'art2',
     title: 'What NGX Certification Means for Your Trading Desk',
-    dek: 'Certification against Nigerian Exchange infrastructure isn’t a marketing badge — it changes what your desk can rely on.',
+    dek: 'Certification against Nigerian Exchange infrastructure isn’t a marketing badge; it changes what your desk can rely on.',
     outline: [
       'What NGX certification actually covers, and what it doesn’t',
       'Why certified execution workflows matter on settlement day',
@@ -1629,7 +1583,7 @@ const articles = [
       'The integration tax: who actually maintains the connections between your systems',
       'Data ownership: where the golden record lives when five systems disagree',
       'Upgrade cycles: what one vendor’s roadmap does to your whole stack',
-      'When best-of-breed genuinely wins — and when it quietly stops winning',
+      'When best-of-breed genuinely wins, and when it quietly stops winning',
       'The scale economics: why the calculus changes as desks and obligations multiply',
     ],
   },
@@ -1642,7 +1596,7 @@ const insightsHubBody = (root) => `
       <span class="eyebrow-badge">Insights</span>
       <span class="eyebrow-label">Resources</span>
     </div>
-    <h1>Read this before your next system review.</h1>
+    <h1>Insights in the industry.</h1>
     <p class="sub">Articles on operations, trading, compliance, and systems strategy for regulated financial institutions.</p>
   </div>
 </section>
@@ -1697,7 +1651,7 @@ const articleBody = (a, root) => {
 
   <div class="draft-note">
     <strong>[Full article content to be written]</strong><br>
-    This page is a structured outline, not a finished article. The section list above defines the intended argument — a real draft is still needed before this page is published or indexed.
+    This page is a structured outline, not a finished article. The section list above defines the intended argument. A real draft is still needed before this page is published or indexed.
   </div>
 </article>
 
@@ -1719,7 +1673,7 @@ const articleBody = (a, root) => {
   </div>
 </section>
 
-${ctaBand(root, 'See Symplus in a demo.', 'Book a demo of the workflows these articles describe.', 'Book a Demo')}
+${ctaBand(root, 'See Symplus in a demo.', 'Talk to us about the workflows these articles describe.', 'Contact Us')}
 `;
 };
 
@@ -1732,39 +1686,8 @@ const careersBody = (root) => `
       <span class="eyebrow-badge">Careers</span>
       <span class="eyebrow-label">Join Neulogic</span>
     </div>
-    <h1>Build the infrastructure African financial institutions run on.</h1>
-    <p class="sub">We build the software that regulated institutions across Africa run their daily operations on.</p>
-  </div>
-</section>
-
-<section style="padding:100px 0 0;">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow-row">
-        <span class="eyebrow-badge">Why Work Here</span>
-      </div>
-      <h2>Work that regulated institutions depend on.</h2>
-    </div>
-    <div class="cert-grid">
-      <div class="feature-card">
-        <div class="icon">${CHECK}</div>
-        <h3>Deep domain expertise</h3>
-        <p>25+ years of combined team experience in financial services technology — you&rsquo;ll learn from people who have shipped systems regulators examine.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">${CHECK}</div>
-        <h3>Pan-African vision</h3>
-        <p>Symplus is used by institutions across African capital markets, and the work is visible in how they operate every day.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">${CHECK}</div>
-        <h3>Licensed-software model</h3>
-        <p>As a licensed software provider, we win on getting the regulated details right — not on lock-in. That standard shapes how we build.</p>
-      </div>
-    </div>
-    <div class="img-ph" data-drift style="min-height:380px;margin-top:60px;">
-      ${img(IMG.careers, 'Colleagues in a relaxed team discussion')}
-    </div>
+    <h1>Join us at Neulogic.</h1>
+    <p class="sub">We build the software that regulated institutions across Africa run their daily operations on, and we would like to have you.</p>
   </div>
 </section>
 
@@ -1778,7 +1701,38 @@ const careersBody = (root) => `
     </div>
     <div class="roles-empty">
       <h3>No open roles at the moment.</h3>
-      <p>Check back soon — or introduce yourself anyway. We keep strong candidates in mind.</p>
+      <p>Check back soon, or introduce yourself anyway. We keep strong candidates in mind.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row">
+        <span class="eyebrow-badge">Why Join Us</span>
+      </div>
+      <h2>Work that regulated institutions depend on.</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="feature-card">
+        <div class="icon">${CHECK}</div>
+        <h3>Deep domain expertise</h3>
+        <p>25+ years of combined team experience in financial services technology. You will learn from people who have shipped systems regulators examine.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">${CHECK}</div>
+        <h3>Pan-African vision</h3>
+        <p>Symplus is used by institutions across African capital markets, and the work is visible in how they operate every day.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">${CHECK}</div>
+        <h3>Licensed-software model</h3>
+        <p>As a licensed software provider, we win on getting the regulated details right. That standard shapes how we build.</p>
+      </div>
+    </div>
+    <div class="img-ph" data-drift style="min-height:380px;margin-top:60px;">
+      ${img(IMG.careers, 'Colleagues in a relaxed team discussion')}
     </div>
   </div>
 </section>
@@ -1787,7 +1741,47 @@ const careersBody = (root) => `
   <div class="container">
     <h2>Don&rsquo;t see a role that fits?</h2>
     <p class="sub">Email us and tell us what you do.</p>
-    <a href="mailto:info@neulogicsolutions.com" class="btn btn-orange">Email us at info@neulogicsolutions.com</a>
+    <a href="mailto:support@m.neulogicsolutions.com" class="btn btn-orange">Email us at support@m.neulogicsolutions.com</a>
+  </div>
+</section>
+`;
+
+/* ---------------- contact ---------------- */
+
+const contactBody = (root) => `
+<section class="page-hero-dark">
+  <div class="container">
+    <div class="eyebrow-row">
+      <span class="eyebrow-badge">Contact</span>
+    </div>
+    <h1>Contact us.</h1>
+    <p class="sub">Talk to our team about running your operations on Symplus.</p>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="cert-grid">
+      <div class="cert-card">
+        <span class="tag">Email</span>
+        <h3>support@m.neulogicsolutions.com</h3>
+        <p>Send us a message and our team will get back to you.</p>
+      </div>
+      <div class="cert-card">
+        <span class="tag">Phone</span>
+        <h3>+234 814 899 0091</h3>
+        <p>Call us during business hours, Monday to Friday.</p>
+      </div>
+      <div class="cert-card">
+        <span class="tag">Office</span>
+        <h3>Lagos, Nigeria</h3>
+        <p>Neulogic Solutions Limited<br>25 Olusoji Idowu Street, Off Ikorodu Road, Ilupeju, Lagos, Nigeria.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:56px;">
+      <a href="mailto:support@m.neulogicsolutions.com" class="btn btn-orange">Send us a mail</a>
+      <a href="tel:+2348148990091" class="btn btn-dark">Call us</a>
+    </div>
   </div>
 </section>
 `;
@@ -1795,32 +1789,32 @@ const careersBody = (root) => `
 /* ---------------- page registry & build ---------------- */
 
 const pages = [
-  { file: 'index.html', title: 'Neulogic Solutions — Certainty and control for regulated financial operations', desc: 'Neulogic Solutions builds Symplus, an integrated platform for asset managers, brokers, trustees, and lenders across Africa.', light: false, body: homeBody },
-  { file: 'security-compliance/index.html', title: 'Security & Compliance — Neulogic Solutions', desc: 'Built for institutions that answer to regulators: certifications, controls, audit trails, and the enterprise technology under Symplus.', light: false, body: securityBody },
-  { file: 'case-studies/index.html', title: 'Case Studies — Neulogic Solutions', desc: 'Results our clients can point to — case studies from institutions running their operations on Symplus.', light: true, body: caseHubBody },
+  { file: 'index.html', title: 'Neulogic Solutions | The Pan-African software platform for regulated financial operations', desc: 'Neulogic Solutions builds Symplus, an integrated platform for asset managers, brokers, trustees, and lenders across Africa.', light: false, body: homeBody },
+  { file: 'security-compliance/index.html', title: 'Security & Compliance | Neulogic Solutions', desc: 'Built for institutions that answer to regulators: certifications, controls, audit trails, and the enterprise technology under Symplus.', light: false, body: securityBody },
+  { file: 'case-studies/index.html', title: 'Case Studies | Neulogic Solutions', desc: 'Results our clients can point to. Case studies from institutions running their operations on Symplus.', light: true, body: caseHubBody },
   ...caseStudies.map(cs => ({
     file: `case-studies/${cs.slug}/index.html`,
-    title: `${cs.client.replace(/&amp;/g, '&')} — Case Study — Neulogic Solutions`,
-    desc: `Case study — ${cs.client.replace(/&amp;/g, '&')}. Draft with placeholder content, pending client sign-off before publication.`,
+    title: `${cs.client.replace(/&amp;/g, '&')} | Case Study | Neulogic Solutions`,
+    desc: `Case study: ${cs.client.replace(/&amp;/g, '&')}. Draft with placeholder content, pending client sign-off before publication.`,
     light: true,
     body: (root) => caseDetailBody(cs, root),
   })),
-  { file: 'partners/index.html', title: 'Partners & Integrations — Neulogic Solutions', desc: 'Symplus is built on Oracle, Microsoft Azure, and Power BI, and connects to the systems you already run.', light: false, body: partnersBody },
-  { file: 'about/index.html', title: 'About Us — Neulogic Solutions', desc: 'Over a decade building the infrastructure African financial institutions run on.', light: false, body: aboutBody },
-  { file: 'implementation/index.html', title: 'Implementation Process — Neulogic Solutions', desc: 'From signed agreement to live system — the staged Symplus implementation process.', light: false, body: implementationBody },
-  { file: 'request-demo/index.html', title: 'Request a Demo — Neulogic Solutions', desc: 'See Symplus running on your data, not a slideware demo.', light: true, body: demoBody },
-  { file: 'insights/index.html', title: 'Insights — Neulogic Solutions', desc: 'Operational thinking for regulated institutions — read this before your next system review.', light: true, body: insightsHubBody },
-  { file: 'careers/index.html', title: 'Careers — Neulogic Solutions', desc: 'Build the infrastructure African financial institutions run on.', light: false, body: careersBody },
+  { file: 'partners/index.html', title: 'Partners & Integrations | Neulogic Solutions', desc: 'Symplus uses enterprise-grade technology from partners like Oracle and Microsoft Azure, and connects to the systems you already run.', light: false, body: partnersBody },
+  { file: 'about/index.html', title: 'About Us | Neulogic Solutions', desc: 'Over 14 years building the infrastructure African financial institutions run on.', light: false, body: aboutBody },
+  { file: 'contact/index.html', title: 'Contact | Neulogic Solutions', desc: 'Contact Neulogic Solutions: email support@m.neulogicsolutions.com, call +234 814 899 0091, or visit our Lagos office.', light: false, body: contactBody },
+  { file: 'request-demo/index.html', title: 'Request a Demo | Neulogic Solutions', desc: 'See Symplus running on your data, not a slideware demo.', light: true, body: demoBody },
+  { file: 'insights/index.html', title: 'Insights | Neulogic Solutions', desc: 'Insights in the industry: operational thinking for regulated financial institutions.', light: true, body: insightsHubBody },
+  { file: 'careers/index.html', title: 'Careers | Neulogic Solutions', desc: 'Join us at Neulogic. We build the software African financial institutions run on.', light: false, body: careersBody },
   ...solutions.map(s => ({
     file: `solutions/${s.slug}/index.html`,
-    title: `${s.name} — Neulogic Solutions`,
+    title: `${s.name} | Neulogic Solutions`,
     desc: s.headline,
     light: true,
     body: (root) => solutionPageBody(s, root),
   })),
   ...articles.map(a => ({
     file: `insights/${a.slug}/index.html`,
-    title: `${a.title} — Neulogic Insights`,
+    title: `${a.title} | Neulogic Insights`,
     desc: a.dek,
     light: true,
     body: (root) => articleBody(a, root),
@@ -1831,7 +1825,7 @@ for (const p of pages) {
   const depth = p.file.split('/').length - 1;
   const root = '../'.repeat(depth);
   const standalone = p.file !== 'index.html';
-  const html = headHTML(p.title, p.desc, root)
+  const html = headHTML(p.title, p.desc, root, p.file)
     + headerHTML(root, p.light)
     + p.body(root)
     + footerHTML(root, standalone);
