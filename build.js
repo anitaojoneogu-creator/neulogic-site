@@ -65,6 +65,14 @@ const IMG = {
   art4:        'photo-1559136555-9303baea8ebd',    // colleagues at a computer
   portalHero:  'photo-1758876202167-f81c995c3fdc', // person on phone + laptop (self-service)
   apiHero:     'photo-1648146511841-30f5b8957629', // person at a computer monitor (technical)
+  tradexHero:  'photo-1549086802-bb458f399f05',    // trader facing a monitor (OMS)
+  derivHero:   'photo-1758691736498-422201cc57da', // charts presentation (derivatives/risk)
+  srvOutsourcing: 'photo-1633114072836-15d933c6d3a7', // coworkers collaborating
+  srvSupport:     'photo-1581368163672-d717bcb4c6af', // person at a computer
+  srvCustom:      'photo-1637684666451-423047d6bf5e', // developer at a laptop
+  srvMobile:      'photo-1758876202167-f81c995c3fdc', // person using a phone
+  srvTraining:    'photo-1573167659694-342d570ce45a', // people in a training discussion
+  srvConsultancy: 'photo-1739302750695-31a8c978c770', // consultants at a table
 };
 
 const U = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -115,27 +123,30 @@ const headHTML = (title, desc, root, pagePath) => {
 const headerHTML = (root, light) => `
 <header class="site-header${light ? ' light-start' : ''}" id="siteHeader">
   <div class="container header-inner">
-    <a href="${root}index.html" class="logo" aria-label="Neulogic home"><img src="${root}assets/img/neulogic-logo.png" alt="Neulogic"></a>
+    <a href="${root}index.html" class="logo" aria-label="Neulogic home">
+      <img class="logo-light" src="${root}assets/img/neulogic-logo-white.png" alt="Neulogic">
+      <img class="logo-dark" src="${root}assets/img/neulogic-logo.png" alt="Neulogic">
+    </a>
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Solutions <span class="caret"></span></button>
         <div class="dropdown">
-          <a href="${root}solutions/investment-wealth-management/index.html">Investment &amp; Wealth Management</a>
-          <a href="${root}solutions/securities-trading/index.html">Securities Trading</a>
-          <a href="${root}solutions/trust-management/index.html">Trust Management</a>
-          <a href="${root}solutions/loan-management/index.html">Loan Management</a>
-          <a href="${root}solutions/accounting-finance/index.html">Accounting &amp; Finance</a>
-          <a href="${root}solutions/customer-portal/index.html">Customer Portal</a>
-          <a href="${root}solutions/api-integration/index.html">API &amp; Systems Integration</a>
+          ${solutions.map(s => `<a href="${root}solutions/${s.slug}/index.html">${s.name.replace(/&/g, '&amp;')}</a>`).join('\n          ')}
+        </div>
+      </div>
+      <div class="nav-item">
+        <button type="button" aria-haspopup="true">Services <span class="caret"></span></button>
+        <div class="dropdown dropdown-wide">
+          ${services.map(s => `<a href="${root}services/${s.slug}/index.html"><strong>${s.name}</strong><span>${serviceBlurb[s.slug]}</span></a>`).join('\n          ')}
         </div>
       </div>
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Why Neulogic <span class="caret"></span></button>
         <div class="dropdown">
           <a href="${root}about/index.html">About Us</a>
-          <a href="${root}case-studies/index.html">Case Studies</a>
-          <a href="${root}partners/index.html">Partners &amp; Integrations</a>
-          <a href="${root}security-compliance/index.html">Security &amp; Compliance</a>
+          <a href="${root}client-success/index.html">Client Success</a>
+          <a href="${root}clients/index.html">Our Clients</a>
+          <a href="${root}partners-integrations-security/index.html">Partners, Integrations &amp; Security</a>
         </div>
       </div>
       <div class="nav-item">
@@ -159,28 +170,28 @@ const footerHTML = (root, standalone) => `
 <footer class="site-footer${standalone ? ' standalone' : ''}">
   <div class="container">
     <div class="footer-logo-row">
-      <span class="footer-logo"><img src="${root}assets/img/neulogic-logo.png" alt="Neulogic"></span>
+      <span class="footer-logo"><img src="${root}assets/img/neulogic-logo-white.png" alt="Neulogic"></span>
     </div>
     <div class="footer-main">
       <div class="footer-col">
         <h4>Solutions</h4>
         <ul>
-          <li><a href="${root}solutions/investment-wealth-management/index.html">Investment &amp; Wealth Management</a></li>
-          <li><a href="${root}solutions/securities-trading/index.html">Securities Trading</a></li>
-          <li><a href="${root}solutions/trust-management/index.html">Trust Management</a></li>
-          <li><a href="${root}solutions/loan-management/index.html">Loan Management</a></li>
-          <li><a href="${root}solutions/accounting-finance/index.html">Accounting &amp; Finance</a></li>
-          <li><a href="${root}solutions/customer-portal/index.html">Customer Portal</a></li>
-          <li><a href="${root}solutions/api-integration/index.html">API &amp; Systems Integration</a></li>
+          ${solutions.map(s => `<li><a href="${root}solutions/${s.slug}/index.html">${s.name.replace(/&/g, '&amp;')}</a></li>`).join('\n          ')}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          ${services.map(s => `<li><a href="${root}services/${s.slug}/index.html">${s.name}</a></li>`).join('\n          ')}
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="${root}about/index.html">About Us</a></li>
-          <li><a href="${root}security-compliance/index.html">Security &amp; Compliance</a></li>
-          <li><a href="${root}case-studies/index.html">Case Studies</a></li>
-          <li><a href="${root}partners/index.html">Partners &amp; Integrations</a></li>
+          <li><a href="${root}client-success/index.html">Client Success</a></li>
+          <li><a href="${root}clients/index.html">Our Clients</a></li>
+          <li><a href="${root}partners-integrations-security/index.html">Partners, Integrations &amp; Security</a></li>
           <li><a href="${root}careers/index.html">Careers</a></li>
           <li><a href="${root}contact/index.html">Contact</a></li>
         </ul>
@@ -230,252 +241,192 @@ const ctaBand = (root, title, sub, btnLabel, href) => `
 
 /* ---------------- solution pages data ---------------- */
 
+// Feature content is the real Symplus feature set (source: neulogicsolutions.com).
+// Order drives the nav, footer, and homepage grid. Business Intelligence is excluded
+// entirely. Each entry only carries the fields the solution-page template renders.
 const solutions = [
   {
     slug: 'investment-wealth-management',
     name: 'Investment & Wealth Management',
-    shortName: 'Investment & Wealth Management',
-    headline: 'Portfolio management, fund accounting, and client reporting in one system.',
     sub: 'Symplus produces daily NAV, unit pricing, client statements, and regulatory returns from one set of accounting records.',
     imgId: 'iwmHero',
     imgAlt: 'Financial advisor reviewing a portfolio with a client',
     tags: ['Portfolio Management', 'Client Reporting', 'Compliance'],
-    callouts: [
-      { big: 'Daily NAV', lbl: 'Valuation and unit pricing on a daily cadence', cls: 'ph-a' },
-      { big: 'Multi-asset', lbl: 'Equities, fixed income, funds and alternatives in one book', cls: 'ph-c' },
-      { big: 'Multi-currency', lbl: 'Portfolios valued and reported across currencies', cls: 'accent' },
-      { big: 'One ledger', lbl: 'Front office to fund accounting, no re-keying', cls: 'ph-d' },
-    ],
     features: [
-      ['Portfolio Management', 'Positions, valuations, and performance for every mandate in one live book.'],
-      ['Fund Management', 'Individual/SMA, unitised/mutual, non-unitised, and capital funds administered on one ledger.'],
-      ['Portfolio Rebalancing', 'Model-driven rebalancing with drift monitoring and proposed trade lists.'],
-      ['Risk Management', 'Exposure, concentration, and limit monitoring across every portfolio.'],
-      ['Client Reporting', 'Statements and valuation reports generated straight from the ledger.'],
-      ['Investment Compliance', 'Rules-based pre- and post-trade checks against mandates and regulation.'],
-      ['Multi-Asset Class Management', 'Equities, fixed income, money market, and alternatives handled natively.'],
-      ['Multi-Currency Portfolio Management', 'Book, value, and report portfolios in any combination of currencies.'],
-      ['Corporate Actions Processing', 'Dividends, splits, and rights applied automatically to affected holdings.'],
-      ['Performance Analytics', 'Returns, attribution, and benchmark comparison for every portfolio.'],
-      ['Client Onboarding & CRM', 'KYC records, account opening, and client relationships managed in-platform.'],
+      ['Client Onboarding & Relationship Management', 'Advanced onboarding and relationship tools for separately managed, unit-based, deposit, and retail products.'],
+      ['Multi-Asset Class Support', 'Coverage across the widest range of asset classes, from mutual funds to real estate.'],
+      ['Multi-Currency Fund Accounting', 'Integrated corporate action processing and full analytics for all security types.'],
+      ['Flexible Asset Classification', 'Complete coverage of traditional global investment products with configurable classification.'],
+      ['Compliance Engine', 'Rules-based compliance engine to keep every portfolio inside its investment mandate.'],
+      ['360° Client View', 'Real-time client view backed by an extensive set of reports and data views.'],
+      ['Management Reporting', 'Business analysis and top-management reporting with 24/7 access to all data.'],
+      ['Portfolio Re-Balancing', 'Full re-balancing tools across managed portfolios.'],
     ],
     who: 'Built for asset managers, wealth managers, and investment firms.',
     whoChips: ['Asset Managers', 'Wealth Managers', 'Investment Firms', 'Portfolio Managers', 'Fund Accountants', 'Compliance Teams'],
-    connect: 'Trades booked by your trading desk update portfolio valuations as they execute. Fund accounting, client reporting, and compliance read the same records, so there is nothing to reconcile between them.',
-    connectsTo: ['accounting-finance', 'customer-portal', 'api-integration'],
   },
   {
     slug: 'securities-trading',
     name: 'Securities Trading',
-    shortName: 'Securities Trading',
-    headline: 'Order management, execution, and settlement for stockbrokers and dealers.',
     sub: 'Symplus covers order capture, execution, CSD settlement, and back-office processing, with NGX-certified trading capabilities.',
     imgId: 'tradingHero',
     imgAlt: 'Trader working at a desk with market screens',
     tags: ['Order Management', 'Trade Execution', 'Settlement'],
-    callouts: [
-      { big: 'NGX-certified', lbl: 'Certified trading capabilities on the Nigerian Exchange', cls: 'accent' },
-      { big: 'Straight-through', lbl: 'Order to settlement without re-keying', cls: 'ph-a' },
-      { big: 'Front + back', lbl: 'One system across front and back office', cls: 'ph-c' },
-      { big: 'Client portals', lbl: 'Web and mobile trading for your customers', cls: 'ph-d' },
-    ],
     features: [
-      ['Brokerage Management', 'The full brokerage operation: clients, orders, positions, and fees in one system.'],
-      ['Equities Trading', 'Order capture, execution, and position keeping for listed equities.'],
-      ['Fixed Income Trading', 'Bonds and money-market instruments traded and settled alongside equities.'],
-      ['Derivatives Trading', 'Exchange-traded derivatives with margin tracked at daily cadence.'],
-      ['Order Management', 'Capture, route, amend, and audit every order through its full lifecycle.'],
-      ['Trade Execution', 'Execution workflows certified against NGX trading infrastructure.'],
-      ['Position Management', 'Real-time positions by client, instrument, and desk.'],
-      ['Settlement Processing', 'CSD reconciliation and settlement processing, with exceptions flagged automatically.'],
-      ['Front Office & Back Office Operations', 'One ledger from client order to back-office postings.'],
-      ['Customer Trading Portal', 'A branded web portal where clients place orders and track their accounts.'],
-      ['Mobile Trading', 'Trading and account access from your clients’ phones.'],
-      ['Trading Reports & Analytics', 'Desk, client, and regulatory reporting straight from trade data.'],
+      ['Brokerage Back-Office', 'Finance, accounts, and operations record-keeping for the full brokerage business.'],
+      ['Order & Execution Management', 'Real-time order capture, execution, and validation across trading venues.'],
+      ['Client Web Portals', 'Branded online portals for client account access, layered on the same back office.'],
+      ['Mobile Trading Access', 'Interfaced mobile applications for clients and dealers.'],
+      ['Reporting & Analysis', 'Wide-ranging, self-service reports and data views for operational management.'],
+      ['Integrated Accounting', 'Direct, seamless integration with the Symplus accounting and general ledger modules.'],
     ],
     who: 'Built for stockbrokers, securities dealers, and capital market operators.',
     whoChips: ['Stockbrokers', 'Securities Dealers', 'Capital Market Operators', 'Dealing Desks', 'Back-Office Teams'],
-    connect: 'Executed trades post straight to portfolio management and the general ledger, with no export step and no re-keying. Settlement data reconciles against the same records your accountants close on.',
-    connectsTo: ['accounting-finance', 'loan-management', 'customer-portal', 'api-integration'],
+  },
+  {
+    slug: 'trade-x',
+    name: 'Trade-X (OMS)',
+    sub: 'Real-time, FIX-protocol order management and market-data access across NGX and other trading venues.',
+    imgId: 'tradexHero',
+    imgAlt: 'Trading desk with market-data screens',
+    tags: ['Order Management', 'FIX Connectivity', 'Market Data'],
+    features: [
+      ['Real-Time Order Management', 'Single-click order entry with immediate responses from connected venues.'],
+      ['FIX Protocol Connectivity', 'Receives FIX messages from multiple markets and trading destinations.'],
+      ['NGX Market Access', 'Trading and market-data access across all Nigerian Exchange Group (NGX) boards.'],
+      ['API-Based Integration', 'Open interface for integration with any third-party application.'],
+      ['Live Market Data', 'Real-time market data, news, quotes, and position updates.'],
+      ['Order Lifecycle Tools', 'Fast posting, amendment, cancellation, and acknowledgement of quotes and orders.'],
+      ['Book Management', 'Full activity logging and book management for every desk.'],
+      ['Risk Controls', 'Built-in controls to prevent overtrading.'],
+      ['Cross-Module Interface', 'Direct interface to accounting, securities trading, and derivatives for real-time account management.'],
+    ],
+    who: 'Built for stockbrokers, dealers, and traders on the capital markets.',
+    whoChips: ['Stockbrokers', 'Dealers', 'Traders', 'Dealing Desks', 'Capital Market Operators'],
+  },
+  {
+    slug: 'derivatives',
+    name: 'Derivatives',
+    sub: 'Exchange-traded futures and options management, with the analytics and risk controls a high-risk trading business needs.',
+    imgId: 'derivHero',
+    imgAlt: 'Analyst reviewing risk and derivatives charts',
+    tags: ['Futures & Options', 'Risk Analytics', 'Compliance'],
+    features: [
+      ['Multi-Currency Accounting', 'Full accounting and analytics across all security types.'],
+      ['Multi-Market Support', 'Trade across multiple markets from one platform.'],
+      ['Broad Underlying Coverage', 'Commodities, stocks, bonds, interest rates, and currencies as underlying assets.'],
+      ['Simple to Complex Structures', 'From straightforward to complex structured derivatives.'],
+      ['Exchange-Traded Contract Management', 'End-to-end management of local and foreign exchange-traded contracts.'],
+      ['Straight-Through Processing', 'Real-time trade flow between front and back office, removing dual-keying errors.'],
+      ['Compliance Engine', 'Rules-based compliance engine for effective risk control.'],
+      ['Real-Time Monitoring', 'Notifications across the full trade lifecycle.'],
+      ['Termination Value Calculation', 'Quick calculation of termination values for transactions.'],
+      ['Counterparty & Regulatory Risk', 'Monitors counterparty exposure and generates regulatory risk reports.'],
+      ['Full Audit Trail', 'Complete audit trail of every change made in the system.'],
+      ['Configurable', 'Adaptable to an organisation&rsquo;s specific derivatives-trading needs.'],
+    ],
+    who: 'Built for derivatives desks, securities firms, and investment banks.',
+    whoChips: ['Derivatives Desks', 'Securities Firms', 'Investment Banks', 'Risk & Compliance Teams'],
   },
   {
     slug: 'trust-management',
     name: 'Trust Management',
-    shortName: 'Trust Management',
-    headline: 'Software for trust administration, from registers to beneficiary payments.',
     sub: 'Symplus administers corporate, public, and private trusts, with fiduciary records, covenant registers, and beneficiary accounts.',
     imgId: 'trustHero',
     imgAlt: 'Professionals in discussion around a boardroom table',
     tags: ['Fiduciary Registers', 'Beneficiary Accounts', 'Bond Trusts'],
-    callouts: [
-      { big: 'One ledger', lbl: 'Every trust and beneficiary tied to a single record', cls: 'ph-b' },
-      { big: 'Bond trusteeship', lbl: 'Corporate and government bond trusts with covenant registers', cls: 'ph-c' },
-      { big: 'Audit-ready', lbl: 'Registers your regulator and auditors can walk through', cls: 'accent' },
-      { big: 'No re-keying', lbl: 'Trust accounting posts straight to the ledger', cls: 'ph-d' },
-    ],
     features: [
-      ['Corporate Trust', 'Trusteeship for corporate structures, administered end to end.'],
-      ['Public Trust', 'Public trust mandates with complete fiduciary records.'],
-      ['Private Trust', 'Private and family trusts managed on the same ledger.'],
-      ['Syndication', 'Syndicated facilities with every participant’s position on record.'],
-      ['Corporate & Government Bonds', 'Bond trusteeship with covenant registers and due-date tracking.'],
-      ['Unit Trusts', 'Unitised schemes with holdings and pricing in one place.'],
-      ['Reserve Funds', 'Reserve and sinking funds tracked against their obligations.'],
-      ['Living Trusts', 'Living trusts administered across their full life.'],
-      ['Will Administration', 'Estates and wills processed with a complete audit trail.'],
-      ['Custodian Services', 'Custody records reconciled against the ledger.'],
-      ['Executorship', 'Executorship mandates with every action on record.'],
-      ['Education Trusts', 'Education trusts with beneficiary schedules and disbursements.'],
-      ['Beneficiary Account Management', 'Every beneficiary’s entitlements and payments in one account view.'],
+      ['Corporate Trust', 'Syndication and corporate bond trust administration.'],
+      ['Public Trust', 'Unit trust, scheme/mutual fund, government bond, and reserve fund administration.'],
+      ['Private Trust', 'Will services, custodian services, executorship/administration, living trusts, and education trusts.'],
+      ['Investment Monitoring', 'Integrated with Symplus Asset Management to monitor and value trust fund investments.'],
+      ['Beneficiary Accounting', 'Integrated with Symplus Accounting to maintain individual and beneficiary trust accounts.'],
+      ['Trust Financial Reporting', 'Trial Balance, P&amp;L, and Balance Sheet generated at defined frequencies.'],
     ],
     who: 'Built for trustees and pension fund administrators.',
     whoChips: ['Trustees', 'Pension Fund Administrators', 'Fiduciary Services Teams', 'Estate Administrators'],
-    connect: 'Trust accounting posts to the same general ledger as the rest of your operation, and portfolio holdings held in trust feed valuation, compliance, and reporting directly.',
-    connectsTo: ['accounting-finance', 'customer-portal', 'api-integration'],
   },
   {
     slug: 'loan-management',
     name: 'Loan Management',
-    shortName: 'Loan Management',
-    headline: 'Loan management from origination to payoff.',
     sub: 'Symplus tracks each loan with its collateral, repayment schedule, and arrears status, across every lending product.',
     imgId: 'loanHero',
     imgAlt: 'Bankers reviewing loan documents together',
     tags: ['Loan Portfolio', 'Collateral', 'Reporting'],
-    callouts: [
-      { big: 'End to end', lbl: 'Origination to payoff on one book', cls: 'ph-d' },
-      { big: 'Every product', lbl: 'Personal, commercial, mortgage and syndicated', cls: 'ph-a' },
-      { big: 'Collateral tracked', lbl: 'Registered, valued, and tied to its facilities', cls: 'accent' },
-      { big: 'What-if ready', lbl: 'Stress the portfolio before you commit', cls: 'ph-c' },
-    ],
     features: [
-      ['Personal, Commercial, Mortgage & Syndicated Loans', 'Every lending product on one book, from retail to syndicated facilities.'],
-      ['Line of Credit', 'Revolving facilities with drawdowns and limits tracked live.'],
-      ['Instalment Loans', 'Schedule-driven products with every instalment posted automatically.'],
-      ['Loan Portfolio Management', 'The whole book by product, sector, and performance status.'],
-      ['Collateral Management', 'Collateral registered, valued, and tied to its facilities.'],
-      ['Standing Orders', 'Repayments collected on schedule without manual intervention.'],
-      ['Payment Waivers', 'Waivers applied under controlled, auditable approval.'],
-      ['Loan Reporting', 'Portfolio, arrears, and regulatory reports straight from the book.'],
-      ['Credit Portfolio Analysis', 'Concentration and performance analysis across the portfolio.'],
-      ['What-if Scenario Analysis', 'Model interest-rate and repayment scenarios across the portfolio.'],
+      ['Loan Types', 'Personal, commercial, mortgage, and syndicated loans in one system.'],
+      ['Instalment & Line-of-Credit Lending', 'Full support for instalment, line-of-credit, and commercial lending functions.'],
+      ['What-If Analysis', 'Scenario analysis tools to model loan outcomes before commitment.'],
+      ['Collateral Records', 'Structured tracking of collateral against every loan.'],
+      ['Standing Orders & Waivers', 'Standing order processing and payment waiver management.'],
+      ['Portfolio Reporting', 'A global view of the loan book by customer or branch.'],
+      ['Credit Performance Analysis', 'Sectored query and reporting features to track credit performance.'],
+      ['Multi-Currency', 'Fully multi-currency loan portfolio monitoring.'],
     ],
     who: 'Built for lenders, banks, and discount houses.',
     whoChips: ['Lenders', 'Banks', 'Discount Houses', 'Credit Teams', 'Loan Operations'],
-    connect: 'Loan postings hit the general ledger as they happen, collateral positions inform risk reporting, and Business Intelligence reads the book in real time.',
-    connectsTo: ['accounting-finance', 'customer-portal', 'api-integration'],
   },
   {
     slug: 'accounting-finance',
     name: 'Accounting & Finance',
-    shortName: 'Accounting & Finance',
-    headline: 'Accounting built into every module.',
     sub: 'The general ledger posts as transactions happen. Reconciliation, financial statements, and IFRS reporting run on live data.',
     imgId: 'acctHero',
     imgAlt: 'Accountant working through figures with a calculator',
     tags: ['General Ledger', 'IFRS Reporting', 'Reconciliation'],
-    callouts: [
-      { big: 'Live GL', lbl: 'Posts the moment transactions happen', cls: 'ph-a' },
-      { big: 'IFRS-ready', lbl: 'Reporting aligned to IFRS out of the box', cls: 'accent' },
-      { big: 'Multi-company', lbl: 'Consolidated across entities and currencies', cls: 'ph-b' },
-      { big: 'Any-day close', lbl: 'A trial balance you can produce any day of the month', cls: 'ph-c' },
-    ],
     features: [
-      ['General Ledger', 'Every transaction posted to a live ledger the moment it happens.'],
-      ['Cash Management', 'Cash positions and movements across every account.'],
-      ['Customer Accounts', 'Client money and customer balances fully segregated and reconciled.'],
-      ['Accounts Receivable', 'Billing and collections tracked through to settlement.'],
-      ['Bank Reconciliation', 'Statements matched against the ledger, exceptions surfaced automatically.'],
-      ['Budget Management', 'Budgets set and tracked against actuals in real time.'],
-      ['Fixed Asset Management', 'Asset registers with depreciation posted automatically.'],
-      ['Financial Statements', 'P&amp;L, balance sheet, and cash flow straight from the ledger.'],
-      ['Trial Balance', 'A trial balance you can produce any day of the month.'],
-      ['IFRS Reporting', 'Reporting aligned to IFRS out of the box.'],
-      ['Multi-Company & Multi-Currency Accounting', 'Consolidate across entities and currencies without spreadsheets.'],
-      ['Financial Report Generator', 'Build the reports your board and regulator ask for.'],
+      ['General Ledger', 'Multi-company, multi-currency general ledger at the core of every module.'],
+      ['Cash Account Management', 'Full cash account tracking and management.'],
+      ['Customer Account Management', 'Centralised customer account records shared across modules.'],
+      ['Fixed Asset Management', 'Full lifecycle tracking of fixed assets.'],
+      ['Bank Reconciliation', 'Automated reconciliation against bank statements.'],
+      ['Accounts Receivable', 'Receivables tracking and ageing.'],
+      ['Budget Management', 'Budget definition and monitoring against actuals.'],
+      ['IFRS Financial Reporting', 'Trial Balance, IFRS-compliant Statement of Financial Position and Income Statement, in customisable formats.'],
     ],
     who: 'Built for CFOs and finance teams across every institution type.',
     whoChips: ['CFOs', 'Financial Controllers', 'Finance Teams', 'Fund Accountants', 'Internal Audit'],
-    connect: 'Every other module posts here. Portfolios, trades, trusts, and loans all land in the same books.',
-    connectsTo: '*',
   },
   {
     slug: 'customer-portal',
     name: 'Customer Portal',
-    shortName: 'Customer Portal',
-    headline: 'A client portal built around your institution, not a generic template.',
     sub: 'Neulogic builds and connects a self-service portal for your clients, reflecting whichever Symplus solution you run.',
     imgId: 'portalHero',
     imgAlt: 'A client checking their account on a laptop and phone',
     tags: ['Client Login', 'Account View', 'Statements'],
-    callouts: [
-      { big: 'Built for you', lbl: 'Configured around your institution, not a fixed shipped app', cls: 'accent' },
-      { big: 'Live data', lbl: 'Reflects the same records your core solution runs on', cls: 'ph-a' },
-      { big: 'Self-service', lbl: 'Clients check their accounts without calling your desk', cls: 'ph-c' },
-      { big: 'Secure access', lbl: 'Individual client login and permissions', cls: 'ph-d' },
-    ],
     features: [
-      ['Secure Client Login', 'Individual, permission-controlled access for each of your clients.'],
-      ['Real-Time Account View', 'Clients see their portfolio or account position as it stands now.'],
-      ['Statement Access', 'Clients download their own statements without contacting your team.'],
-      ['Transaction History', 'A full record of a client’s activity, available on demand.'],
-      ['Fund Subscription & Redemption', 'Where relevant, clients subscribe or redeem directly through the portal.'],
-      ['Mobile Access', 'The portal works on the devices your clients already use.'],
+      ['Self-Service Access', 'Clients view portfolios, statements, and transactions without contacting the back office.'],
+      ['Branded Web Portal', 'A web portal interfaced directly to the Symplus back office.'],
+      ['Mobile Access', 'Interfaced mobile applications for on-the-go account access.'],
+      ['Real-Time Data', 'Portal data reflects the same ledger used internally, with no separate reconciliation.'],
     ],
     who: 'Built for any institution that wants to give its clients self-service access to their accounts.',
     whoChips: ['Asset Managers', 'Stockbrokers', 'Trustees', 'Lenders', 'Client Services Teams'],
-    connect: 'The portal reflects data from whichever core solution you run — Investment & Wealth Management, Securities Trading, Trust Management, or Loan Management. A portal for a stockbroker’s clients looks different from one for an asset manager’s clients: the same capability, connected to different data.',
-    connectsTo: ['investment-wealth-management', 'securities-trading', 'trust-management', 'loan-management'],
   },
   {
     slug: 'api-integration',
     name: 'API & Systems Integration',
-    shortName: 'API & Systems Integration',
-    headline: 'Symplus connects to what you already run.',
-    sub: 'An extensive API stack for integrating Symplus with your core banking, CRM, and third-party data systems.',
+    sub: 'An open API interface and FIX connectivity for integrating Symplus with the systems you already run.',
     imgId: 'apiHero',
     imgAlt: 'An engineer working at a computer',
-    tags: ['APIs', 'Core Banking', 'Data Providers'],
-    callouts: [
-      { big: 'API stack', lbl: 'Extensive APIs for reading from and writing to Symplus', cls: 'accent' },
-      { big: 'Core banking', lbl: 'Integrate with the core systems you already run', cls: 'ph-a' },
-      { big: 'Oracle · Azure', lbl: 'Built on enterprise-grade technology', cls: 'ph-c' },
-      { big: 'Power BI', lbl: 'The reporting layer behind Business Intelligence', cls: 'ph-d' },
-    ],
+    tags: ['APIs', 'FIX Protocol', 'Integration'],
     features: [
-      ['Core Banking Integration', 'API-based integration with the core banking systems you run.'],
-      ['CRM Integration', 'Connect Symplus to your existing CRM.'],
-      ['Third-Party Data Providers', 'Feed market data and reference data in from external providers.'],
-      ['Oracle', 'Symplus deployments run on Oracle database technology.'],
-      ['Microsoft Azure', 'Cloud deployments of Symplus are built on Microsoft Azure.'],
-      ['Power BI', 'The reporting and analytics layer behind the Business Intelligence module.'],
+      ['API-Based Integration', 'An API interface that allows integration with any third-party application.'],
+      ['FIX Protocol Connectivity', 'Ability to receive FIX messages from multiple markets and trading destinations.'],
+      ['Cross-Module Integration', 'Direct interfaces between accounting, securities trading, derivatives, asset management, and trust modules for real-time account management.'],
+      ['Straight-Through Processing', 'Automated trade flow between front and back office, removing dual-keying and re-entry errors.'],
     ],
     who: 'Built for IT and integration teams evaluating how Symplus fits an existing technology stack.',
     whoChips: ['IT Teams', 'Integration Engineers', 'Solution Architects', 'CTOs'],
-    connect: 'This is the connective layer behind every other solution, and it is what feeds the Customer Portal its data. Symplus reads from and writes to the systems your institution already runs.',
-    connectsTo: '*',
   },
 ];
 
-// Resolve a solution's "how it connects" targets from its connectsTo field.
-// '*' means every other solution; otherwise an explicit slug list. Links always
-// render in the canonical solutions[] order regardless of how connectsTo is listed.
-const solutionLinksHTML = (s, root) => {
-  const targets = s.connectsTo === '*'
-    ? solutions.filter(x => x.slug !== s.slug).map(x => x.slug)
-    : s.connectsTo;
-  return solutions
-    .filter(x => targets.includes(x.slug))
-    .map(x => `<a href="${root}solutions/${x.slug}/index.html">${ARROW} ${x.name}</a>`)
-    .join('\n      ');
-};
-
-const solutionPageBody = (s, root) => `
+// Shared template for Solutions and Services detail pages. eyebrow defaults to "Solutions".
+const solutionPageBody = (s, root, eyebrow = 'Solutions') => `
 <section class="page-hero">
   <div class="container page-hero-grid">
     <div>
       <div class="eyebrow-row">
-        <span class="eyebrow-badge">Solutions</span>
+        <span class="eyebrow-badge">${eyebrow}</span>
       </div>
       <h1>${s.name}</h1>
       <p class="sub">${s.sub}</p>
@@ -525,7 +476,164 @@ const solutionPageBody = (s, root) => `
   </div>
 </section>
 
-${ctaBand(root, `Talk to us about ${s.shortName}.`, 'Tell us what you run today and what you want to change.', 'Contact Us')}
+${ctaBand(root, `Talk to us about ${s.name}.`, 'Tell us what you run today and what you want to change.', 'Contact Us')}
+`;
+
+/* ---------------- services ---------------- */
+
+const services = [
+  {
+    slug: 'outsourcing',
+    name: 'Outsourcing',
+    sub: 'Trained technical personnel on short notice, so operational gaps in your technical staffing never become operational risk.',
+    imgId: 'srvOutsourcing',
+    imgAlt: 'Colleagues working together in an office',
+    tags: ['Technical Staffing', 'Knowledge Transfer', 'Uptime'],
+    features: [
+      ['Short-Notice Deployment', 'Trained technical personnel ready to fill operational gaps in technical staffing quickly.'],
+      ['Continuity of Operations', 'Coverage for short-notice staff departures, so implemented business processes keep running.'],
+      ['In-House Partnership', 'Works alongside your existing technology personnel rather than replacing them.'],
+      ['Continuous Knowledge Transfer', 'Ongoing transfer of Symplus knowledge to your team, not just a temporary fix.'],
+      ['Uptime-Focused', 'Keeps users working and lapses in operations to a minimum.'],
+    ],
+    who: 'Built for institutions facing gaps in technical staffing.',
+    whoChips: ['Fund Managers', 'Securities Firms', 'Trustee Firms', 'IT Departments Facing Staffing Gaps'],
+  },
+  {
+    slug: 'support',
+    name: 'Support',
+    sub: 'Seasoned technical support expertise, under a plan built around your operations.',
+    imgId: 'srvSupport',
+    imgAlt: 'A support specialist at a computer',
+    tags: ['Support Plans', 'Product Updates', 'After-Implementation Care'],
+    features: [
+      ['Multiple Support Plans', 'Software support plans matched to your operational needs.'],
+      ['After-Implementation Services', 'Support that continues well past go-live.'],
+      ['Skilled Support Personnel', 'Dedicated staff available to support every Symplus application.'],
+      ['Regular Updates & Fixes', 'Annual support plans include product updates, patches, and fixes.'],
+      ['Local, Short-Notice Resources', 'Local resources available at short notice with the right skills for your issue.'],
+      ['Continuous Knowledge Transfer', 'A partner who understands your business, not a ticket queue.'],
+    ],
+    who: 'Built for existing Symplus clients and the teams who run them.',
+    whoChips: ['Existing Symplus Clients', 'Operations Teams', 'IT Departments'],
+  },
+  {
+    slug: 'custom-solutions',
+    name: 'Custom Solutions',
+    sub: 'Custom software development for the business case no ready-made application can solve.',
+    imgId: 'srvCustom',
+    imgAlt: 'A developer working at a laptop',
+    tags: ['Bespoke Development', 'Legacy Integration', 'Domain Expertise'],
+    features: [
+      ['Custom Application Development', 'Secure business applications built for mission-critical sectors.'],
+      ['Deep Domain Expertise', 'Extensive domain expertise and existing code libraries applied to your specific challenge.'],
+      ['From Manual to Automated', 'Transforms spreadsheet- and manual-process-driven operations into automated, secure workflows.'],
+      ['Legacy Integration', 'Solutions built to integrate with any legacy business applications you already run.'],
+      ['Built for the Future', 'Designed with future requirements in mind, not just what you need today.'],
+    ],
+    who: 'Built for organisations with non-standard requirements.',
+    whoChips: ['Organisations With Non-Standard Requirements', 'Financial Institutions Needing Bespoke Workflows'],
+  },
+  {
+    slug: 'mobile-development',
+    name: 'Mobile Development',
+    sub: 'Professional, fast, and secure mobile applications, built to your specific requirements.',
+    imgId: 'srvMobile',
+    imgAlt: 'A person using a mobile app',
+    tags: ['Mobile Apps', 'Security-First', 'UX Design'],
+    features: [
+      ['Full-Featured Mobile Apps', 'Apps that carry out the same financial transactions as your desktop platform, on the go.'],
+      ['Security by Design', 'Cybersecurity built in from ideation through architecture, execution, testing, and release.'],
+      ['Insightful UX', 'Clean, efficient user experiences designed to improve brand perception.'],
+      ['Privacy-First', 'Optional, highly visible privacy notifications that show customers you care about their data.'],
+      ['System-Level Preferences', 'Apps that respect device-level language and light/dark mode settings, meeting users where they are.'],
+    ],
+    who: 'Built for client-facing teams who want mobile access.',
+    whoChips: ['Client-Facing Teams', 'Brokerages & Asset Managers Wanting Mobile Access'],
+  },
+  {
+    slug: 'training',
+    name: 'Training',
+    sub: 'Symplus training delivered by the team that designed and built the suite.',
+    imgId: 'srvTraining',
+    imgAlt: 'A training session in progress',
+    tags: ['User Training', 'Custom Training', 'Ongoing Enablement'],
+    features: [
+      ['Symplus User Application Training', 'Covers the full range of application modules in the Symplus suite.'],
+      ['Custom Training Programmes', 'Training tailored specifically to your organisation&rsquo;s needs.'],
+      ['Trained by the Builders', 'Delivered by the same team that designed and built Symplus.'],
+      ['Keeps Staff Current', 'Ongoing training as new products and features are released.'],
+    ],
+    who: 'Built for new users and teams onboarding new modules.',
+    whoChips: ['New Symplus Users', 'Teams Onboarding New Modules', 'Organisations Managing Staff Turnover'],
+  },
+  {
+    slug: 'software-consultancy',
+    name: 'Software Consultancy',
+    sub: 'Independent business analysis and consultancy from a team with 25+ years of domain expertise.',
+    imgId: 'srvConsultancy',
+    imgAlt: 'Consultants reviewing work at a table',
+    tags: ['Business Analysis', 'Process Optimisation', 'Independent Advice'],
+    features: [
+      ['Business Analysis & Consultancy', 'Qualified, experienced personnel available to partner on business analysis.'],
+      ['Technology Optimisation', 'Helps you get better use out of technology assets you have already acquired.'],
+      ['Process Design & Implementation', 'Designs, develops, and implements business processes to meet operational requirements.'],
+      ['Independent, Unbiased Advice', 'Engages as a neutral, independent consultant, not a vendor with an agenda.'],
+      ['Best-Practice Guidance', 'Ensures the right technology is selected and best practices are followed.'],
+    ],
+    who: 'Built for organisations evaluating new technology or optimising processes.',
+    whoChips: ['Organisations Evaluating New Technology', 'Teams Optimising Existing Processes'],
+  },
+];
+
+// One-line descriptions used in the Services nav dropdown and hub cards.
+const serviceBlurb = {
+  'outsourcing': 'Skilled technical staff on demand for the Symplus ecosystem.',
+  'support': 'Ongoing technical support to keep your operations running.',
+  'custom-solutions': 'Bespoke software built around your specific business case.',
+  'mobile-development': 'Secure, user-friendly mobile apps for your clients and staff.',
+  'training': 'Symplus training built and delivered by the team that built the suite.',
+  'software-consultancy': 'Business analysis and technology consultancy from our senior team.',
+};
+
+// Longer hub-card descriptions.
+const serviceHubDesc = {
+  'outsourcing': 'Trained technical personnel on short notice, to cover staffing gaps and keep your Symplus operations moving.',
+  'support': 'Software support plans with seasoned technical expertise, regular updates, and after-implementation care.',
+  'custom-solutions': 'Custom application development for the business cases no ready-made software can solve.',
+  'mobile-development': 'Secure, fast, and user-friendly mobile apps, built to your specific requirements.',
+  'training': 'Symplus training delivered by the team that designed and built the suite.',
+  'software-consultancy': 'Business analysis and independent consultancy from a team with 25+ years of domain expertise.',
+};
+
+const servicesHubBody = (root) => `
+<section class="page-hero-dark">
+  <div class="container">
+    <div class="eyebrow-row">
+      <span class="eyebrow-badge">Services</span>
+    </div>
+    <h1>Services that keep Symplus running, and your team ahead of it.</h1>
+    <p class="sub">From short-notice technical staffing to custom development and hands-on training, our services team supports every stage of your Symplus deployment.</p>
+    <a href="${root}contact/index.html" class="btn btn-orange" style="margin-top:30px;">Contact Us</a>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="sol-stream" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+      ${services.map(s => `<a class="article-card" href="${root}services/${s.slug}/index.html">
+        <div class="img-ph">${img(IMG[s.imgId], s.imgAlt)}</div>
+        <div class="body">
+          <span class="cat">${s.name}</span>
+          <h3>${s.name}</h3>
+          <p style="font-size:13.5px;color:#5a6055;">${serviceHubDesc[s.slug]}</p>
+        </div>
+      </a>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+${ctaBand(root, 'Let&rsquo;s talk about your operations.', 'Book a free consultation and see how Symplus fits your regulatory obligations.', 'Contact Us')}
 `;
 
 /* ---------------- testimonials (shared, PLACEHOLDER CONTENT) ---------------- */
@@ -576,88 +684,65 @@ const testimonialCards = () =>
       </div>
     </div>`).join('\n      ');
 
-/* ---------------- case studies ----------------
-   Real Neulogic client names with full case-study content. The headline result across
-   these engagements is the ~90% reduction in reporting/operations turnaround that
-   Neulogic reports. NOTE FOR REVIEW: this is Neulogic-provided marketing content —
-   confirm the 90% figure and that each named client consents to being featured before
-   relying on these pages publicly. Challenge sections are written as the general
-   industry situation ("like many …"), not as specific claims about a firm's internal
-   failings, and the closing statement is attributed to Neulogic, not to an invented
-   spokesperson at the client. */
+/* ---------------- client success ----------------
+   Only the three clients with a real, sourced announcement on neulogicsolutions.com.
+   Facts only: no invented percentages, no fabricated executive quotes. The closing
+   statement in each is attributed to Neulogic, not to a named client spokesperson.
+   CSL Stockbrokers and Zedcrest were removed (no sourced story); they appear on the
+   Our Clients roster instead. */
 const caseStudies = [
-  {
-    slug: 'united-capital-asset-management',
-    client: 'United Capital Asset Management', short: 'United Capital',
-    cat: 'asset-managers', imgId: 'case1',
-    typeLabel: 'Investment &amp; Wealth Management',
-    moduleLine: 'Runs Symplus for asset management, fund management, and client reporting.',
-    result: 'Reporting turnaround cut by 90%.',
-    challenge: 'Like many asset managers, United Capital produced NAV, unit pricing, client statements, and regulatory returns from data held across more than one system. Each cycle, that data had to be pulled together and reconciled before the numbers could be trusted, and the work stretched over days.',
-    solution: 'United Capital moved portfolio management, fund accounting, and client reporting onto Symplus, so NAV, statements, and regulatory returns are produced from a single transaction ledger.',
-    chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
-    results: [
-      { big: '90%', lbl: 'Faster reporting turnaround' },
-      { big: '1', lbl: 'Ledger for valuation, accounting, and reporting' },
-      { big: '0', lbl: 'Manual re-keying between systems' },
-    ],
-    outcome: 'The reporting pack that used to take days now comes off one ledger in hours, with turnaround down by roughly 90%.',
-  },
-  {
-    slug: 'csl-stockbrokers',
-    client: 'CSL Stockbrokers', short: 'CSL Stockbrokers',
-    cat: 'brokers', imgId: 'case2',
-    typeLabel: 'Securities Trading',
-    moduleLine: 'Runs Symplus for order management, execution, and settlement.',
-    result: 'Settlement turnaround cut by 90%.',
-    challenge: 'Like most brokers running at scale, CSL captured orders in one system and settled them in another, with the back office reconciling between the two. Turnaround on settlement and post-trade reporting was slow, and breaks could take days to surface.',
-    solution: 'CSL moved order capture, execution, and settlement onto Symplus, with NGX-certified trading workflows and post-trade reconciliation against the CSD in the same system.',
-    chips: ['Securities Trading', 'Accounting &amp; Finance'],
-    results: [
-      { big: '90%', lbl: 'Faster settlement turnaround' },
-      { big: '1', lbl: 'System from front office to back office' },
-      { big: '0', lbl: 'Re-keying between order and settlement' },
-    ],
-    outcome: 'Settlement and post-trade reporting that used to run for days now clears in hours, with turnaround down by roughly 90%.',
-  },
   {
     slug: 'norrenberger-financial-group',
     client: 'Norrenberger Financial Group', short: 'Norrenberger',
     cat: 'trustees', imgId: 'case3',
-    typeLabel: 'Trust Management',
-    moduleLine: 'Runs Symplus for trust administration and beneficiary accounting.',
-    result: 'Trust reporting turnaround cut by 90%.',
-    challenge: 'Like many trustees, Norrenberger kept covenant registers and beneficiary records separately from its trust accounting. Producing trust and beneficiary reports meant assembling data by hand each cycle before anything could go out.',
-    solution: 'Norrenberger put its trust accounts, beneficiary records, and covenant registers on Symplus, tied to the same general ledger its finance team closes on.',
-    chips: ['Trust Management', 'Accounting &amp; Finance'],
+    typeLabel: 'Financial Group',
+    moduleLine: 'Runs Symplus for trust administration, asset management, and securities trading across its subsidiaries.',
+    result: 'One platform across its subsidiaries.',
+    challenge: 'Norrenberger, &ldquo;Masters in Wealth Creation,&rdquo; needed a single platform that could support its investment banking, asset management, and securities trading subsidiaries as it worked to simplify wealth creation for its clients.',
+    solution: 'Norrenberger signed on to Symplus in fiscal year 2021, with deployment completed across a wide range of modules spanning its subsidiary businesses.',
     results: [
-      { big: '90%', lbl: 'Faster trust reporting turnaround' },
-      { big: '1', lbl: 'Register tied to the general ledger' },
-      { big: '0', lbl: 'Spreadsheets to reconcile' },
+      { big: 'One platform', lbl: 'Integrated across investment banking, asset management, and securities trading subsidiaries' },
+      { big: 'Multi-asset', lbl: 'Multi-currency, multi-asset-class operations on one system' },
+      { big: 'Since 2021', lbl: 'Signed on in fiscal year 2021' },
     ],
-    outcome: 'Trust and beneficiary reporting that used to be assembled by hand now comes off one ledger, with turnaround down by roughly 90%.',
+    outcome: 'Norrenberger&rsquo;s subsidiaries now run on one platform instead of one per business line, which is the integration we built Symplus for.',
   },
   {
-    slug: 'zedcrest-capital',
-    client: 'Zedcrest Capital', short: 'Zedcrest Capital',
-    cat: 'asset-managers', imgId: 'case4',
-    typeLabel: 'Investment &amp; Wealth Management',
-    moduleLine: 'Runs Symplus for portfolio management and IFRS reporting.',
-    result: 'Board reporting turnaround cut by 90%.',
-    challenge: 'Like many investment firms, Zedcrest consolidated portfolios across multiple entities and currencies into board and IFRS reporting through a manual process, which left reporting lagging a step behind the actual book.',
-    solution: 'Zedcrest consolidated its multi-entity, multi-currency portfolios on Symplus, producing IFRS-ready and board reporting directly from the ledger the desk trades against.',
-    chips: ['Investment &amp; Wealth Management', 'Accounting &amp; Finance', 'Business Intelligence'],
+    slug: 'united-capital-asset-management',
+    client: 'United Capital Asset Management', short: 'United Capital',
+    cat: 'asset-managers', imgId: 'case1',
+    typeLabel: 'Asset Management',
+    moduleLine: 'Runs Symplus for asset and fund management across individual, mutual, and other fund types.',
+    result: 'Selected after an international vendor review.',
+    challenge: 'United Capital determined its existing vendor was not meeting its requirements and ran an extensive review process, including international vendors, before selecting Symplus.',
+    solution: 'United Capital implemented Symplus to cover a wide range of funds, booking and tracking investments across multiple asset classes in both local and foreign currencies.',
     results: [
-      { big: '90%', lbl: 'Faster board reporting turnaround' },
-      { big: '1', lbl: 'Ledger across entities and currencies' },
-      { big: '0', lbl: 'Overnight batches; reporting is live' },
+      { big: 'Wider coverage', lbl: 'A single platform covering a wider range of funds and asset classes than the previous vendor' },
+      { big: 'Multi-currency', lbl: 'Investments booked and tracked in local and foreign currencies' },
+      { big: 'Chosen on merit', lbl: 'Selected after a review that included international vendors' },
     ],
-    outcome: 'Board and IFRS reporting now tracks the live book instead of lagging it, with turnaround down by roughly 90%.',
+    outcome: 'United Capital chose Symplus over international competition to cover a wider range of funds and asset classes on one platform.',
+  },
+  {
+    slug: 'fsdh-asset-management',
+    client: 'FSDH Asset Management', short: 'FSDH',
+    cat: 'asset-managers', imgId: 'case2',
+    typeLabel: 'Asset Management',
+    moduleLine: 'Runs Symplus for asset management, alongside United Capital, after an international vendor review.',
+    result: 'Selected on merit against international competition.',
+    challenge: 'Like United Capital, FSDH Asset Management found its existing vendor was not meeting requirements and ran a competitive review that included international vendors.',
+    solution: 'FSDH licensed Symplus to manage its asset management operations, covering the same wide range of fund types and asset classes.',
+    results: [
+      { big: 'Chosen on merit', lbl: 'Selected against international competition' },
+      { big: 'Full coverage', lbl: 'A wide range of fund types and asset classes' },
+      { big: 'Asset management', lbl: 'Fund and asset management operations on Symplus' },
+    ],
+    outcome: 'FSDH selected Symplus on merit against international competition to run its fund and asset management operations.',
   },
 ];
 
-// One results-grid card: real client name, the module it runs, and the headline result.
-const caseCard = (cs, root) => `<a href="${root}case-studies/${cs.slug}/index.html" class="case-card img-ph" data-cat="${cs.cat}">
+// One results-grid card: real client name, the module it runs, and a one-line result.
+const caseCard = (cs, root) => `<a href="${root}client-success/${cs.slug}/index.html" class="case-card img-ph" data-cat="${cs.cat}">
         ${img(IMG[cs.imgId], '')}
         <div class="case-meta">
           <div>
@@ -740,8 +825,12 @@ const homeBody = (root) => `
     <div class="logo-marquee" aria-label="Client logos">
       <div class="logo-track">
         ${(() => {
-          const clients = ['Cordros', 'UniCap', 'FBNQuest', 'CSL Stockbrokers', 'FSDH', 'RenCap', 'Royal Exchange', 'Norrenberger Financial Group'];
-          const group = (hidden) => `<div class="logo-group"${hidden ? ' aria-hidden="true"' : ''}>${clients.map(c => `<span>${c}</span>`).join('')}</div>`;
+          const logos = [
+            ['cordros', 'Cordros'], ['unicap', 'UniCap'], ['fbnquest', 'FBNQuest'],
+            ['csl', 'CSL Stockbrokers'], ['fsdh', 'FSDH'], ['rencap', 'RenCap'],
+            ['royalexchange', 'Royal Exchange'], ['norrenberger', 'Norrenberger Financial Group'],
+          ];
+          const group = (hidden) => `<div class="logo-group"${hidden ? ' aria-hidden="true"' : ''}>${logos.map(([slug, name]) => `<img src="${root}assets/img/clients/${slug}.png" alt="${name}" loading="lazy">`).join('')}</div>`;
           // duplicated group makes the -50% keyframe loop seamlessly
           return group(false) + group(true);
         })()}
@@ -759,7 +848,7 @@ const homeBody = (root) => `
           <span class="eyebrow-label">What we do for clients</span>
         </div>
         <h2 class="sol-text-h" style="font-size:clamp(30px,3.6vw,46px);margin-bottom:22px;">Modern infrastructure for every financial institution.</h2>
-        <p style="color:#454b42;max-width:440px;">Seven modules covering portfolio management, trading, trust administration, lending, accounting, client access, and integration.</p>
+        <p style="color:#454b42;max-width:440px;">Nine modules covering portfolio management, trading, derivatives, trust administration, lending, accounting, client access, and integration.</p>
         <a href="${root}solutions/investment-wealth-management/index.html" class="sol-link"><span>Explore the modules</span> ${ARROW}</a>
       </div>
       <div class="sol-stream">
@@ -772,10 +861,11 @@ const homeBody = (root) => `
           const cardSub = {
             'investment-wealth-management': 'Portfolio management, NAV and unit pricing, and client reporting for fund managers and asset owners.',
             'securities-trading': 'Order management, execution, and settlement across multiple exchanges, including NGX-certified trading.',
+            'trade-x': 'Real-time FIX-protocol order management and market-data access across NGX and other trading venues.',
+            'derivatives': 'Exchange-traded futures and options management, with analytics, risk controls, and full trade lifecycle support.',
             'trust-management': 'Trust administration and beneficiary records for corporate, private, and public trusts.',
             'loan-management': 'Loan book, collateral, and credit management for personal, commercial, mortgage, and syndicated loans.',
             'accounting-finance': 'General ledger, IFRS reporting, and multi-currency accounting, shared across every module.',
-            'business-intelligence': 'Executive dashboards and reporting built from live data across every module.',
             'customer-portal': 'Self-service access for your clients to view portfolios, statements, and transactions.',
             'api-integration': 'API-based integration connecting Symplus to your core banking, CRM, and other systems.',
           };
@@ -851,14 +941,11 @@ const homeBody = (root) => `
   <div class="container">
     <div class="section-head center">
       <div class="eyebrow-row">
-        <span class="eyebrow-badge">Case Studies</span>
+        <span class="eyebrow-badge">Client Success</span>
         <span class="eyebrow-label">Our proven impact</span>
       </div>
       <h2>Results our clients<br>can point to.</h2>
     </div>
-    <!-- Real, confirmed Neulogic clients. Result lines are bracketed placeholders; module
-         lines are facts only where moduleConfirmed. See caseStudies[] and the review gate.
-         Not for publication until each client signs off on the framing (data-review). -->
     <div class="cases-grid">
       ${caseStudies.map(cs => caseCard(cs, root)).join('\n      ')}
     </div>
@@ -1044,7 +1131,7 @@ const caseHubBody = (root) => `
 <section class="page-hero" style="padding-bottom:30px;">
   <div class="container">
     <div class="eyebrow-row">
-      <span class="eyebrow-badge">Case Studies</span>
+      <span class="eyebrow-badge">Client Success</span>
       <span class="eyebrow-label">Our proven impact</span>
     </div>
     <h1>Results our clients can point to.</h1>
@@ -1056,32 +1143,28 @@ const caseHubBody = (root) => `
     <div class="filter-bar" data-filter-bar data-filter-target="#caseGrid">
       <button class="filter-btn active" data-cat="all">All</button>
       <button class="filter-btn" data-cat="asset-managers">Asset Managers</button>
-      <button class="filter-btn" data-cat="brokers">Brokers</button>
       <button class="filter-btn" data-cat="trustees">Trustees</button>
     </div>
-    <!-- Real, confirmed Neulogic clients (see caseStudies[]). Result lines are bracketed
-         placeholders; module lines are facts only where moduleConfirmed. Not for
-         publication until each client signs off on the framing (data-review). -->
     <div class="cases-grid" id="caseGrid">
       ${caseStudies.map(cs => caseCard(cs, root)).join('\n      ')}
     </div>
-    <div class="filter-empty" id="caseGrid-empty">No case studies in this category yet.</div>
+    <div class="filter-empty" id="caseGrid-empty">No client stories in this category yet.</div>
   </div>
 </section>
 
-${ctaBand(root, 'Talk to us about your operation.', 'Tell us what you run today and what you want to change.', 'Book a Call')}
+${ctaBand(root, 'Talk to us about your operation.', 'Tell us what you run today and what you want to change.', 'Contact Us')}
 `;
 
 // Per-client detail page. Real client name + full content. The 90% turnaround figure and
 // the narratives are Neulogic-provided marketing content (see caseStudies comment);
 // the closing statement is attributed to Neulogic, not to an invented client spokesperson.
 const caseDetailBody = (cs, root) => `
-<!-- Neulogic-provided case study content. Confirm the 90% figure and client consent
-     before relying on this page publicly. -->
+<!-- Client success story. Facts sourced from the client's announcement on
+     neulogicsolutions.com. No invented metrics; closing line attributed to Neulogic. -->
 <section class="page-hero" style="padding-bottom:30px;">
   <div class="container">
     <div class="eyebrow-row">
-      <span class="eyebrow-badge">Case Study</span>
+      <span class="eyebrow-badge">Client Success Story</span>
       <span class="eyebrow-label">${cs.typeLabel}</span>
     </div>
     <h1>${cs.client}</h1>
@@ -1148,7 +1231,7 @@ const caseDetailBody = (cs, root) => `
 
 <section style="padding:80px 0 0;">
   <div class="container" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-    <a href="${root}case-studies/index.html" class="btn btn-dark">Read more case studies</a>
+    <a href="${root}client-success/index.html" class="btn btn-dark">Read more client stories</a>
     <a href="${root}contact/index.html" class="btn btn-orange">Contact Us</a>
   </div>
 </section>
@@ -1533,58 +1616,115 @@ const demoBody = (root) => `
 
 /* ---------------- insights ---------------- */
 
+// Real articles paraphrased from neulogicsolutions.com news posts. Bodies written fresh
+// (facts, not copied sentences). Category "Company News" covers releases and milestones.
 const articles = [
   {
-    slug: 'real-cost-of-five-systems',
-    cat: 'Strategy', catSlug: 'strategy', imgId: 'art1',
-    title: 'The Real Cost of Running Five Systems Instead of One',
-    dek: 'Licence fees are the visible cost. The reconciliation headcount, rework, and audit overhead are where the real money goes.',
-    outline: [
-      'The visible costs: duplicated licences, infrastructure, and vendor management',
-      'The hidden costs: reconciliation headcount and the month-end scramble',
-      'Error and rework: what breaks when the same trade lives in five places',
-      'Audit overhead: proving consistency across systems that were never designed to agree',
-      'Integration fragility: what happens when one vendor upgrades',
-      'A framework for calculating your institution’s true total cost of ownership',
+    slug: 'ft-top-african-companies', cat: 'Company News', catSlug: 'company-news', imgId: 'art4',
+    title: 'Symplus Users Make the FT&rsquo;s Top African Companies List',
+    date: 'June 24, 2022', read: '3 min read',
+    dek: 'The Financial Times&rsquo; first ranking of Africa&rsquo;s fastest-growing companies included several firms that run their operations on Symplus.',
+    body: [
+      'The Financial Times published its first ranking of Africa&rsquo;s fastest-growing companies, and several of the firms on the list run their operations on Symplus.',
+      'Growth at that pace puts pressure on the systems underneath a business. A firm that doubles its book or adds a new line of business quickly finds out whether its software can keep up.',
+      'The firms on that list needed operational software that scales with them rather than against them. That is the job Symplus is built to do: add desks, funds, and asset classes on the same ledger instead of bolting on another vendor for each one.',
+      'Seeing our clients recognised on a stage like the FT&rsquo;s is a reminder of who we build for: the African financial institution that intends to grow.',
     ],
   },
   {
-    slug: 'what-ngx-certification-means',
-    cat: 'Trading', catSlug: 'trading', imgId: 'art2',
-    title: 'What NGX Certification Means for Your Trading Desk',
-    dek: 'Certification against Nigerian Exchange infrastructure isn’t a marketing badge; it changes what your desk can rely on.',
-    outline: [
-      'What NGX certification actually covers, and what it doesn’t',
-      'Why certified execution workflows matter on settlement day',
-      'The difference between "integrates with NGX" and "certified against NGX"',
-      'What certification means for your compliance and audit posture',
-      'Questions to ask any trading-system vendor about exchange certification',
+    slug: 'show-your-back-office-some-love', cat: 'Operations', catSlug: 'operations', imgId: 'art3',
+    title: 'Show Your Back-Office Some Love',
+    date: 'June 7, 2022', read: '4 min read',
+    dek: 'Customer-facing portals and mobile apps get all the attention, but the back-office systems feeding them the data are what actually determine the experience.',
+    body: [
+      'Every institution wants a polished client portal and a fast mobile app. Those are the parts of the business a customer actually sees.',
+      'But a portal is only as good as the data behind it. If the back office is slow, or the numbers a client sees do not match the numbers the firm closes on, no amount of front-end design will fix it.',
+      'The back office is where valuations are struck, trades are settled, and statements are produced. When that runs on one clean ledger, the portal has something reliable to show. When it runs on spreadsheets stitched together, the cracks eventually surface on the client&rsquo;s screen.',
+      'Investing in the back office is not glamorous, but it is what makes the front office trustworthy. Show it some love.',
     ],
   },
   {
-    slug: 'why-month-end-takes-two-weeks',
-    cat: 'Operations', catSlug: 'operations', imgId: 'art3',
-    title: 'Why Month-End Reporting Takes Two Weeks, and How to Fix It',
-    dek: 'The close isn’t slow because your team is slow. It’s slow because the data lives in systems that were never designed to agree.',
-    outline: [
-      'Where the two weeks actually go: exports, reconciliation, and adjustment cycles',
-      'Why spreadsheet reconciliation gets worse as you grow, not better',
-      'The single-ledger alternative: what changes when valuation and accounting share records',
-      'What a two-day close requires operationally',
-      'How to audit your own close process for wasted days',
+    slug: 'symplus-mobile-applications', cat: 'Company News', catSlug: 'company-news', imgId: 'portalHero',
+    title: 'Neulogic Releases New Symplus Mobile Applications',
+    date: 'May 19, 2022', read: '3 min read',
+    dek: 'Symplus Mobile is now live on the Apple App Store and Google Play, bringing investment and securities trading access to iPhone and Android users.',
+    body: [
+      'Symplus Mobile is now available on both the Apple App Store and Google Play. Clients of firms running Symplus can access their investment and securities trading accounts directly from their phones.',
+      'The apps are interfaced to the same Symplus back office the firm runs internally, so what a client sees on their phone reflects the same records the institution works from.',
+      'Mobile access is no longer a nice-to-have for a financial institution. Clients expect to check a portfolio or place an order from wherever they are, and the firms that make that easy hold on to more of them.',
+      'The release is part of our continued investment in the client-facing side of Symplus, built with the same security-first approach we apply to every part of the platform.',
     ],
   },
   {
-    slug: 'single-platform-vs-best-of-breed',
-    cat: 'Strategy', catSlug: 'strategy', imgId: 'art4',
-    title: 'Single Platform vs. Best-of-Breed: What It Costs You at Scale',
-    dek: 'Best-of-breed sounds like the sophisticated choice. At scale, the integration tax says otherwise.',
-    outline: [
-      'The integration tax: who actually maintains the connections between your systems',
-      'Data ownership: where the golden record lives when five systems disagree',
-      'Upgrade cycles: what one vendor’s roadmap does to your whole stack',
-      'When best-of-breed genuinely wins, and when it quietly stops winning',
-      'The scale economics: why the calculus changes as desks and obligations multiply',
+    slug: 'the-symplus-advantage', cat: 'Strategy', catSlug: 'strategy', imgId: 'art1',
+    title: 'The Symplus Advantage',
+    date: 'April 27, 2022', read: '4 min read',
+    dek: 'A platform&rsquo;s real value shows up in how much room it gives your business to expand without bolting on new vendors.',
+    body: [
+      'Software is easy to compare on a feature list. The harder question is what happens two years later, when the business has grown and the requirements have changed.',
+      'The Symplus advantage is room to expand. A firm can start with asset management and later add securities trading, trust management, or lending, on the same ledger, without introducing a new vendor for each line of business.',
+      'That matters because every extra system is an extra integration to maintain, an extra reconciliation to run, and an extra place for the numbers to disagree. One platform removes that tax.',
+      'The value of a platform is not just what it does today. It is how much it lets you grow without rebuilding your operations each time.',
+    ],
+  },
+  {
+    slug: 'derivatives-trading-module', cat: 'Trading', catSlug: 'trading', imgId: 'derivHero',
+    title: 'Neulogic Releases New Derivatives Trading Module',
+    date: 'April 15, 2022', read: '4 min read',
+    dek: 'With NGX launching derivatives as a tradeable asset class after years of preparation, Symplus now ships a dedicated derivatives trading module to support it.',
+    body: [
+      'After years of preparation, the Nigerian Exchange Group launched derivatives as a new tradeable asset class. Symplus now ships a dedicated derivatives trading module built to support it.',
+      'The module covers exchange-traded futures and options across multiple markets, with a broad range of underlying assets: commodities, stocks, bonds, interest rates, and currencies.',
+      'Derivatives are a high-risk business, so the module is built around control. A rules-based compliance engine, real-time monitoring across the trade lifecycle, counterparty and regulatory risk reporting, and a full audit trail are part of it, not add-ons.',
+      'It also connects straight through to the rest of Symplus, so front and back office share one set of records and there is no dual-keying between them.',
+    ],
+  },
+  {
+    slug: 'managing-funds-with-spreadsheets', cat: 'Operations', catSlug: 'operations', imgId: 'acctHero',
+    title: 'You Mean You Manage Your Funds With Spreadsheets&hellip;?',
+    date: 'August 24, 2021', read: '4 min read',
+    dek: 'Spreadsheets are a great tool for quick number-crunching, but a liability as the system of record for a fund&rsquo;s operations.',
+    body: [
+      'Spreadsheets are excellent for what they were designed for: quick calculations and one-off analysis. The trouble starts when they quietly become the system of record for a fund.',
+      'A spreadsheet has no audit trail worth the name, no real access control, and no guarantee that the version you are looking at is the current one. For a business that answers to a regulator, those are not small gaps.',
+      'As a fund grows, the spreadsheets multiply. Someone maintains the links between them by hand, and the monthly close turns into a hunt for which cell broke this time.',
+      'Managing a fund&rsquo;s operations deserves a system built for it: one ledger, proper controls, and numbers you can stand behind. If you are still running on spreadsheets, it is worth asking how long that can last.',
+    ],
+  },
+  {
+    slug: 'keeping-your-infrastructure-secure', cat: 'Compliance', catSlug: 'compliance', imgId: 'art2',
+    title: 'Keeping Your Infrastructure Secure',
+    date: 'July 3, 2017', read: '4 min read',
+    dek: 'The WannaCry and NotPetya ransomware attacks were a wake-up call: network and infrastructure security can no longer be an afterthought.',
+    body: [
+      'The WannaCry and NotPetya ransomware attacks spread across the world and disrupted large organisations that assumed they were prepared. For financial institutions, they were a wake-up call.',
+      'Security cannot be an afterthought bolted on at the end. It has to be built into how systems are designed, deployed, and maintained, and reviewed as threats change.',
+      'For an institution holding client money and client data, the cost of a breach is not only financial. It is the trust that took years to build and can be lost in a day.',
+      'Keeping infrastructure secure is ongoing work, not a one-time project. The firms that treat it that way are the ones still standing after the next attack.',
+    ],
+  },
+  {
+    slug: 'the-nigerian-investor', cat: 'Strategy', catSlug: 'strategy', imgId: 'aboutStory',
+    title: 'The Nigerian Investor',
+    date: 'February 18, 2017', read: '3 min read',
+    dek: 'Nigerians clearly want a return on idle cash, and the rush toward Ponzi schemes shows an appetite for investing that is not being met with the right products.',
+    body: [
+      'Every time a Ponzi scheme sweeps through Nigeria, it reveals something real underneath the losses: a genuine appetite to put idle cash to work.',
+      'The problem is not that Nigerians do not want to invest. It is that the legitimate products and channels have not always reached them in a form that is easy to access and trust.',
+      'That is an opportunity for asset managers and securities firms. The demand exists. The firms that meet it with accessible, well-run products, backed by operations clients can rely on, will win that market.',
+      'Technology has a part to play here, making it easier for institutions to offer, service, and report on products at the scale this demand implies.',
+    ],
+  },
+  {
+    slug: 'robust-investment-solution', cat: 'Strategy', catSlug: 'strategy', imgId: 'iwmHero',
+    title: 'Are You Looking for a Robust Investment Solution?',
+    date: 'December 11, 2016', read: '3 min read',
+    dek: 'Built over years of working directly with market operators, Symplus has grown into a tested, full-featured investment and asset management solution.',
+    body: [
+      'Choosing the software an investment business runs on is a decision you live with for years. It pays to choose something that has already been tested by real operators.',
+      'Symplus was built over more than a decade of working directly with market operators in African capital markets. Every module reflects requirements that came from firms doing the work, not from a whiteboard.',
+      'The result is a full-featured investment and asset management solution: portfolio and fund management, multi-asset and multi-currency support, a compliance engine, and reporting, on one ledger.',
+      'If you are evaluating a robust investment solution, the questions worth asking are how long it has been in production, who runs it, and whether it can grow with you. On all three, Symplus has a track record.',
     ],
   },
 ];
@@ -1609,6 +1749,7 @@ const insightsHubBody = (root) => `
       <button class="filter-btn" data-cat="compliance">Compliance</button>
       <button class="filter-btn" data-cat="trading">Trading</button>
       <button class="filter-btn" data-cat="strategy">Strategy</button>
+      <button class="filter-btn" data-cat="company-news">Company News</button>
     </div>
     <div class="article-grid" id="articleGrid">
       ${articles.map(a => `<a class="article-card" data-cat="${a.catSlug}" href="${root}insights/${a.slug}/index.html">
@@ -1617,7 +1758,7 @@ const insightsHubBody = (root) => `
           <span class="cat">${a.cat}</span>
           <h3>${a.title}</h3>
           <p style="font-size:13.5px;color:#5a6055;">${a.dek}</p>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; ${a.date} &nbsp;·&nbsp; ${a.read}</p>
         </div>
       </a>`).join('\n      ')}
     </div>
@@ -1625,7 +1766,7 @@ const insightsHubBody = (root) => `
   </div>
 </section>
 
-${ctaBand(root, 'Questions about your own systems?', 'Book a call to talk through your next system review.', 'Book a Call')}
+${ctaBand(root, 'Questions about your own systems?', 'Talk to us about your next system review.', 'Contact Us')}
 `;
 
 const articleBody = (a, root) => {
@@ -1634,7 +1775,7 @@ const articleBody = (a, root) => {
 <section class="container article-header">
   <span class="cat" style="display:inline-block;background:var(--sage-bg);color:var(--sage-text);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;">${a.cat}</span>
   <h1>${a.title}</h1>
-  <p class="meta">By Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
+  <p class="meta">By Neulogic Team &nbsp;·&nbsp; ${a.date} &nbsp;·&nbsp; ${a.read}</p>
 </section>
 
 <section class="container" style="max-width:1000px;padding-bottom:50px;">
@@ -1642,17 +1783,8 @@ const articleBody = (a, root) => {
 </section>
 
 <article class="container article-body">
-  <p><strong>${a.dek}</strong></p>
-
-  <h2>What this article will cover</h2>
-  <ol>
-    ${a.outline.map(o => `<li>${o}</li>`).join('\n    ')}
-  </ol>
-
-  <div class="draft-note">
-    <strong>[Full article content to be written]</strong><br>
-    This page is a structured outline, not a finished article. The section list above defines the intended argument. A real draft is still needed before this page is published or indexed.
-  </div>
+  <p class="article-lead"><strong>${a.dek}</strong></p>
+  ${a.body.map(p => `<p>${p}</p>`).join('\n  ')}
 </article>
 
 <section style="padding:40px 0 0;">
@@ -1666,7 +1798,7 @@ const articleBody = (a, root) => {
         <div class="body">
           <span class="cat">${r.cat}</span>
           <h3>${r.title}</h3>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date]</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; ${r.date}</p>
         </div>
       </a>`).join('\n      ')}
     </div>
@@ -1786,35 +1918,177 @@ const contactBody = (root) => `
 </section>
 `;
 
+/* ---------------- partners, integrations & security (merged) ---------------- */
+
+const pisBody = (root) => `
+<section class="page-hero-dark">
+  <div class="container">
+    <div class="eyebrow-row"><span class="eyebrow-badge">Why Neulogic</span></div>
+    <h1>Partners, Integrations &amp; Security</h1>
+    <p class="sub">The technology partners we run on, the exchange infrastructure we connect to, and how Symplus handles integration, compliance, and security.</p>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-head center">
+      <div class="eyebrow-row"><span class="eyebrow-badge">Technology Partners</span></div>
+      <h2>Built on infrastructure you already trust.</h2>
+      <p>Symplus is built and deployed on infrastructure and tooling from these technology partners.</p>
+    </div>
+    <div class="partner-strip">
+      <span>Oracle</span>
+      <span>Microsoft Azure</span>
+      <span>Power BI</span>
+    </div>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row"><span class="eyebrow-badge">Market Infrastructure</span></div>
+      <h2>Connected to the exchange, certified not co-branded.</h2>
+      <p>Symplus connects directly to NGX&rsquo;s trading infrastructure. This reflects certified connectivity, not a business partnership with NGX.</p>
+    </div>
+    <div class="cert-grid" style="grid-template-columns:1fr;">
+      <div class="cert-card">
+        <span class="tag">Exchange</span>
+        <h3>Nigerian Exchange Group (NGX)</h3>
+        <p>Trade-X provides real-time, FIX-protocol order management and market-data access across all NGX trading boards. When NGX launched derivatives as a new tradeable asset class, Symplus shipped a dedicated derivatives trading module built to support it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row"><span class="eyebrow-badge">Integration Capabilities</span></div>
+      <h2>Symplus connects to the systems you already run.</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>API-Based Integration</h3><p>An open API interface for integration with any third-party application.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>FIX Protocol Connectivity</h3><p>Real-time order and market-data messaging with multiple markets and trading destinations.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Cross-Module Integration</h3><p>Securities trading, trust management, and accounting modules are directly integrated with each other, so front-office, back-office, and financial reporting run off the same data.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:100px 0 0;">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-row"><span class="eyebrow-badge">Compliance &amp; Security</span></div>
+      <h2>What Symplus does, said plainly.</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Rules-Based Compliance Engines</h3><p>The Asset Management and Derivatives modules include rules-based compliance engines that keep portfolios and trades within defined risk and regulatory parameters. This is a product feature for your own regulatory compliance.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>IFRS-Compliant Reporting</h3><p>The Accounting module produces IFRS-compliant financial statements: Trial Balance, Statement of Financial Position, and Income Statement.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Security-Minded Development</h3><p>Our mobile development process uses a shift-left approach, building security testing into every stage of the app lifecycle from ideation through release, to protect data integrity in mobile financial transactions.</p></div>
+    </div>
+  </div>
+</section>
+
+${ctaBand(root, 'Have specific security or compliance requirements for your institution?', 'Talk to us and we will walk you through how Symplus is deployed for your environment.', 'Contact Us')}
+`;
+
+/* ---------------- our clients ---------------- */
+
+const clientsRoster = [
+  { name: 'Cordros', logo: 'cordros' },
+  { name: 'United Capital', logo: 'unicap', story: 'united-capital-asset-management' },
+  { name: 'FBNQuest', logo: 'fbnquest' },
+  { name: 'CSL Stockbrokers', logo: 'csl' },
+  { name: 'FSDH', logo: 'fsdh', story: 'fsdh-asset-management' },
+  { name: 'RenCap', logo: 'rencap' },
+  { name: 'Royal Exchange', logo: 'royalexchange' },
+  { name: 'Norrenberger Financial Group', logo: 'norrenberger', story: 'norrenberger-financial-group' },
+  { name: 'AVA Asset Management &amp; Securities Trading' },
+  { name: 'TrustBanc' },
+  { name: 'Cowry Asset Management' },
+  { name: 'GTI Securities &amp; Asset Management' },
+  { name: 'Griffin' },
+  { name: 'Imperial Asset Managers' },
+  { name: 'Zedcrest Capital' },
+  { name: 'First Ally' },
+  { name: 'StoneX' },
+  { name: 'Iron' },
+  { name: 'Radix Capital' },
+];
+
+const clientsBody = (root) => `
+<section class="page-hero-dark">
+  <div class="container">
+    <div class="eyebrow-row"><span class="eyebrow-badge">Our Clients</span></div>
+    <h1>Supporting institutions across every stage of growth.</h1>
+    <p class="sub">Symplus scales with your organisation&rsquo;s operations, whether you are a one-fund company or a multi-business company.</p>
+    <p class="hero-trust-text" style="margin-top:26px;color:var(--orange);">Trusted by 65+ financial institutions</p>
+  </div>
+</section>
+
+<section style="padding:100px 0 40px;">
+  <div class="container">
+    <div class="clients-roster">
+      ${clientsRoster.map(c => `<div class="roster-card">
+        ${c.logo ? `<div class="roster-logo"><img src="${root}assets/img/clients/${c.logo}.png" alt="${c.name}" loading="lazy"></div>` : `<div class="roster-name">${c.name}</div>`}
+        ${c.story ? `<a class="roster-story" href="${root}client-success/${c.story}/index.html">Read their story ${ARROW}</a>` : ''}
+      </div>`).join('\n      ')}
+    </div>
+  </div>
+</section>
+
+${ctaBand(root, 'Let&rsquo;s talk about your operations.', 'Tell us what you run today and what you want to change.', 'Contact Us')}
+`;
+
+/* ---------------- case-studies redirect (old URL -> client-success) ---------------- */
+
+const redirectBody = (target) => `
+<section class="page-hero-dark"><div class="container">
+<h1>This page has moved.</h1>
+<p class="sub">Case Studies is now Client Success. <a href="${target}" style="color:var(--orange);">Continue &rarr;</a></p>
+</div></section>
+<script>location.replace(${JSON.stringify(target)});</script>
+`;
+
 /* ---------------- page registry & build ---------------- */
 
 const pages = [
   { file: 'index.html', title: 'Neulogic Solutions | The Pan-African software platform for regulated financial operations', desc: 'Neulogic Solutions builds Symplus, an integrated platform for asset managers, brokers, trustees, and lenders across Africa.', light: false, body: homeBody },
-  { file: 'security-compliance/index.html', title: 'Security & Compliance | Neulogic Solutions', desc: 'Built for institutions that answer to regulators: certifications, controls, audit trails, and the enterprise technology under Symplus.', light: false, body: securityBody },
-  { file: 'case-studies/index.html', title: 'Case Studies | Neulogic Solutions', desc: 'Results our clients can point to. Case studies from institutions running their operations on Symplus.', light: true, body: caseHubBody },
+  { file: 'client-success/index.html', title: 'Client Success | Neulogic Solutions', desc: 'Client success stories from institutions running their operations on Symplus.', light: true, body: caseHubBody },
   ...caseStudies.map(cs => ({
-    file: `case-studies/${cs.slug}/index.html`,
-    title: `${cs.client.replace(/&amp;/g, '&')} | Case Study | Neulogic Solutions`,
-    desc: `Case study: ${cs.client.replace(/&amp;/g, '&')}. Draft with placeholder content, pending client sign-off before publication.`,
+    file: `client-success/${cs.slug}/index.html`,
+    title: `${cs.client.replace(/&amp;/g, '&')} | Client Success | Neulogic Solutions`,
+    desc: `How ${cs.client.replace(/&amp;/g, '&')} runs its operations on Symplus.`,
     light: true,
     body: (root) => caseDetailBody(cs, root),
   })),
-  { file: 'partners/index.html', title: 'Partners & Integrations | Neulogic Solutions', desc: 'Symplus uses enterprise-grade technology from partners like Oracle and Microsoft Azure, and connects to the systems you already run.', light: false, body: partnersBody },
+  // redirect the old Case Studies URL to Client Success
+  { file: 'case-studies/index.html', title: 'Client Success | Neulogic Solutions', desc: 'This page has moved to Client Success.', light: false, body: (root) => redirectBody(`${root}client-success/index.html`) },
+  { file: 'clients/index.html', title: 'Our Clients | Neulogic Solutions', desc: 'The financial institutions across Africa that run their operations on Symplus.', light: false, body: clientsBody },
+  { file: 'partners-integrations-security/index.html', title: 'Partners, Integrations & Security | Neulogic Solutions', desc: 'The technology partners we run on, the exchange infrastructure we connect to, and how Symplus handles integration, compliance, and security.', light: false, body: pisBody },
   { file: 'about/index.html', title: 'About Us | Neulogic Solutions', desc: 'Over 14 years building the infrastructure African financial institutions run on.', light: false, body: aboutBody },
   { file: 'contact/index.html', title: 'Contact | Neulogic Solutions', desc: 'Contact Neulogic Solutions: email support@m.neulogicsolutions.com, call +234 814 899 0091, or visit our Lagos office.', light: false, body: contactBody },
+  { file: 'services/index.html', title: 'Services | Neulogic Solutions', desc: 'From technical staffing to custom development and hands-on training, our services team supports every stage of your Symplus deployment.', light: false, body: servicesHubBody },
   { file: 'request-demo/index.html', title: 'Request a Demo | Neulogic Solutions', desc: 'See Symplus running on your data, not a slideware demo.', light: true, body: demoBody },
   { file: 'insights/index.html', title: 'Insights | Neulogic Solutions', desc: 'Insights in the industry: operational thinking for regulated financial institutions.', light: true, body: insightsHubBody },
   { file: 'careers/index.html', title: 'Careers | Neulogic Solutions', desc: 'Join us at Neulogic. We build the software African financial institutions run on.', light: false, body: careersBody },
   ...solutions.map(s => ({
     file: `solutions/${s.slug}/index.html`,
     title: `${s.name} | Neulogic Solutions`,
-    desc: s.headline,
+    desc: s.sub,
     light: true,
     body: (root) => solutionPageBody(s, root),
   })),
+  ...services.map(s => ({
+    file: `services/${s.slug}/index.html`,
+    title: `${s.name} | Services | Neulogic Solutions`,
+    desc: s.sub,
+    light: true,
+    body: (root) => solutionPageBody(s, root, 'Services'),
+  })),
   ...articles.map(a => ({
     file: `insights/${a.slug}/index.html`,
-    title: `${a.title} | Neulogic Insights`,
+    title: `${a.title.replace(/&[a-z]+;/g, '')} | Neulogic Insights`,
     desc: a.dek,
     light: true,
     body: (root) => articleBody(a, root),

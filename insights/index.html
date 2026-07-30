@@ -22,19 +22,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/styles.css?v=1785408293060">
+<link rel="stylesheet" href="../assets/css/styles.css?v=1785419226412">
 </head>
 <body>
 
 <header class="site-header light-start" id="siteHeader">
   <div class="container header-inner">
-    <a href="../index.html" class="logo" aria-label="Neulogic home"><img src="../assets/img/neulogic-logo.png" alt="Neulogic"></a>
+    <a href="../index.html" class="logo" aria-label="Neulogic home">
+      <img class="logo-light" src="../assets/img/neulogic-logo-white.png" alt="Neulogic">
+      <img class="logo-dark" src="../assets/img/neulogic-logo.png" alt="Neulogic">
+    </a>
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Solutions <span class="caret"></span></button>
         <div class="dropdown">
           <a href="../solutions/investment-wealth-management/index.html">Investment &amp; Wealth Management</a>
           <a href="../solutions/securities-trading/index.html">Securities Trading</a>
+          <a href="../solutions/trade-x/index.html">Trade-X (OMS)</a>
+          <a href="../solutions/derivatives/index.html">Derivatives</a>
           <a href="../solutions/trust-management/index.html">Trust Management</a>
           <a href="../solutions/loan-management/index.html">Loan Management</a>
           <a href="../solutions/accounting-finance/index.html">Accounting &amp; Finance</a>
@@ -43,12 +48,23 @@
         </div>
       </div>
       <div class="nav-item">
+        <button type="button" aria-haspopup="true">Services <span class="caret"></span></button>
+        <div class="dropdown dropdown-wide">
+          <a href="../services/outsourcing/index.html"><strong>Outsourcing</strong><span>Skilled technical staff on demand for the Symplus ecosystem.</span></a>
+          <a href="../services/support/index.html"><strong>Support</strong><span>Ongoing technical support to keep your operations running.</span></a>
+          <a href="../services/custom-solutions/index.html"><strong>Custom Solutions</strong><span>Bespoke software built around your specific business case.</span></a>
+          <a href="../services/mobile-development/index.html"><strong>Mobile Development</strong><span>Secure, user-friendly mobile apps for your clients and staff.</span></a>
+          <a href="../services/training/index.html"><strong>Training</strong><span>Symplus training built and delivered by the team that built the suite.</span></a>
+          <a href="../services/software-consultancy/index.html"><strong>Software Consultancy</strong><span>Business analysis and technology consultancy from our senior team.</span></a>
+        </div>
+      </div>
+      <div class="nav-item">
         <button type="button" aria-haspopup="true">Why Neulogic <span class="caret"></span></button>
         <div class="dropdown">
           <a href="../about/index.html">About Us</a>
-          <a href="../case-studies/index.html">Case Studies</a>
-          <a href="../partners/index.html">Partners &amp; Integrations</a>
-          <a href="../security-compliance/index.html">Security &amp; Compliance</a>
+          <a href="../client-success/index.html">Client Success</a>
+          <a href="../clients/index.html">Our Clients</a>
+          <a href="../partners-integrations-security/index.html">Partners, Integrations &amp; Security</a>
         </div>
       </div>
       <div class="nav-item">
@@ -86,42 +102,88 @@
       <button class="filter-btn" data-cat="compliance">Compliance</button>
       <button class="filter-btn" data-cat="trading">Trading</button>
       <button class="filter-btn" data-cat="strategy">Strategy</button>
+      <button class="filter-btn" data-cat="company-news">Company News</button>
     </div>
     <div class="article-grid" id="articleGrid">
-      <a class="article-card" data-cat="strategy" href="../insights/real-cost-of-five-systems/index.html">
-        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1637684666451-423047d6bf5e?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+      <a class="article-card" data-cat="company-news" href="../insights/ft-top-african-companies/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
         <div class="body">
-          <span class="cat">Strategy</span>
-          <h3>The Real Cost of Running Five Systems Instead of One</h3>
-          <p style="font-size:13.5px;color:#5a6055;">Licence fees are the visible cost. The reconciliation headcount, rework, and audit overhead are where the real money goes.</p>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
+          <span class="cat">Company News</span>
+          <h3>Symplus Users Make the FT&rsquo;s Top African Companies List</h3>
+          <p style="font-size:13.5px;color:#5a6055;">The Financial Times&rsquo; first ranking of Africa&rsquo;s fastest-growing companies included several firms that run their operations on Symplus.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; June 24, 2022 &nbsp;·&nbsp; 3 min read</p>
         </div>
       </a>
-      <a class="article-card" data-cat="trading" href="../insights/what-ngx-certification-means/index.html">
-        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1581368163672-d717bcb4c6af?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
-        <div class="body">
-          <span class="cat">Trading</span>
-          <h3>What NGX Certification Means for Your Trading Desk</h3>
-          <p style="font-size:13.5px;color:#5a6055;">Certification against Nigerian Exchange infrastructure isn’t a marketing badge; it changes what your desk can rely on.</p>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
-        </div>
-      </a>
-      <a class="article-card" data-cat="operations" href="../insights/why-month-end-takes-two-weeks/index.html">
+      <a class="article-card" data-cat="operations" href="../insights/show-your-back-office-some-love/index.html">
         <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1610473068514-276d33c606dd?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
         <div class="body">
           <span class="cat">Operations</span>
-          <h3>Why Month-End Reporting Takes Two Weeks, and How to Fix It</h3>
-          <p style="font-size:13.5px;color:#5a6055;">The close isn’t slow because your team is slow. It’s slow because the data lives in systems that were never designed to agree.</p>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
+          <h3>Show Your Back-Office Some Love</h3>
+          <p style="font-size:13.5px;color:#5a6055;">Customer-facing portals and mobile apps get all the attention, but the back-office systems feeding them the data are what actually determine the experience.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; June 7, 2022 &nbsp;·&nbsp; 4 min read</p>
         </div>
       </a>
-      <a class="article-card" data-cat="strategy" href="../insights/single-platform-vs-best-of-breed/index.html">
-        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+      <a class="article-card" data-cat="company-news" href="../insights/symplus-mobile-applications/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1758876202167-f81c995c3fdc?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Company News</span>
+          <h3>Neulogic Releases New Symplus Mobile Applications</h3>
+          <p style="font-size:13.5px;color:#5a6055;">Symplus Mobile is now live on the Apple App Store and Google Play, bringing investment and securities trading access to iPhone and Android users.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; May 19, 2022 &nbsp;·&nbsp; 3 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="strategy" href="../insights/the-symplus-advantage/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1637684666451-423047d6bf5e?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
         <div class="body">
           <span class="cat">Strategy</span>
-          <h3>Single Platform vs. Best-of-Breed: What It Costs You at Scale</h3>
-          <p style="font-size:13.5px;color:#5a6055;">Best-of-breed sounds like the sophisticated choice. At scale, the integration tax says otherwise.</p>
-          <p class="meta">Neulogic Team &nbsp;·&nbsp; [Publish date] &nbsp;·&nbsp; [X] min read</p>
+          <h3>The Symplus Advantage</h3>
+          <p style="font-size:13.5px;color:#5a6055;">A platform&rsquo;s real value shows up in how much room it gives your business to expand without bolting on new vendors.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; April 27, 2022 &nbsp;·&nbsp; 4 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="trading" href="../insights/derivatives-trading-module/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1758691736498-422201cc57da?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Trading</span>
+          <h3>Neulogic Releases New Derivatives Trading Module</h3>
+          <p style="font-size:13.5px;color:#5a6055;">With NGX launching derivatives as a tradeable asset class after years of preparation, Symplus now ships a dedicated derivatives trading module to support it.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; April 15, 2022 &nbsp;·&nbsp; 4 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="operations" href="../insights/managing-funds-with-spreadsheets/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1713461983836-de0a45009424?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Operations</span>
+          <h3>You Mean You Manage Your Funds With Spreadsheets&hellip;?</h3>
+          <p style="font-size:13.5px;color:#5a6055;">Spreadsheets are a great tool for quick number-crunching, but a liability as the system of record for a fund&rsquo;s operations.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; August 24, 2021 &nbsp;·&nbsp; 4 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="compliance" href="../insights/keeping-your-infrastructure-secure/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1581368163672-d717bcb4c6af?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Compliance</span>
+          <h3>Keeping Your Infrastructure Secure</h3>
+          <p style="font-size:13.5px;color:#5a6055;">The WannaCry and NotPetya ransomware attacks were a wake-up call: network and infrastructure security can no longer be an afterthought.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; July 3, 2017 &nbsp;·&nbsp; 4 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="strategy" href="../insights/the-nigerian-investor/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1739302750695-31a8c978c770?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Strategy</span>
+          <h3>The Nigerian Investor</h3>
+          <p style="font-size:13.5px;color:#5a6055;">Nigerians clearly want a return on idle cash, and the rush toward Ponzi schemes shows an appetite for investing that is not being met with the right products.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; February 18, 2017 &nbsp;·&nbsp; 3 min read</p>
+        </div>
+      </a>
+      <a class="article-card" data-cat="strategy" href="../insights/robust-investment-solution/index.html">
+        <div class="img-ph"><img class="ph-img" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span></div>
+        <div class="body">
+          <span class="cat">Strategy</span>
+          <h3>Are You Looking for a Robust Investment Solution?</h3>
+          <p style="font-size:13.5px;color:#5a6055;">Built over years of working directly with market operators, Symplus has grown into a tested, full-featured investment and asset management solution.</p>
+          <p class="meta">Neulogic Team &nbsp;·&nbsp; December 11, 2016 &nbsp;·&nbsp; 3 min read</p>
         </div>
       </a>
     </div>
@@ -133,8 +195,8 @@
 <section class="cta-band" style="margin-top:110px;">
   <div class="container">
     <h2>Questions about your own systems?</h2>
-    <p class="sub">Book a call to talk through your next system review.</p>
-    <a href="../contact/index.html" class="btn btn-orange">Book a Call</a>
+    <p class="sub">Talk to us about your next system review.</p>
+    <a href="../contact/index.html" class="btn btn-orange">Contact Us</a>
   </div>
 </section>
 
@@ -142,7 +204,7 @@
 <footer class="site-footer standalone">
   <div class="container">
     <div class="footer-logo-row">
-      <span class="footer-logo"><img src="../assets/img/neulogic-logo.png" alt="Neulogic"></span>
+      <span class="footer-logo"><img src="../assets/img/neulogic-logo-white.png" alt="Neulogic"></span>
     </div>
     <div class="footer-main">
       <div class="footer-col">
@@ -150,6 +212,8 @@
         <ul>
           <li><a href="../solutions/investment-wealth-management/index.html">Investment &amp; Wealth Management</a></li>
           <li><a href="../solutions/securities-trading/index.html">Securities Trading</a></li>
+          <li><a href="../solutions/trade-x/index.html">Trade-X (OMS)</a></li>
+          <li><a href="../solutions/derivatives/index.html">Derivatives</a></li>
           <li><a href="../solutions/trust-management/index.html">Trust Management</a></li>
           <li><a href="../solutions/loan-management/index.html">Loan Management</a></li>
           <li><a href="../solutions/accounting-finance/index.html">Accounting &amp; Finance</a></li>
@@ -158,12 +222,23 @@
         </ul>
       </div>
       <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../services/outsourcing/index.html">Outsourcing</a></li>
+          <li><a href="../services/support/index.html">Support</a></li>
+          <li><a href="../services/custom-solutions/index.html">Custom Solutions</a></li>
+          <li><a href="../services/mobile-development/index.html">Mobile Development</a></li>
+          <li><a href="../services/training/index.html">Training</a></li>
+          <li><a href="../services/software-consultancy/index.html">Software Consultancy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="../about/index.html">About Us</a></li>
-          <li><a href="../security-compliance/index.html">Security &amp; Compliance</a></li>
-          <li><a href="../case-studies/index.html">Case Studies</a></li>
-          <li><a href="../partners/index.html">Partners &amp; Integrations</a></li>
+          <li><a href="../client-success/index.html">Client Success</a></li>
+          <li><a href="../clients/index.html">Our Clients</a></li>
+          <li><a href="../partners-integrations-security/index.html">Partners, Integrations &amp; Security</a></li>
           <li><a href="../careers/index.html">Careers</a></li>
           <li><a href="../contact/index.html">Contact</a></li>
         </ul>
@@ -196,6 +271,6 @@
     </div>
   </div>
 </footer>
-<script src="../assets/js/main.js?v=1785408293060"></script>
+<script src="../assets/js/main.js?v=1785419226412"></script>
 </body>
 </html>
