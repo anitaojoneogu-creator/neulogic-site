@@ -136,8 +136,8 @@ const headerHTML = (root, light) => `
       </div>
       <div class="nav-item">
         <button type="button" aria-haspopup="true">Services <span class="caret"></span></button>
-        <div class="dropdown dropdown-wide">
-          ${services.map(s => `<a href="${root}services/${s.slug}/index.html"><strong>${s.name}</strong><span>${serviceBlurb[s.slug]}</span></a>`).join('\n          ')}
+        <div class="dropdown">
+          ${services.map(s => `<a href="${root}services/${s.slug}/index.html">${s.name}</a>`).join('\n          ')}
         </div>
       </div>
       <div class="nav-item">
@@ -445,10 +445,10 @@ const solutionPageBody = (s, root, eyebrow = 'Solutions') => `
   <div class="container">
     <div class="section-head">
       <div class="eyebrow-row">
-        <span class="eyebrow-badge">Features</span>
-        <span class="eyebrow-label">What&rsquo;s in the module</span>
+        <span class="eyebrow-badge">${eyebrow === 'Services' ? 'What we offer' : 'Features'}</span>
+        ${eyebrow === 'Services' ? '' : '<span class="eyebrow-label">What&rsquo;s in the module</span>'}
       </div>
-      <h2>What&rsquo;s included.</h2>
+      <h2>${eyebrow === 'Services' ? 'What&rsquo;s included in this service.' : 'What&rsquo;s included.'}</h2>
     </div>
     <div class="feature-grid">
       ${s.features.map(([name, desc]) => `<div class="feature-card">
@@ -533,23 +533,6 @@ const services = [
     ],
     who: 'Built for organisations with non-standard requirements.',
     whoChips: ['Organisations With Non-Standard Requirements', 'Financial Institutions Needing Bespoke Workflows'],
-  },
-  {
-    slug: 'mobile-development',
-    name: 'Mobile Development',
-    sub: 'Professional, fast, and secure mobile applications, built to your specific requirements.',
-    imgId: 'srvMobile',
-    imgAlt: 'A person using a mobile app',
-    tags: ['Mobile Apps', 'Security-First', 'UX Design'],
-    features: [
-      ['Full-Featured Mobile Apps', 'Apps that carry out the same financial transactions as your desktop platform, on the go.'],
-      ['Security by Design', 'Cybersecurity built in from ideation through architecture, execution, testing, and release.'],
-      ['Insightful UX', 'Clean, efficient user experiences designed to improve brand perception.'],
-      ['Privacy-First', 'Optional, highly visible privacy notifications that show customers you care about their data.'],
-      ['System-Level Preferences', 'Apps that respect device-level language and light/dark mode settings, meeting users where they are.'],
-    ],
-    who: 'Built for client-facing teams who want mobile access.',
-    whoChips: ['Client-Facing Teams', 'Brokerages & Asset Managers Wanting Mobile Access'],
   },
   {
     slug: 'training',
@@ -690,54 +673,48 @@ const testimonialCards = () =>
    statement in each is attributed to Neulogic, not to a named client spokesperson.
    CSL Stockbrokers and Zedcrest were removed (no sourced story); they appear on the
    Our Clients roster instead. */
+// Content taken from the real client-sign-on announcements in the neulogicsolutions.com
+// news section. Facts only; bodies written fresh from those posts. No invented metrics.
 const caseStudies = [
   {
     slug: 'norrenberger-financial-group',
     client: 'Norrenberger Financial Group', short: 'Norrenberger',
     cat: 'trustees', imgId: 'case3',
-    typeLabel: 'Financial Group',
-    moduleLine: 'Runs Symplus for trust administration, asset management, and securities trading across its subsidiaries.',
-    result: 'One platform across its subsidiaries.',
-    challenge: 'Norrenberger, &ldquo;Masters in Wealth Creation,&rdquo; needed a single platform that could support its investment banking, asset management, and securities trading subsidiaries as it worked to simplify wealth creation for its clients.',
-    solution: 'Norrenberger signed on to Symplus in fiscal year 2021, with deployment completed across a wide range of modules spanning its subsidiary businesses.',
-    results: [
-      { big: 'One platform', lbl: 'Integrated across investment banking, asset management, and securities trading subsidiaries' },
-      { big: 'Multi-asset', lbl: 'Multi-currency, multi-asset-class operations on one system' },
-      { big: 'Since 2021', lbl: 'Signed on in fiscal year 2021' },
+    typeLabel: 'Financial Group', date: 'February 25, 2022',
+    moduleLine: 'Adopted Symplus in 2021, deployed across its subsidiaries.',
+    result: 'Investment banking, asset management, and securities trading on one platform.',
+    body: [
+      'Norrenberger Financial Group, which markets itself as &ldquo;Masters in Wealth Creation,&rdquo; adopted the Symplus financial suite in fiscal year 2021, and has already deployed a wide range of Symplus modules across its operations.',
+      'The group runs Investment Banking, Asset Management, and Securities Trading divisions. Symplus gives it one platform to offer integrated, multi-currency, multi-asset-class products across that subsidiary network, rather than a separate system for each business line.',
+      'For Norrenberger, the aim was to bring modern technology to bear on its vision of simplifying wealth creation, developing practical, accessible financial products that help everyday investors build wealth.',
+      'Running its subsidiaries on one platform instead of one per business line is exactly the kind of integration Symplus is built for.',
     ],
-    outcome: 'Norrenberger&rsquo;s subsidiaries now run on one platform instead of one per business line, which is the integration we built Symplus for.',
   },
   {
     slug: 'united-capital-asset-management',
     client: 'United Capital Asset Management', short: 'United Capital',
     cat: 'asset-managers', imgId: 'case1',
-    typeLabel: 'Asset Management',
-    moduleLine: 'Runs Symplus for asset and fund management across individual, mutual, and other fund types.',
-    result: 'Selected after an international vendor review.',
-    challenge: 'United Capital determined its existing vendor was not meeting its requirements and ran an extensive review process, including international vendors, before selecting Symplus.',
-    solution: 'United Capital implemented Symplus to cover a wide range of funds, booking and tracking investments across multiple asset classes in both local and foreign currencies.',
-    results: [
-      { big: 'Wider coverage', lbl: 'A single platform covering a wider range of funds and asset classes than the previous vendor' },
-      { big: 'Multi-currency', lbl: 'Investments booked and tracked in local and foreign currencies' },
-      { big: 'Chosen on merit', lbl: 'Selected after a review that included international vendors' },
+    typeLabel: 'Asset Management', date: 'January 10, 2017',
+    moduleLine: 'Licensed Symplus for asset and fund management in 2017.',
+    result: 'Chosen after a competitive international vendor review.',
+    body: [
+      'United Capital Asset Management adopted Symplus in January 2017, after determining that its existing vendor was not meeting its requirements.',
+      'The selection followed an extensive, competitive review that included international vendors. United Capital chose Symplus for the combination of its capabilities and Neulogic&rsquo;s deep understanding of the Nigerian market.',
+      'The implementation covers a wide range of fund types, including individual, mutual, and other funds, and books and tracks investments across multiple asset classes in both local and foreign currencies.',
     ],
-    outcome: 'United Capital chose Symplus over international competition to cover a wider range of funds and asset classes on one platform.',
   },
   {
     slug: 'fsdh-asset-management',
     client: 'FSDH Asset Management', short: 'FSDH',
     cat: 'asset-managers', imgId: 'case2',
-    typeLabel: 'Asset Management',
-    moduleLine: 'Runs Symplus for asset management, alongside United Capital, after an international vendor review.',
-    result: 'Selected on merit against international competition.',
-    challenge: 'Like United Capital, FSDH Asset Management found its existing vendor was not meeting requirements and ran a competitive review that included international vendors.',
-    solution: 'FSDH licensed Symplus to manage its asset management operations, covering the same wide range of fund types and asset classes.',
-    results: [
-      { big: 'Chosen on merit', lbl: 'Selected against international competition' },
-      { big: 'Full coverage', lbl: 'A wide range of fund types and asset classes' },
-      { big: 'Asset management', lbl: 'Fund and asset management operations on Symplus' },
+    typeLabel: 'Asset Management', date: 'January 10, 2017',
+    moduleLine: 'Licensed Symplus for asset management in 2017.',
+    result: 'Chosen after a competitive international vendor review.',
+    body: [
+      'FSDH Asset Management adopted Symplus in January 2017, alongside United Capital, after finding that its existing vendor was not meeting its requirements.',
+      'Both firms selected Symplus through an extensive, competitive review that included international vendors, choosing it for its capabilities and for Neulogic&rsquo;s understanding of the Nigerian market.',
+      'For FSDH, Symplus covers a wide range of fund types, including individual, mutual, and other funds, and books and tracks investments across multiple asset classes in both local and foreign currencies.',
     ],
-    outcome: 'FSDH selected Symplus on merit against international competition to run its fund and asset management operations.',
   },
 ];
 
@@ -827,7 +804,7 @@ const homeBody = (root) => `
         ${(() => {
           const logos = [
             ['cordros', 'Cordros'], ['unicap', 'UniCap'], ['fbnquest', 'FBNQuest'],
-            ['csl', 'CSL Stockbrokers'], ['fsdh', 'FSDH'], ['rencap', 'RenCap'],
+            ['csl', 'CSL Stockbrokers'], ['rencap', 'RenCap'],
             ['royalexchange', 'Royal Exchange'], ['norrenberger', 'Norrenberger Financial Group'],
           ];
           const group = (hidden) => `<div class="logo-group"${hidden ? ' aria-hidden="true"' : ''}>${logos.map(([slug, name]) => `<img src="${root}assets/img/clients/${slug}.png" alt="${name}" loading="lazy">`).join('')}</div>`;
@@ -1159,8 +1136,8 @@ ${ctaBand(root, 'Talk to us about your operation.', 'Tell us what you run today 
 // the narratives are Neulogic-provided marketing content (see caseStudies comment);
 // the closing statement is attributed to Neulogic, not to an invented client spokesperson.
 const caseDetailBody = (cs, root) => `
-<!-- Client success story. Facts sourced from the client's announcement on
-     neulogicsolutions.com. No invented metrics; closing line attributed to Neulogic. -->
+<!-- Client success story: content from the client's sign-on announcement on
+     neulogicsolutions.com. No invented metrics. -->
 <section class="page-hero" style="padding-bottom:30px;">
   <div class="container">
     <div class="eyebrow-row">
@@ -1168,7 +1145,7 @@ const caseDetailBody = (cs, root) => `
       <span class="eyebrow-label">${cs.typeLabel}</span>
     </div>
     <h1>${cs.client}</h1>
-    <p class="sub">${cs.result} ${cs.moduleLine}</p>
+    <p class="sub">${cs.moduleLine}</p>
   </div>
 </section>
 
@@ -1185,51 +1162,11 @@ const caseDetailBody = (cs, root) => `
 
 <section>
   <div class="container article-body">
-    <h2>The Challenge</h2>
-    <p>${cs.challenge}</p>
-
-    <h2>The Solution</h2>
-    <p>${cs.solution}</p>
+    ${cs.body.map(p => `<p>${p}</p>`).join('\n    ')}
   </div>
 </section>
 
 <section style="padding:70px 0 0;">
-  <div class="container">
-    <div class="section-head">
-      <h2>The Results</h2>
-    </div>
-    <div class="callout-grid" style="grid-template-columns:repeat(3,1fr);">
-      ${cs.results.map((r, i) => i === 0
-        ? `<div class="callout-card accent">
-        <div><div class="big">${r.big}</div><div class="lbl">${r.lbl}</div></div>
-      </div>`
-        : `<div class="callout-card img-ph ${i === 1 ? 'ph-a' : 'ph-d'}">
-        <div><div class="big">${r.big}</div><div class="lbl">${r.lbl}</div></div>
-      </div>`).join('\n      ')}
-    </div>
-  </div>
-</section>
-
-<section style="padding:80px 0 0;">
-  <div class="container" style="max-width:600px;">
-    <div class="testi-card">
-      <div class="testi-who">
-        <div class="testi-avatar"><img class="avatar-img" src="${root}assets/img/favicon.png" alt="Neulogic Solutions" loading="lazy"></div>
-        <div>
-          <div class="n">Neulogic Solutions</div>
-          <div class="r">On the ${cs.short} rollout</div>
-        </div>
-      </div>
-      <p class="testi-quote">&ldquo;${cs.outcome}&rdquo;</p>
-      <div class="testi-foot">
-        <span class="date">Symplus</span>
-        <span class="qm">&rdquo;</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding:80px 0 0;">
   <div class="container" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
     <a href="${root}client-success/index.html" class="btn btn-dark">Read more client stories</a>
     <a href="${root}contact/index.html" class="btn btn-orange">Contact Us</a>
