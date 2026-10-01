@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=1785488825490">
+<link rel="stylesheet" href="assets/css/styles.css?v=1790894200644">
 </head>
 <body>
 
@@ -82,6 +82,14 @@
   </div>
 </header>
 
+<!-- Home-only page loader: floating logo + progress bar. JS in main.js removes it. -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-inner">
+    <img class="loader-logo" src="assets/img/neulogic-logo-white.png" alt="Neulogic">
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
 <section class="hero">
   <div class="hero-media">
     <img src="https://images.unsplash.com/photo-1604783125462-37d81c7385e6?auto=format&fit=crop&w=2000&q=80" alt="Businessman working at a laptop in a dimly lit office" data-parallax>
@@ -92,14 +100,6 @@
       <span class="hero-badge-label">Licensed software</span>
     </div>
     <h1>The Pan-African software platform for regulated financial operations.</h1>
-    <div class="hero-bottom">
-      <div class="hero-trust">
-        <div class="hero-trust-avatars" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
-        <p class="hero-trust-text">Trusted by 65+ financial institutions</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -328,7 +328,7 @@
           </div>
           <div class="client-card">
             <div class="icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v6M18 9v6"/></svg>
             </div>
             <h3>Fund Managers</h3>
           </div>
@@ -382,17 +382,6 @@
           <div>
             <div class="t">United Capital Asset Management</div>
             <div class="mod">Licensed Symplus for asset and fund management in 2017.</div>
-            <div class="d">Chosen after a competitive international vendor review.</div>
-          </div>
-          <span class="arrow-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </div>
-      </a>
-      <a href="client-success/fsdh-asset-management/index.html" class="case-card img-ph" data-cat="asset-managers">
-        <img class="ph-img" src="https://images.unsplash.com/photo-1573164574048-f968d7ee9f20?auto=format&fit=crop&w=1400&q=80" alt="" loading="lazy"><span class="grade" aria-hidden="true"></span>
-        <div class="case-meta">
-          <div>
-            <div class="t">FSDH Asset Management</div>
-            <div class="mod">Licensed Symplus for asset management in 2017.</div>
             <div class="d">Chosen after a competitive international vendor review.</div>
           </div>
           <span class="arrow-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -559,7 +548,7 @@
           Off Ikorodu Road, Ilupeju,<br>
           Lagos, Nigeria<br>
           <a href="tel:+2348148990091">+234 814 899 0091</a><br>
-          <a href="mailto:support@m.neulogicsolutions.com">support@m.neulogicsolutions.com</a>
+          <a href="mailto:support@neulogicsolutions.com">support@neulogicsolutions.com</a>
         </address>
       </div>
     </div>
@@ -573,6 +562,6 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/main.js?v=1785488825490"></script>
+<script src="assets/js/main.js?v=1790894200644"></script>
 </body>
 </html>

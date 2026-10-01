@@ -2,6 +2,25 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
+// ---------- home-only page loader (floating logo + progress bar) ----------
+(function initLoader() {
+  const loader = document.getElementById('pageLoader');
+  if (!loader) return;
+  const html = document.documentElement;
+  html.style.overflow = 'hidden'; // lock scroll while loading
+  const reveal = () => {
+    loader.classList.add('done');
+    html.style.overflow = '';
+  };
+  const minMs = reducedMotion ? 400 : 1500; // let the bar fill
+  const start = performance.now();
+  const onReady = () => setTimeout(reveal, Math.max(0, minMs - (performance.now() - start)));
+  if (document.readyState === 'complete') onReady();
+  else window.addEventListener('load', onReady);
+  setTimeout(reveal, 6000); // safety: never hang
+  loader.addEventListener('transitionend', () => { if (loader.classList.contains('done')) loader.remove(); });
+})();
+
 // ---------- header: transparent over hero -> frosted glass after threshold ----------
 // Pages with a light hero carry .light-start and are frosted from load; no listener needed.
 const header = document.getElementById('siteHeader');

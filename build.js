@@ -210,7 +210,7 @@ const footerHTML = (root, standalone) => `
           Off Ikorodu Road, Ilupeju,<br>
           Lagos, Nigeria<br>
           <a href="tel:+2348148990091">+234 814 899 0091</a><br>
-          <a href="mailto:support@m.neulogicsolutions.com">support@m.neulogicsolutions.com</a>
+          <a href="mailto:support@neulogicsolutions.com">support@neulogicsolutions.com</a>
         </address>
       </div>
     </div>
@@ -703,19 +703,6 @@ const caseStudies = [
       'The implementation covers a wide range of fund types, including individual, mutual, and other funds, and books and tracks investments across multiple asset classes in both local and foreign currencies.',
     ],
   },
-  {
-    slug: 'fsdh-asset-management',
-    client: 'FSDH Asset Management', short: 'FSDH',
-    cat: 'asset-managers', imgId: 'case2',
-    typeLabel: 'Asset Management', date: 'January 10, 2017',
-    moduleLine: 'Licensed Symplus for asset management in 2017.',
-    result: 'Chosen after a competitive international vendor review.',
-    body: [
-      'FSDH Asset Management adopted Symplus in January 2017, alongside United Capital, after finding that its existing vendor was not meeting its requirements.',
-      'Both firms selected Symplus through an extensive, competitive review that included international vendors, choosing it for its capabilities and for Neulogic&rsquo;s understanding of the Nigerian market.',
-      'For FSDH, Symplus covers a wide range of fund types, including individual, mutual, and other funds, and books and tracks investments across multiple asset classes in both local and foreign currencies.',
-    ],
-  },
 ];
 
 // One results-grid card: real client name, the module it runs, and a one-line result.
@@ -734,6 +721,14 @@ const caseCard = (cs, root) => `<a href="${root}client-success/${cs.slug}/index.
 /* ---------------- homepage body ---------------- */
 
 const homeBody = (root) => `
+<!-- Home-only page loader: floating logo + progress bar. JS in main.js removes it. -->
+<div class="page-loader" id="pageLoader">
+  <div class="loader-inner">
+    <img class="loader-logo" src="${root}assets/img/neulogic-logo-white.png" alt="Neulogic">
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
 <section class="hero">
   <div class="hero-media">
     <img src="${U(IMG.hero, 2000)}" alt="Businessman working at a laptop in a dimly lit office" data-parallax>
@@ -744,14 +739,6 @@ const homeBody = (root) => `
       <span class="hero-badge-label">Licensed software</span>
     </div>
     <h1>The Pan-African software platform for regulated financial operations.</h1>
-    <div class="hero-bottom">
-      <div class="hero-trust">
-        <div class="hero-trust-avatars" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
-        <p class="hero-trust-text">Trusted by 65+ financial institutions</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -887,7 +874,7 @@ const homeBody = (root) => `
           </div>
           <div class="client-card">
             <div class="icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v6M18 9v6"/></svg>
             </div>
             <h3>Fund Managers</h3>
           </div>
@@ -1810,7 +1797,7 @@ const careersBody = (root) => `
   <div class="container">
     <h2>Don&rsquo;t see a role that fits?</h2>
     <p class="sub">Email us and tell us what you do.</p>
-    <a href="mailto:support@m.neulogicsolutions.com" class="btn btn-orange">Email us at support@m.neulogicsolutions.com</a>
+    <a href="mailto:support@neulogicsolutions.com" class="btn btn-orange">Email us at support@neulogicsolutions.com</a>
   </div>
 </section>
 `;
@@ -1833,7 +1820,7 @@ const contactBody = (root) => `
     <div class="cert-grid">
       <div class="cert-card">
         <span class="tag">Email</span>
-        <h3>support@m.neulogicsolutions.com</h3>
+        <h3>support@neulogicsolutions.com</h3>
         <p>Send us a message and our team will get back to you.</p>
       </div>
       <div class="cert-card">
@@ -1848,7 +1835,7 @@ const contactBody = (root) => `
       </div>
     </div>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:56px;">
-      <a href="mailto:support@m.neulogicsolutions.com" class="btn btn-orange">Send us a mail</a>
+      <a href="mailto:support@neulogicsolutions.com" class="btn btn-orange">Send us a mail</a>
       <a href="tel:+2348148990091" class="btn btn-dark">Call us</a>
     </div>
   </div>
@@ -1861,8 +1848,7 @@ const pisBody = (root) => `
 <section class="page-hero-dark">
   <div class="container">
     <div class="eyebrow-row"><span class="eyebrow-badge">Why Neulogic</span></div>
-    <h1>Partners, Integrations &amp; Security</h1>
-    <p class="sub">The technology partners we run on, the exchange infrastructure we connect to, and how Symplus handles integration, compliance, and security.</p>
+    <h1>Partners, integrations, and security.</h1>
   </div>
 </section>
 
@@ -1871,12 +1857,10 @@ const pisBody = (root) => `
     <div class="section-head center">
       <div class="eyebrow-row"><span class="eyebrow-badge">Technology Partners</span></div>
       <h2>Built on infrastructure you already trust.</h2>
-      <p>Symplus is built and deployed on infrastructure and tooling from these technology partners.</p>
     </div>
     <div class="partner-strip">
       <span>Oracle</span>
       <span>Microsoft Azure</span>
-      <span>Power BI</span>
     </div>
   </div>
 </section>
@@ -1884,30 +1868,13 @@ const pisBody = (root) => `
 <section style="padding:100px 0 0;">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-row"><span class="eyebrow-badge">Market Infrastructure</span></div>
-      <h2>Connected to the exchange, certified not co-branded.</h2>
-      <p>Symplus connects directly to NGX&rsquo;s trading infrastructure. This reflects certified connectivity, not a business partnership with NGX.</p>
-    </div>
-    <div class="cert-grid" style="grid-template-columns:1fr;">
-      <div class="cert-card">
-        <span class="tag">Exchange</span>
-        <h3>Nigerian Exchange Group (NGX)</h3>
-        <p>Trade-X provides real-time, FIX-protocol order management and market-data access across all NGX trading boards. When NGX launched derivatives as a new tradeable asset class, Symplus shipped a dedicated derivatives trading module built to support it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding:100px 0 0;">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow-row"><span class="eyebrow-badge">Integration Capabilities</span></div>
-      <h2>Symplus connects to the systems you already run.</h2>
+      <div class="eyebrow-row"><span class="eyebrow-badge">Integration</span></div>
+      <h2>Connected to the exchange, and to your systems.</h2>
     </div>
     <div class="cert-grid">
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>API-Based Integration</h3><p>An open API interface for integration with any third-party application.</p></div>
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>FIX Protocol Connectivity</h3><p>Real-time order and market-data messaging with multiple markets and trading destinations.</p></div>
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Cross-Module Integration</h3><p>Securities trading, trust management, and accounting modules are directly integrated with each other, so front-office, back-office, and financial reporting run off the same data.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>NGX Market Infrastructure</h3><p>Trade-X is certified for connectivity to NGX&rsquo;s trading infrastructure, with real-time, FIX-protocol order management across every NGX trading board. When NGX added derivatives, Symplus shipped a module for it.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>API Access</h3><p>We provide APIs for connecting to your core banking, CRM, or data providers.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Cross-Module Data</h3><p>Trading, trust, and accounting all write to the same ledger record.</p></div>
     </div>
   </div>
 </section>
@@ -1916,12 +1883,12 @@ const pisBody = (root) => `
   <div class="container">
     <div class="section-head">
       <div class="eyebrow-row"><span class="eyebrow-badge">Compliance &amp; Security</span></div>
-      <h2>What Symplus does, said plainly.</h2>
+      <h2>How Symplus keeps you compliant.</h2>
     </div>
     <div class="cert-grid">
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Rules-Based Compliance Engines</h3><p>The Asset Management and Derivatives modules include rules-based compliance engines that keep portfolios and trades within defined risk and regulatory parameters. This is a product feature for your own regulatory compliance.</p></div>
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>IFRS-Compliant Reporting</h3><p>The Accounting module produces IFRS-compliant financial statements: Trial Balance, Statement of Financial Position, and Income Statement.</p></div>
-      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Security-Minded Development</h3><p>Our mobile development process uses a shift-left approach, building security testing into every stage of the app lifecycle from ideation through release, to protect data integrity in mobile financial transactions.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Compliance Engines</h3><p>Asset Management and Derivatives enforce the risk and regulatory limits you set, automatically.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>IFRS Reporting</h3><p>Accounting produces Trial Balance, Statement of Financial Position, and Income Statement, IFRS-compliant.</p></div>
+      <div class="feature-card"><div class="icon">${CHECK}</div><h3>Security Testing</h3><p>Mobile security testing runs through every stage of development.</p></div>
     </div>
   </div>
 </section>
@@ -1936,7 +1903,7 @@ const clientsRoster = [
   { name: 'United Capital', logo: 'unicap', story: 'united-capital-asset-management' },
   { name: 'FBNQuest', logo: 'fbnquest' },
   { name: 'CSL Stockbrokers', logo: 'csl' },
-  { name: 'FSDH', logo: 'fsdh', story: 'fsdh-asset-management' },
+  { name: 'FSDH', logo: 'fsdh' },
   { name: 'RenCap', logo: 'rencap' },
   { name: 'Royal Exchange', logo: 'royalexchange' },
   { name: 'Norrenberger Financial Group', logo: 'norrenberger', story: 'norrenberger-financial-group' },
@@ -2004,7 +1971,7 @@ const pages = [
   { file: 'clients/index.html', title: 'Our Clients | Neulogic Solutions', desc: 'The financial institutions across Africa that run their operations on Symplus.', light: false, body: clientsBody },
   { file: 'partners-integrations-security/index.html', title: 'Partners, Integrations & Security | Neulogic Solutions', desc: 'The technology partners we run on, the exchange infrastructure we connect to, and how Symplus handles integration, compliance, and security.', light: false, body: pisBody },
   { file: 'about/index.html', title: 'About Us | Neulogic Solutions', desc: 'Over 14 years building the infrastructure African financial institutions run on.', light: false, body: aboutBody },
-  { file: 'contact/index.html', title: 'Contact | Neulogic Solutions', desc: 'Contact Neulogic Solutions: email support@m.neulogicsolutions.com, call +234 814 899 0091, or visit our Lagos office.', light: false, body: contactBody },
+  { file: 'contact/index.html', title: 'Contact | Neulogic Solutions', desc: 'Contact Neulogic Solutions: email support@neulogicsolutions.com, call +234 814 899 0091, or visit our Lagos office.', light: false, body: contactBody },
   { file: 'services/index.html', title: 'Services | Neulogic Solutions', desc: 'From technical staffing to custom development and hands-on training, our services team supports every stage of your Symplus deployment.', light: false, body: servicesHubBody },
   { file: 'request-demo/index.html', title: 'Request a Demo | Neulogic Solutions', desc: 'See Symplus running on your data, not a slideware demo.', light: true, body: demoBody },
   { file: 'insights/index.html', title: 'Insights | Neulogic Solutions', desc: 'Insights in the industry: operational thinking for regulated financial institutions.', light: true, body: insightsHubBody },

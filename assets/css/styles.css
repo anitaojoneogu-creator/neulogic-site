@@ -506,6 +506,24 @@ a.img-ph:hover .ph-img,
   font-size:14px;color:#8a5a2a;
 }
 
+/* ---------- home page loader ---------- */
+.page-loader{
+  position:fixed;inset:0;z-index:9999;background:var(--dark);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .5s var(--ease),visibility .5s var(--ease);
+}
+.page-loader.done{opacity:0;visibility:hidden;}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:28px;}
+.loader-logo{width:210px;max-width:62vw;height:auto;animation:loaderFloat 2.2s ease-in-out infinite;}
+.loader-bar{width:220px;max-width:62vw;height:3px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;}
+.loader-bar span{display:block;height:100%;width:0;background:var(--orange);border-radius:999px;animation:loaderFill 1.5s ease-out forwards;}
+@keyframes loaderFloat{0%,100%{transform:translateY(-7px);}50%{transform:translateY(7px);}}
+@keyframes loaderFill{0%{width:0;}100%{width:100%;}}
+@media (prefers-reduced-motion: reduce){
+  .loader-logo{animation:none;}
+  .loader-bar span{animation-duration:.3s;}
+}
+
 /* ---------- hero (homepage) ---------- */
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:flex-end;
