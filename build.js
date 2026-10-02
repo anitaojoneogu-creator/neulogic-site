@@ -37,12 +37,12 @@ const IMG = {
   solFund:     'photo-1676119633019-be66d5c4bc4c', // man in suit writing on laptop
   solTrading:  'photo-1758876202980-0a28b744fb24', // two colleagues discussing data on screen
   solLending:  'photo-1653566031535-bcf33e1c2893', // group around table with laptops
-  whoWeHelp:   'photo-1642522029693-20b2ab875b19', // motion-blur pair walking in office
+  whoWeHelp:   'photo-1521791136064-7986c2920216', // handshake between two Black professionals
   iwmHero:     'photo-1531482615713-2afd69097998', // advisor and client at monitor
   tradingHero: 'photo-1590283603385-17ffb3a7f29f', // trading terminal with charts and buy/sell
   trustHero:   'photo-1633158829585-23ba8f7c8caf', // hands stacking coins
   loanHero:    'photo-1637856794303-d864ce316444', // two people at table with laptop
-  acctHero:    'photo-1713461983836-de0a45009424', // hands with calculator and documents
+  acctHero:    'photo-1664575602276-acd073f104c1', // Black hands with laptop, calculator and documents
   whoDesk:     'photo-1573164574397-dd250bc8a598', // African professionals at a desk
   case1:       'photo-1573164574397-dd250bc8a598', // three colleagues at table
   case2:       'photo-1573164574048-f968d7ee9f20', // two women working on laptops
@@ -62,7 +62,7 @@ const IMG = {
   art1:        'photo-1637684666451-423047d6bf5e', // man at table with laptop
   art2:        'photo-1581368163672-d717bcb4c6af', // man in blue shirt at computer
   art3:        'photo-1610473068514-276d33c606dd', // woman at desk with laptop
-  art4:        'photo-1559136555-9303baea8ebd',    // colleagues at a computer
+  art4:        'photo-1573165231977-3f0e27806045', // Black professionals in boardroom meeting
   portalHero:  'photo-1758876202167-f81c995c3fdc', // person on phone + laptop (self-service)
   apiHero:     'photo-1648146511841-30f5b8957629', // person at a computer monitor (technical)
   tradexHero:  'photo-1549086802-bb458f399f05',    // trader facing a monitor (OMS)
@@ -248,7 +248,12 @@ const solutions = [
   {
     slug: 'investment-wealth-management',
     name: 'Investment & Wealth Management',
-    sub: 'Symplus produces daily NAV, unit pricing, client statements, and regulatory returns from one set of accounting records.',
+    sub: 'A fully customised solution covering the entire asset management business, from product development and client onboarding to investment management, risk, reporting, and compliance.',
+    overview: [
+      'The Symplus Asset Management solution covers every part of the asset management business, from product development and client onboarding to investment management, risk management, client reporting, and compliance.',
+      'It caters to separately managed, unit-based, deposit, and retail products across all asset classes, and keeps compliance streamlined by setting every product and portfolio up against its investment objectives, asset allocation, and benchmarks.',
+      'Its flexible, parameter-driven approach helps fund managers increase data accuracy, reduce costs, and take on more funds without adding operational headcount.',
+    ],
     imgId: 'iwmHero',
     imgAlt: 'Financial advisor reviewing a portfolio with a client',
     tags: ['Portfolio Management', 'Client Reporting', 'Compliance'],
@@ -261,6 +266,11 @@ const solutions = [
       ['360° Client View', 'Real-time client view backed by an extensive set of reports and data views.'],
       ['Management Reporting', 'Business analysis and top-management reporting with 24/7 access to all data.'],
       ['Portfolio Re-Balancing', 'Full re-balancing tools across managed portfolios.'],
+      ['Individual Funds / SMA', 'Build and monitor specific investments for high-net-worth individuals and corporates, with per-client portfolio performance.'],
+      ['Unitised / Mutual Funds', 'Equity, balanced, and money-market funds across currencies, with onboarding, subscription, redemption, and dividends automated.'],
+      ['Non-Unitised Funds', 'Call and fixed deposits pooled at different rates, with deposits, withdrawals, liquidations, and rollovers.'],
+      ['Capital Funds', 'Investment banking operations and structured products such as bonds, commercial papers, and borrowings, posted automatically to the ledger.'],
+      ['Client (Retail) Trades', 'Buy Treasury Bills, bonds, and discounted products in bulk and retail them to clients at different rates.'],
     ],
     who: 'Built for asset managers, wealth managers, and investment firms.',
     whoChips: ['Asset Managers', 'Wealth Managers', 'Investment Firms', 'Portfolio Managers', 'Fund Accountants', 'Compliance Teams'],
@@ -268,7 +278,12 @@ const solutions = [
   {
     slug: 'securities-trading',
     name: 'Securities Trading',
-    sub: 'Symplus covers order capture, execution, CSD settlement, and back-office processing, with NGX-certified trading capabilities.',
+    sub: 'A full suite of applications for a brokerage firm, from back-office record-keeping to front-office trading, web portals, and mobile.',
+    overview: [
+      'Our brokerage and securities trading solution gives a brokerage firm a full suite of applications to run its operations, from back-office record-keeping to front-office trading, online web portals, and interfaced mobile applications.',
+      'Every module is directly integrated with the others and with the Symplus accounting suite, so operations are managed end to end. The suite scales without effort, is easy to use, and grows with your organisation.',
+      'A wide range of reports and self-service interactive data views give you effective operational management, with the data you need, how you need it.',
+    ],
     imgId: 'tradingHero',
     imgAlt: 'Trader working at a desk with market screens',
     tags: ['Order Management', 'Trade Execution', 'Settlement'],
@@ -287,6 +302,11 @@ const solutions = [
     slug: 'trade-x',
     name: 'Trade-X (OMS)',
     sub: 'Real-time, FIX-protocol order management and market-data access across NGX and other trading venues.',
+    overview: [
+      'The Trade-X order management system provides real-time, FIX-protocol order management and market-data access to multiple trading venues, including every trading board offered by the Nigerian Exchange Group (NGX).',
+      'Brokers, dealers, and traders can send, manage, and validate electronic trades from their offices and get immediate responses, and can view full Level III market data in real time.',
+      'Effective risk controls prevent over-trading, and Trade-X interfaces directly with our accounting, securities trading, and derivatives solutions for real-time account management, as well as with third-party applications.',
+    ],
     imgId: 'tradexHero',
     imgAlt: 'Trading desk with market-data screens',
     tags: ['Order Management', 'FIX Connectivity', 'Market Data'],
@@ -308,6 +328,11 @@ const solutions = [
     slug: 'derivatives',
     name: 'Derivatives',
     sub: 'Exchange-traded futures and options management, with the analytics and risk controls a high-risk trading business needs.',
+    overview: [
+      'Symplus Derivatives is a comprehensive solution that brings extensive analytics to help organisations manage their derivatives trading business and make informed risk assessments.',
+      'It is carefully modelled to manage exchange-traded derivative trades, futures and options, with the market desks and reports a high-risk trading business needs, using high-performance computing to optimise the speed of processing and transacting.',
+      'It supports a wide range of underlying assets, from simple to complex structured derivatives, with straight-through processing, real-time monitoring, and a rules-based compliance engine for effective risk control.',
+    ],
     imgId: 'derivHero',
     imgAlt: 'Analyst reviewing risk and derivatives charts',
     tags: ['Futures & Options', 'Risk Analytics', 'Compliance'],
@@ -331,7 +356,12 @@ const solutions = [
   {
     slug: 'trust-management',
     name: 'Trust Management',
-    sub: 'Symplus administers corporate, public, and private trusts, with fiduciary records, covenant registers, and beneficiary accounts.',
+    sub: 'Trustee services and management across corporate, public, and private trusts, integrated with asset management and accounting.',
+    overview: [
+      'The Symplus Trust Management solution caters to a wide range of trustee services and management operations across corporate, public, and private trusts.',
+      'It is integrated with Symplus Asset Management to monitor and value the investments of trust funds, and with Symplus Accounting to maintain individual and beneficiary trust accounts.',
+      'Financial statements, including Trial Balance, P&amp;L, and Balance Sheet, are generated at the frequencies you define.',
+    ],
     imgId: 'trustHero',
     imgAlt: 'Professionals in discussion around a boardroom table',
     tags: ['Fiduciary Registers', 'Beneficiary Accounts', 'Bond Trusts'],
@@ -349,7 +379,12 @@ const solutions = [
   {
     slug: 'loan-management',
     name: 'Loan Management',
-    sub: 'Symplus tracks each loan with its collateral, repayment schedule, and arrears status, across every lending product.',
+    sub: 'Personal, commercial, mortgage, and syndicated loans in one fully multi-currency system you can monitor end to end.',
+    overview: [
+      'The Symplus Loan Management system caters to personal, commercial, mortgage, and syndicated loans, and supports instalment, line-of-credit, and commercial lending.',
+      'It provides the core of loan processing, from what-if analysis tools and collateral records to standing orders and payment waivers, with comprehensive portfolio reporting that gives a global picture by customer or branch.',
+      'The solution is fully multi-currency, with query and reporting features for sectored analysis so you always know how your credit portfolio is performing.',
+    ],
     imgId: 'loanHero',
     imgAlt: 'Bankers reviewing loan documents together',
     tags: ['Loan Portfolio', 'Collateral', 'Reporting'],
@@ -369,7 +404,12 @@ const solutions = [
   {
     slug: 'accounting-finance',
     name: 'Accounting & Finance',
-    sub: 'The general ledger posts as transactions happen. Reconciliation, financial statements, and IFRS reporting run on live data.',
+    sub: 'Complete multi-company, multi-currency accounting, with IFRS-compliant reporting produced from live data.',
+    overview: [
+      'The Symplus Accounting solution supports organisations in their day-to-day financial operations, with complete multi-company and multi-currency support and advanced features that cut the time spent on repetitive accounting tasks.',
+      'You can define your financial reporting, including Trial Balance and IFRS-compliant Statements of Financial Position and Income Statements, and generate user-customisable reports in as many formats as you need, reducing or eliminating your use of spreadsheets.',
+      'The general ledger is the nerve centre of the financial modules: every other module reports its status to it in real time through accurate, automatic transactions.',
+    ],
     imgId: 'acctHero',
     imgAlt: 'Accountant working through figures with a calculator',
     tags: ['General Ledger', 'IFRS Reporting', 'Reconciliation'],
@@ -389,15 +429,25 @@ const solutions = [
   {
     slug: 'customer-portal',
     name: 'Customer Portal',
-    sub: 'Neulogic builds and connects a self-service portal for your clients, reflecting whichever Symplus solution you run.',
+    sub: 'A secure, fast, user-friendly web portal and mobile app that give your clients a curated self-service experience.',
+    overview: [
+      'Customers want to log in and enjoy a simple, quality experience, and a modern, user-friendly customer web portal makes strong business sense.',
+      'We offer a secure, fast portal with advanced personalisation and customisation, so you can give customers a curated experience as they carry out financial transactions and review their own investments and transaction history.',
+      'The portal is matched by a mobile application with the same features, giving your customers a fast, secure, and convenient way to transact and monitor their investments at home or on the go.',
+    ],
     imgId: 'portalHero',
     imgAlt: 'A client checking their account on a laptop and phone',
-    tags: ['Client Login', 'Account View', 'Statements'],
+    tags: ['Client Login', 'Securities Trading', 'Mobile App'],
     features: [
-      ['Self-Service Access', 'Clients view portfolios, statements, and transactions without contacting the back office.'],
-      ['Branded Web Portal', 'A web portal interfaced directly to the Symplus back office.'],
-      ['Mobile Access', 'Interfaced mobile applications for on-the-go account access.'],
-      ['Real-Time Data', 'Portal data reflects the same ledger used internally, with no separate reconciliation.'],
+      ['Prospective Customer Onboarding', 'An onboarding flow designed around your business so new customers can onboard seamlessly.'],
+      ['Mutual Funds', 'Customers invest in and redeem mutual funds, by amount or units, directly from the portal.'],
+      ['Securities Trading', 'Integrated with the Nigerian Exchange so customers buy and sell stocks in real time.'],
+      ['Placement', 'Fixed deposits and tenor-based investments done from the portal.'],
+      ['Direct Debit', 'Recurring instructions set up so the system carries out transactions automatically.'],
+      ['Cash Deposit', 'A payment-gateway integration lets customers fund their wallet instantly.'],
+      ['Transaction Authentication', 'Two-factor authentication, PIN, or OTP before any financial transaction completes.'],
+      ['Mobile Application', 'A fast, secure mobile app with push notifications, fingerprint and Face ID, and all the portal features.'],
+      ['Secure APIs', 'Integrate with third-party applications through a secure stack of APIs, with customised APIs available.'],
     ],
     who: 'Built for any institution that wants to give its clients self-service access to their accounts.',
     whoChips: ['Asset Managers', 'Stockbrokers', 'Trustees', 'Lenders', 'Client Services Teams'],
@@ -440,7 +490,12 @@ const solutionPageBody = (s, root, eyebrow = 'Solutions') => `
     </div>
   </div>
 </section>
-
+${s.overview ? `
+<section style="padding:90px 0 0;">
+  <div class="container article-body" style="max-width:860px;">
+    ${s.overview.map((p, i) => i === 0 ? `<p class="article-lead">${p}</p>` : `<p>${p}</p>`).join('\n    ')}
+  </div>
+</section>` : ''}
 <section style="padding:100px 0 0;">
   <div class="container">
     <div class="section-head">
@@ -485,7 +540,12 @@ const services = [
   {
     slug: 'outsourcing',
     name: 'Outsourcing',
-    sub: 'Trained technical personnel on short notice, so operational gaps in your technical staffing never become operational risk.',
+    sub: 'Keep your users productive after go-live with dedicated application support resources, working alongside your users and internal IT teams.',
+    overview: [
+      'A successful software implementation does not end at go-live. The first months of adoption often determine how quickly your organisation realises the value of its investment, and they are usually when demand for user support is greatest.',
+      'Neulogic Solutions provides dedicated outsourced application and user support for organisations with sizeable user communities that need responsive, on-the-ground first-level support. Our trained personnel can work on-site alongside your users and internal IT teams.',
+      'Our resources do not replace your internal technology team, they extend it, helping you reduce turnaround time, improve adoption, and get more value from your technology investment.',
+    ],
     imgId: 'srvOutsourcing',
     imgAlt: 'Colleagues working together in an office',
     tags: ['Technical Staffing', 'Knowledge Transfer', 'Uptime'],
@@ -502,7 +562,12 @@ const services = [
   {
     slug: 'support',
     name: 'Support',
-    sub: 'Seasoned technical support expertise, under a plan built around your operations.',
+    sub: 'Technical and business support from the team that built your software, so your users stay productive and your systems keep performing.',
+    overview: [
+      'The true value of a software solution is realised long after implementation. As the organisation that designs and builds our applications, we understand not only the technology but the business processes, operational requirements, and industry realities they address.',
+      'That gives you a real advantage: when you need support, you are supported by people who understand both your software and your business. Our teams resolve technical issues, answer functional questions, optimise usage, and spot ways to improve how the application supports your business.',
+      'Through regular updates, fixes, product improvements, technical assistance, and business guidance, we help your application keep delivering value as your business evolves, whether you need help in person or virtually.',
+    ],
     imgId: 'srvSupport',
     imgAlt: 'A support specialist at a computer',
     tags: ['Support Plans', 'Product Updates', 'After-Implementation Care'],
@@ -520,7 +585,12 @@ const services = [
   {
     slug: 'custom-solutions',
     name: 'Custom Solutions',
-    sub: 'Custom software development for the business case no ready-made application can solve.',
+    sub: 'Your business is unique, your technology should be too. We build custom software around the way your business works.',
+    overview: [
+      'When off-the-shelf software does not fit your business, we build what does. We design and develop custom software tailored to the way your business works, turning complex requirements into secure, scalable, practical solutions.',
+      'Rather than asking you to change your business to fit a generic package, we build technology around your business. Whether you have a detailed requirements document, a process to automate, or just an idea of what you want to achieve, we translate it into a solution that works.',
+      'We bring together business analysis, solution architecture, software engineering, user experience, quality assurance, and implementation, and we build with scalability, security, integration, and future growth in mind.',
+    ],
     imgId: 'srvCustom',
     imgAlt: 'A developer working at a laptop',
     tags: ['Bespoke Development', 'Legacy Integration', 'Domain Expertise'],
@@ -553,16 +623,25 @@ const services = [
   {
     slug: 'software-consultancy',
     name: 'Software Consultancy',
-    sub: 'Independent business analysis and consultancy from a team with 25+ years of domain expertise.',
+    sub: 'Independent business analysis and technology consultancy to help you choose and implement technology that delivers measurable value.',
+    overview: [
+      'Our software consultants and business analysts work alongside your organisation to understand your business, assess your technology environment, optimise your processes, and identify the solutions that will deliver the greatest value.',
+      'We provide an independent, objective perspective, focused on what is right for your business rather than any particular technology. We evaluate options against your requirements, operating environment, scalability, integration needs, and long-term objectives.',
+      'Where appropriate, we go beyond advice and use our software development capability to design, build, integrate, and implement bespoke solutions, so you have one partner from business problem to technology strategy to a working solution.',
+    ],
     imgId: 'srvConsultancy',
     imgAlt: 'Consultants reviewing work at a table',
     tags: ['Business Analysis', 'Process Optimisation', 'Independent Advice'],
     features: [
-      ['Business Analysis & Consultancy', 'Qualified, experienced personnel available to partner on business analysis.'],
-      ['Technology Optimisation', 'Helps you get better use out of technology assets you have already acquired.'],
-      ['Process Design & Implementation', 'Designs, develops, and implements business processes to meet operational requirements.'],
-      ['Independent, Unbiased Advice', 'Engages as a neutral, independent consultant, not a vendor with an agenda.'],
-      ['Best-Practice Guidance', 'Ensures the right technology is selected and best practices are followed.'],
+      ['Business Analysis & Requirements', 'Qualified, experienced personnel to partner with you on defining business requirements.'],
+      ['Business Process Optimisation', 'Reviewing and improving how your processes run.'],
+      ['Business Automation Advisory', 'Advice on where and how to automate manual work.'],
+      ['Technology Strategy', 'An independent view of your technology options and roadmap.'],
+      ['Technology Implementation Advisory', 'Guidance through solution selection, implementation, and contract management.'],
+      ['Oracle Database Services', 'Database services on enterprise-grade Oracle technology.'],
+      ['Application Development', 'Building bespoke applications where off-the-shelf will not do.'],
+      ['Systems Integration', 'Connecting disconnected systems into one workflow.'],
+      ['Cloud & Infrastructure', 'Cloud and infrastructure advisory and delivery.'],
     ],
     who: 'Built for organisations evaluating new technology or optimising processes.',
     whoChips: ['Organisations Evaluating New Technology', 'Teams Optimising Existing Processes'],
@@ -754,7 +833,7 @@ const homeBody = (root) => `
     <div class="proof-card img-ph">
       ${img(IMG.proofOffice, 'Professionals collaborating in a modern office')}
       <div class="proof-stat" style="position:relative;z-index:2;">
-        <div class="num">65+</div>
+        <div class="num">70+</div>
         <div class="lbl">Enterprises on licence</div>
       </div>
     </div>
@@ -814,6 +893,9 @@ const homeBody = (root) => `
         <h2 class="sol-text-h" style="font-size:clamp(30px,3.6vw,46px);margin-bottom:22px;">Modern infrastructure for every financial institution.</h2>
         <p style="color:#454b42;max-width:440px;">Nine modules covering portfolio management, trading, derivatives, trust administration, lending, accounting, client access, and integration.</p>
         <a href="${root}solutions/investment-wealth-management/index.html" class="sol-link"><span>Explore the modules</span> ${ARROW}</a>
+        <a href="#clients" class="skip-link">Skip to next section
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
       </div>
       <div class="sol-stream">
         ${(() => {
@@ -1239,8 +1321,8 @@ const aboutBody = (root) => `
       <span class="eyebrow-badge">About Us</span>
       <span class="eyebrow-label">Who we are</span>
     </div>
-    <h1>Over 14 years building the infrastructure African financial institutions run on.</h1>
-    <p class="sub">Neulogic Solutions is a licensed software provider focused on African capital markets. Its product is Symplus.</p>
+    <h1>Technology and expertise that move financial services forward.</h1>
+    <p class="sub">Neulogic Solutions is a Pan-African technology and software company focused on transforming financial services through innovative, scalable, purpose-built technology.</p>
   </div>
 </section>
 
@@ -1251,9 +1333,10 @@ const aboutBody = (root) => `
         <div class="eyebrow-row">
           <span class="eyebrow-badge">Our Story</span>
         </div>
-        <h2>We build trusted software for financial institutions.</h2>
-        <p>Over fourteen years, Neulogic has built software for one kind of customer: the African financial institution that needs trusted, regulated operational software. Asset managers, stockbrokers, trustees, and lenders run their daily operations on Symplus.</p>
-        <p style="margin-top:16px;">We are a licensed software provider. Our clients run the system and own their data. Our vision is Pan-African: software that regulated institutions can run wherever they operate.</p>
+        <h2>Powering better business through smarter technology.</h2>
+        <p>For over 14 years, we have partnered with organisations across Nigeria and Sub-Saharan Africa to build and implement technology that solves complex business challenges, optimises operations, and enables sustainable growth.</p>
+        <p style="margin-top:16px;">Our expertise is rooted in the capital market and financial services sector, where we have supported 70+ organisations with solutions designed around the realities of their businesses, from Wealth Management and Securities Trading to Trustee Management and Loans.</p>
+        <p style="margin-top:16px;">Beyond our proprietary solutions, we deliver turnkey software projects, from solution design and development through implementation and ongoing support. Our ambition is to be a leading technology partner for financial services across Sub-Saharan Africa.</p>
       </div>
       <div class="img-ph" data-drift style="min-height:420px;">
         ${img(IMG.aboutStory, 'Team gathered around a table in discussion')}
@@ -1339,10 +1422,11 @@ const aboutBody = (root) => `
 <section style="padding:100px 0 0;">
   <div class="dark-band">
     <div class="container">
-      <div class="stats-row" style="grid-template-columns:repeat(3,1fr);">
-        <div><div class="num">14+</div><div class="lbl">Years building Symplus</div></div>
-        <div><div class="num">65+</div><div class="lbl">Enterprises on licence</div></div>
-        <div><div class="num">25+</div><div class="lbl">Years combined team experience in financial services technology</div></div>
+      <div class="stats-row">
+        <div><div class="num">14+</div><div class="lbl">Years building technology for financial services</div></div>
+        <div><div class="num">70+</div><div class="lbl">Organisations across the capital market and financial services</div></div>
+        <div><div class="num">4+</div><div class="lbl">Core solutions: Wealth, Securities Trading, Trustee, and Loans</div></div>
+        <div><div class="num" style="font-size:clamp(26px,3vw,34px);">Pan-African</div><div class="lbl">Built in Nigeria. Designed for Africa.</div></div>
       </div>
     </div>
   </div>
@@ -1475,7 +1559,7 @@ const demoBody = (root) => `
       <h1>See Symplus running on your data, not a slideware demo.</h1>
       <p class="sub">Tell us what your institution runs and we&rsquo;ll show you the modules that matter to you, with scenarios that look like your actual operation.</p>
       <div class="demo-stats">
-        <div><div class="num">65+</div><div class="lbl">Financial institutions</div></div>
+        <div><div class="num">70+</div><div class="lbl">Financial institutions</div></div>
         <div><div class="num">14+</div><div class="lbl">Years building Symplus</div></div>
       </div>
       <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6b7066;margin-bottom:16px;">Trusted by</p>
@@ -1926,7 +2010,7 @@ const clientsBody = (root) => `
     <div class="eyebrow-row"><span class="eyebrow-badge">Our Clients</span></div>
     <h1>Supporting institutions across every stage of growth.</h1>
     <p class="sub">Symplus scales with your organisation&rsquo;s operations, whether you are a one-fund company or a multi-business company.</p>
-    <p class="hero-trust-text" style="margin-top:26px;color:var(--orange);">Trusted by 65+ financial institutions</p>
+    <p class="hero-trust-text" style="margin-top:26px;color:var(--orange);">Trusted by 70+ financial institutions</p>
   </div>
 </section>
 

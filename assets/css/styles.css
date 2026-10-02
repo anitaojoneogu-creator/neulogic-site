@@ -651,6 +651,15 @@ a.img-ph:hover .ph-img,
 }
 .sol-link svg{width:16px;height:16px;flex:none;}
 .sol-link:hover{color:var(--orange-deep);}
+.skip-link{
+  display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  border:1px solid var(--hairline);border-radius:999px;padding:10px 20px;
+  font-size:13px;font-weight:500;color:#454b42;background:var(--white);white-space:nowrap;
+  transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);
+}
+.skip-link:hover{border-color:var(--orange);color:var(--orange-deep);transform:translateY(-1px);}
+.skip-link svg{width:15px;height:15px;flex:none;}
+.clients{scroll-margin-top:90px;}
 .sol-media .img-ph{min-height:420px;}
 .sol-card{
   margin-top:20px;background:var(--white);border:1px solid var(--hairline);
